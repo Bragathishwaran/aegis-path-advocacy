@@ -21,16 +21,23 @@ const {
   validateAge
 } = require("./api/validator");
 
+const os = require("os");
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, "data");
+const DATA_DIR = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME 
+  ? path.join(os.tmpdir(), "data") 
+  : path.join(__dirname, "data");
 const SUBMISSIONS_FILE = path.join(DATA_DIR, "submissions.json");
 
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-if (!fs.existsSync(SUBMISSIONS_FILE)) {
-  fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify([]));
+// Ensure data directory exists safely
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(SUBMISSIONS_FILE)) {
+    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify([]));
+  }
+} catch (e) {
+  console.warn("Could not initialize submissions directory:", e.message);
 }
 
 function saveSubmission(type, payload) {
@@ -301,7 +308,7 @@ const server = http.createServer(async (req, res) => {
   });
 });
 
-if (require.main === module) {
+if (require.main === module || (process.env.PORT && !process.env.VERCEL)) {
   server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
   });
