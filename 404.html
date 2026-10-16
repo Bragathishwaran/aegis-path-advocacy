@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+
+  <title>Page Not Found | AegisPoint Advocacy</title>
+  <meta name="description" content="The page you're looking for couldn't be found. Let us help you get back on track." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      background: #f8fafc;
+      color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      transition: background .3s, color .3s;
+    }
+    [data-theme="dark"] body { background: #0f172a; color: #e2e8f0; }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #148d8b, #f98307); z-index: 9999; transition: width 0.1s; }
+
+    /* Decorative background */
+    .page-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 10% 20%, rgba(20,141,139,.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 90% 80%, rgba(249,131,7,.06) 0%, transparent 50%);
+    }
+    [data-theme="dark"] .page-bg {
+      background: radial-gradient(ellipse at 10% 20%, rgba(20,141,139,.18) 0%, transparent 50%),
+                  radial-gradient(ellipse at 90% 80%, rgba(249,131,7,.1) 0%, transparent 50%);
+    }
+
+    /* Minimal Header */
+    .minimal-header {
+      position: relative; z-index: 10;
+      background: rgba(255,255,255,.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e2e8f0; padding: .875rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    [data-theme="dark"] .minimal-header { background: rgba(15,23,42,.95); border-color: #334155; }
+    .logo-link { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; }
+    .logo-icon { width: 36px; height: 36px; background: #148d8b; border-radius: .625rem; display: flex; align-items: center; justify-content: center; }
+    .logo-name { font-weight: 800; font-size: 1rem; color: #0f172a; line-height: 1; }
+    [data-theme="dark"] .logo-name { color: #f1f5f9; }
+    .logo-sub { font-weight: 700; font-size: .65rem; color: #148d8b; letter-spacing: .08em; text-transform: uppercase; }
+    .icon-btn { background: transparent; border: 1px solid #e2e8f0; border-radius: .5rem; padding: .4375rem; cursor: pointer; color: #475569; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+    [data-theme="dark"] .icon-btn { border-color: #334155; color: #94a3b8; }
+    .icon-btn:hover { background: #f1f5f9; color: #148d8b; }
+    [data-theme="dark"] .icon-btn:hover { background: #1e293b; color: #35aeac; }
+
+    /* Main Content */
+    main { flex: 1; position: relative; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 3rem 1.5rem; }
+    .err-wrap { max-width: 700px; width: 100%; text-align: center; }
+
+    /* Big 404 */
+    .err-number {
+      font-size: clamp(6rem, 20vw, 10rem); font-weight: 800; line-height: 1;
+      background: linear-gradient(135deg, #148d8b 0%, #35aeac 40%, #f98307 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -.04em; margin-bottom: .25rem;
+      filter: drop-shadow(0 4px 32px rgba(20,141,139,.2));
+    }
+
+    .err-illustration {
+      width: clamp(140px, 30vw, 200px); height: clamp(140px, 30vw, 200px);
+      border-radius: 50%; object-fit: cover;
+      border: 4px solid rgba(20,141,139,.2);
+      box-shadow: 0 16px 48px rgba(20,141,139,.15);
+      margin: 1rem auto;
+      display: block;
+    }
+
+    h1.err-title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 800; color: #0f172a; margin-bottom: .875rem; }
+    [data-theme="dark"] h1.err-title { color: #f1f5f9; }
+    .err-sub { font-size: clamp(.9rem, 2vw, 1.0625rem); color: #64748b; line-height: 1.75; max-width: 500px; margin: 0 auto 2.5rem; }
+
+    /* Quick links */
+    .quick-links { display: flex; flex-wrap: wrap; gap: .625rem; justify-content: center; margin-bottom: 2.5rem; }
+    .quick-link {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: #fff; border: 1.5px solid #e2e8f0; border-radius: .625rem;
+      padding: .5625rem 1.125rem; font-size: .875rem; font-weight: 600; color: #334155;
+      text-decoration: none; transition: all .2s;
+    }
+    [data-theme="dark"] .quick-link { background: #1e293b; border-color: #334155; color: #cbd5e1; }
+    .quick-link:hover { border-color: #148d8b; color: #148d8b; background: rgba(20,141,139,.05); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(20,141,139,.1); }
+    [data-theme="dark"] .quick-link:hover { background: rgba(20,141,139,.15); }
+    .quick-link svg { color: #94a3b8; transition: color .2s; }
+    .quick-link:hover svg { color: #148d8b; }
+
+    /* Search */
+    .search-wrap { max-width: 440px; margin: 0 auto 2rem; }
+    .search-label { display: block; font-size: .875rem; font-weight: 600; color: #475569; margin-bottom: .625rem; }
+    [data-theme="dark"] .search-label { color: #94a3b8; }
+    .search-row { display: flex; gap: .5rem; }
+    .search-input {
+      flex: 1; padding: .6875rem 1rem; background: #fff; border: 1.5px solid #e2e8f0;
+      border-radius: .625rem; font-size: .9375rem; font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #1e293b; transition: border-color .2s, box-shadow .2s;
+    }
+    .search-input:focus { outline: none; border-color: #148d8b; box-shadow: 0 0 0 3px rgba(20,141,139,.12); }
+    [data-theme="dark"] .search-input { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+    .search-btn {
+      background: #148d8b; color: #fff; border: none; border-radius: .625rem;
+      padding: .6875rem 1.25rem; font-weight: 600; font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer; transition: background .2s; display: flex; align-items: center; gap: .375rem; white-space: nowrap;
+    }
+    .search-btn:hover { background: #107472; }
+
+    /* CTA */
+    .cta-strip {
+      background: linear-gradient(135deg, #f0fafa, #e6f7f7); border: 1px solid rgba(20,141,139,.2);
+      border-radius: 1rem; padding: 1.5rem 2rem; display: flex; align-items: center;
+      justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;
+    }
+    [data-theme="dark"] .cta-strip { background: linear-gradient(135deg, #0f2020, #0f172a); border-color: rgba(20,141,139,.3); }
+    .cta-strip-text { font-size: .9375rem; color: #334155; font-weight: 600; }
+    [data-theme="dark"] .cta-strip-text { color: #cbd5e1; }
+    .cta-strip-sub { font-size: .8125rem; color: #64748b; margin-top: .125rem; }
+    .btn-primary {
+      background: #148d8b; color: #fff; border: none; border-radius: .625rem;
+      font-weight: 700; padding: .6875rem 1.5rem; font-size: .9375rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background .2s, transform .1s;
+      text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #107472; transform: translateY(-1px); color: #fff; }
+
+    /* Footer */
+    footer { position: relative; z-index: 10; text-align: center; padding: 1.25rem 1.5rem; border-top: 1px solid #e2e8f0; font-size: .8rem; color: #64748b; }
+    [data-theme="dark"] footer { border-color: #1e293b; }
+    footer a { color: #148d8b; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress" style="width:0"></div>
+<script>
+  window.addEventListener('scroll', function() {
+    var el = document.getElementById('scroll-progress');
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    el.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  });
+</script>
+
+<!-- Background -->
+<div class="page-bg" aria-hidden="true"></div>
+
+<!-- ===== MINIMAL HEADER ===== -->
+<header class="minimal-header">
+  <a href="index.html" class="logo-link">
+    <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+      <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+        <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+        <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+        <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+      </svg>
+    </span>
+    <div>
+      <div class="logo-name">AegisPoint</div>
+      <div class="logo-sub">Advocacy</div>
+    </div>
+  </a>
+  <div class="d-flex gap-2 align-items-center">
+    <!-- RTL Toggle -->
+    <button class="icon-btn" data-dir-toggle title="Toggle RTL/LTR">
+      <span data-dir-label class="text-xs font-bold">RTL</span>
+    </button>
+    <!-- Dark Mode -->
+    <button class="icon-btn" data-theme-toggle title="Toggle dark mode">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <!-- Dashboard Button -->
+    <a href="dashboard/index.html" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5" style="background:#148d8b;border-radius:8px;text-decoration:none;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="d-none d-sm-inline">Dashboard</span>
+    </a>
+  </div>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+  <div class="err-wrap">
+
+    <!-- Large 404 number -->
+    <div class="err-number" aria-label="404">404</div>
+
+    <!-- Illustration -->
+    <img
+      src="assets/images/Page not found.jpg"
+      alt="Child looking confused, representing a lost page"
+      class="err-illustration"
+      loading="eager"
+    />
+
+    <!-- Heading & Subtitle -->
+    <h1 class="err-title">Page not found</h1>
+    <p class="err-sub">This page may have moved or no longer exists. Let's get you back on track — your advocacy journey is too important to lose your way.</p>
+
+    <!-- Quick Links -->
+    <div class="quick-links" role="navigation" aria-label="Quick navigation">
+      <a href="index.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home 1 (Advocacy)
+      </a>
+      <a href="home-2.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        Home 2 (IEP Solutions)
+      </a>
+      <a href="about.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+        About
+      </a>
+      <a href="services.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        Services
+      </a>
+      <a href="contact.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Contact
+      </a>
+      <a href="dashboard/index.html" class="quick-link" style="border-color:#148d8b;color:#148d8b;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        Parent Dashboard
+      </a>
+      <a href="login.html" class="quick-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Parent Login
+      </a>
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-wrap">
+      <label class="search-label" for="siteSearch">Search our site</label>
+      <div class="search-row">
+        <input
+          type="search"
+          id="siteSearch"
+          name="q"
+          class="search-input"
+          placeholder="e.g. IEP help, 504 plan, advocacy…"
+          autocomplete="off"
+        />
+        <button type="button" class="search-btn" onclick="alert('Search coming soon!')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search
+        </button>
+      </div>
+    </div>
+
+    <!-- CTA Strip -->
+    <div class="cta-strip">
+      <div>
+        <div class="cta-strip-text">Need help from our team?</div>
+        <div class="cta-strip-sub">Our advocates are ready to answer your IEP questions.</div>
+      </div>
+      <a href="contact.html" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Contact Us
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===== MINIMAL FOOTER ===== -->
+<footer>
+  <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+    <a href="index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+      <span class="grid h-8 w-8 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+        <svg class="h-5 w-5" viewBox="0 0 32 32" fill="none">
+          <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+          <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+          <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+          <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+        </svg>
+      </span>
+      <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+    </a>
+    <div>
+      © <span data-year></span> AegisPoint Advocacy. All rights reserved. &nbsp;·&nbsp;
+      <a href="index.html">Home</a> &nbsp;·&nbsp;
+      <a href="#">Privacy</a> &nbsp;·&nbsp;
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- App JS -->
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/validation.js" defer></script>
+
+<script>
+  // Year
+  document.querySelectorAll('[data-year]').forEach(function(el) { el.textContent = new Date().getFullYear(); });
+
+  // Dark mode toggle
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.querySelectorAll('.moon-icon').forEach(function(el) { el.style.display = isDark ? '' : 'none'; });
+      document.querySelectorAll('.sun-icon').forEach(function(el) { el.style.display = isDark ? 'none' : ''; });
+    });
+  });
+
+  // RTL toggle
+  document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var html = document.documentElement;
+      html.dir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+      html.lang = html.dir === 'rtl' ? 'ar' : 'en';
+    });
+  });
+</script>
+
+</body>
+</html>

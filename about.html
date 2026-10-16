@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+
+  <title>About Us – AegisPoint Advocacy</title>
+  <meta name="description" content="Learn about AegisPoint Advocacy – our mission, values, team of specialists, and commitment to empowering families navigating special education." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Scroll progress ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: #148d8b; z-index: 9999; transition: width .1s linear;
+    }
+
+    /* ── Hero ── */
+    .about-hero {
+      position: relative; min-height: 520px;
+      display: flex; align-items: center;
+      background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80') center/cover no-repeat;
+    }
+    .about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(14,95,93,.88) 0%, rgba(10,60,80,.72) 100%);
+    }
+    .about-hero .hero-content { position: relative; z-index: 1; }
+
+    /* ── Value cards ── */
+    .value-card {
+      border-radius: 1rem; padding: 1.75rem;
+      background: #fff; box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .dark .value-card { background: #1e293b; box-shadow: 0 2px 16px rgba(0,0,0,.3); }
+    .value-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(20,141,139,.18); }
+    .value-icon {
+      width: 52px; height: 52px; border-radius: .875rem;
+      display: grid; place-items: center; margin-bottom: 1rem;
+    }
+
+    /* ── Team ── */
+    .avatar-circle {
+      width: 80px; height: 80px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 1.5rem; font-weight: 800; color: #fff;
+      margin: 0 auto 1rem;
+    }
+    .team-card {
+      background: #fff; border-radius: 1.25rem; padding: 1.5rem;
+      text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .dark .team-card { background: #1e293b; border-color: #334155; }
+    .team-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(20,141,139,.18); }
+    .team-photo-wrap {
+      width: 100%;
+      height: 220px;
+      border-radius: 0.875rem;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      background: #f1f5f9;
+      position: relative;
+    }
+    .dark .team-photo-wrap { background: #0f172a; }
+    .team-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform 0.4s ease;
+    }
+    .team-card:hover .team-photo {
+      transform: scale(1.05);
+    }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: .75rem; top: 0; bottom: 0;
+      width: 2px; background: #148d8b;
+    }
+    [dir="rtl"] .timeline { padding-left: 0; padding-right: 2.5rem; }
+    [dir="rtl"] .timeline::before { left: auto; right: .75rem; }
+
+    .timeline-item { position: relative; margin-bottom: 2.5rem; }
+    .timeline-dot {
+      position: absolute; left: -2.5rem; top: .25rem;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #148d8b; border: 3px solid #fff;
+      box-shadow: 0 0 0 3px rgba(20,141,139,.25);
+    }
+    [dir="rtl"] .timeline-dot { left: auto; right: -2.5rem; }
+
+    .timeline-card {
+      background: #fff; border-radius: 1.25rem; padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .dark .timeline-card { background: #1e293b; border-color: #334155; }
+    .timeline-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(20,141,139,.14); }
+    .timeline-img-wrap {
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      border-radius: 0.875rem;
+      background: #f1f5f9;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+    .dark .timeline-img-wrap { background: #0f172a; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
+    .timeline-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .timeline-card:hover .timeline-img {
+      transform: scale(1.05);
+    }
+
+    /* ── Testimonial ── */
+    .testimonial-card {
+      background: #fff;
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .dark .testimonial-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(20,141,139,.18);
+    }
+    .testimonial-card > * {
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 576px) {
+      .testimonial-card {
+        padding: 1.25rem;
+      }
+    }
+    .avatar-photo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid #148d8b;
+      box-shadow: 0 2px 6px rgba(20, 141, 139, 0.2);
+    }
+    .dark .avatar-photo {
+      border-color: #37cdc4;
+    }
+
+    /* ── CTA band ── */
+    .cta-band {
+      background: linear-gradient(135deg, #148d8b 0%, #0f6e6c 100%);
+    }
+
+    /* ── Stars ── */
+    .stars { color: #f98307; letter-spacing: 2px; }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ═══════════════════════════════════ HEADER ═══════════════════════════════════ -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden items-center gap-1 lg:flex">
+          <!-- Home Dropdown -->
+          <div class="nav-dropdown-wrap" data-dropdown>
+            <button type="button" class="nav-link nav-dropdown-btn" data-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+              <span>Home</span>
+              <svg class="h-3.5 w-3.5 nav-chevron" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu hidden" data-dropdown-menu>
+              <a href="index.html" class="nav-dropdown-link">
+                <span>Home</span>
+              </a>
+              <a href="home-2.html" class="nav-dropdown-link">
+                <span>Strategic Solutions</span>
+              </a>
+            </div>
+          </div>
+          <a class="nav-link nav-link-active" href="about.html">About</a>
+          <a class="nav-link" href="services.html">Services</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="blog.html">Blog</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="dashboard/index.html">Dashboard</a>
+        </nav>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2">
+          <!-- RTL Toggle -->
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+          <!-- Dark Mode Toggle -->
+          <button type="button" data-theme-toggle class="icon-btn">
+            <svg data-icon-moon xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg data-icon-sun xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+          <a href="dashboard/index.html" class="btn-primary btn-sm hidden sm:inline-flex items-center gap-1.5" style="text-decoration:none;">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="login.html" class="btn-outline btn-sm hidden md:inline-flex" style="text-decoration:none;">Login</a>
+          <button type="button" data-menu-toggle class="icon-btn lg:hidden" aria-expanded="false">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div data-menu-panel class="hidden border-t border-ink-100 py-3 lg:hidden dark:border-ink-800">
+        <nav class="grid gap-1">
+          <!-- Mobile Home Dropdown Group -->
+          <div class="mobile-nav-group">
+            <a class="nav-link flex items-center justify-between py-2" href="index.html">
+              <span>Home</span>
+            </a>
+            <a class="nav-link flex items-center justify-between py-2" href="home-2.html">
+              <span>Strategic Solutions</span>
+            </a>
+          </div>
+          <a class="nav-link nav-link-active" href="about.html">About</a>
+          <a class="nav-link" href="services.html">Services</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="blog.html">Blog</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link font-bold text-brand-600 dark:text-brand-300" href="dashboard/index.html">Parent Dashboard</a>
+          <a class="btn-primary mt-2 flex items-center justify-center gap-2" href="dashboard/index.html" style="text-decoration:none;">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Open Dashboard</span>
+          </a>
+          <a class="btn-outline mt-1" href="login.html">Parent Login</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+  <section class="about-hero">
+    <div class="container-wide hero-content py-14 sm:py-20 lg:py-24">
+      <p class="eyebrow text-white/70 mb-3">Our Story</p>
+      <h1 class="section-title text-white mb-4 sm:mb-5" style="font-size:clamp(1.85rem, 5vw, 3.25rem); line-height: 1.18; max-width:700px;">
+        Championing Every Child's Right to <br class="hidden sm:inline"/>
+        <span style="color:#f98307;">Exceptional Education</span>
+      </h1>
+      <p class="section-sub text-white/80 mb-6 sm:mb-8" style="max-width:580px;">
+        AegisPoint Advocacy was founded by parents and educators who believe that every child—regardless of ability—deserves a tailored, ambitious educational plan and a tireless advocate in their corner.
+      </p>
+      <div class="flex flex-wrap gap-2.5 sm:gap-3">
+        <a href="services.html" class="btn-primary btn-lg text-sm sm:text-base">Explore Our Services</a>
+        <a href="contact.html" class="btn-lg px-7 py-3.5 text-sm sm:text-base font-semibold rounded-full transition inline-flex items-center justify-center hover:bg-white/20" style="background:rgba(255,255,255,0.18); color:#ffffff; border:1.5px solid rgba(255,255,255,0.65); backdrop-filter:blur(8px); text-decoration:none;">Schedule a Consult</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ STATS BAND ═══════════════════════════════════ -->
+  <section style="background:#f98307;" class="py-8 sm:py-10">
+    <div class="container-wide">
+      <div class="row g-3 sm:g-4 text-center text-white">
+        <div class="col-6 col-md-3">
+          <div class="text-3xl sm:text-4xl font-extrabold"><span data-counter="1200">0</span>+</div>
+          <div class="text-xs sm:text-sm font-medium mt-1 opacity-90">IEPs Reviewed</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-3xl sm:text-4xl font-extrabold"><span data-counter="98">0</span>%</div>
+          <div class="text-xs sm:text-sm font-medium mt-1 opacity-90">Satisfaction Rate</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-3xl sm:text-4xl font-extrabold"><span data-counter="14">0</span></div>
+          <div class="text-xs sm:text-sm font-medium mt-1 opacity-90">Years of Experience</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="text-3xl sm:text-4xl font-extrabold"><span data-counter="8">0</span></div>
+          <div class="text-xs sm:text-sm font-medium mt-1 opacity-90">Expert Advocates</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ MISSION ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6" data-reveal>
+          <p class="eyebrow mb-2">Our Mission</p>
+          <h2 class="section-title mb-4">We Believe Every Child Deserves a Champion</h2>
+          <p class="section-sub mb-5">
+            At AegisPoint Advocacy, our mission is to bridge the gap between what the law promises and what children with disabilities actually receive. We partner with families to ensure IEPs are ambitious, legally compliant, and faithfully implemented.
+          </p>
+          <p class="text-ink-600 dark:text-ink-400 mb-6 leading-relaxed">
+            Founded in 2010 by a group of special education teachers, school psychologists, and parents of children with disabilities, AegisPoint has grown into one of the region's most trusted advocacy organizations—serving hundreds of families each year across the full spectrum of disabilities and school districts.
+          </p>
+          <a href="contact.html" class="btn-primary">Work With Us</a>
+        </div>
+        <div class="col-lg-6" data-reveal>
+          <div class="position-relative">
+            <img src="assets/images/We Believe Every Child Deserves a Champion.jpg"
+                 alt="We Believe Every Child Deserves a Champion - Advocate working with a child on an educational plan"
+                 class="img-fluid rounded-3 shadow-lg" style="width:100%; object-fit:cover; max-height:420px;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ VALUES ═══════════════════════════════════ -->
+  <section class="py-20 bg-ink-50 dark:bg-ink-900">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">Our Core Values</p>
+        <h2 class="section-title mb-3">Principles That Guide Our Work</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Every decision we make, every meeting we attend, every document we prepare is grounded in these four commitments.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Value 1 -->
+        <div class="col-sm-6 col-xl-3" data-reveal>
+          <div class="value-card h-100">
+            <div class="value-icon" style="background:rgba(20,141,139,.12);">
+              <svg class="h-6 w-6" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink-900 dark:text-white mb-2">Family-Centered Partnership</h3>
+            <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">We work alongside families as co-advocates—your knowledge of your child combined with our expertise creates the most powerful IEP team.</p>
+          </div>
+        </div>
+
+        <!-- Value 2 -->
+        <div class="col-sm-6 col-xl-3" data-reveal>
+          <div class="value-card h-100">
+            <div class="value-icon" style="background:rgba(249,131,7,.12);">
+              <svg class="h-6 w-6" style="color:#f98307;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink-900 dark:text-white mb-2">Transparent Communication</h3>
+            <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">We translate dense legal and educational jargon into plain language so you always understand your rights and your child's options.</p>
+          </div>
+        </div>
+
+        <!-- Value 3 -->
+        <div class="col-sm-6 col-xl-3" data-reveal>
+          <div class="value-card h-100">
+            <div class="value-icon" style="background:rgba(20,141,139,.12);">
+              <svg class="h-6 w-6" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink-900 dark:text-white mb-2">Data-Driven Results</h3>
+            <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">Every recommendation we make is backed by assessment data, research on effective practices, and measurable progress indicators.</p>
+          </div>
+        </div>
+
+        <!-- Value 4 -->
+        <div class="col-sm-6 col-xl-3" data-reveal>
+          <div class="value-card h-100">
+            <div class="value-icon" style="background:rgba(249,131,7,.12);">
+              <svg class="h-6 w-6" style="color:#f98307;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="text-base font-bold text-ink-900 dark:text-white mb-2">Unwavering Advocacy</h3>
+            <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">We respectfully but firmly hold schools accountable to their legal obligations—because your child's future depends on an IEP that's actually implemented.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ TEAM ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">Meet Our Team</p>
+        <h2 class="section-title mb-3">The Advocates in Your Corner</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Our multidisciplinary team brings together decades of combined expertise in special education law, psychology, speech-language pathology, and educational consulting.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Team Members -->
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80" alt="Dr. Maria Reyes" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Dr. Maria Reyes</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Founder &amp; Lead Advocate</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">Ed.D in Special Education · 18 years in public schools · Former SPED Director</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">IEP Expert</span>
+              <span class="chip-ok">IDEA Law</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80" alt="James Thompson" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">James Thompson</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Senior Advocate</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">M.Ed. Special Education · Parent advocate · Expert in autism spectrum services</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Autism</span>
+              <span class="chip-ok">504 Plans</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1200&q=80" alt="Sarah Chen" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Sarah Chen</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Educational Psychologist</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">Ph.D. Psychology · Evaluation specialist · Learning disabilities expert</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Psychology</span>
+              <span class="chip-warn">Evaluations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80" alt="David Park" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">David Park</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Transition Specialist</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">M.S. Rehabilitation · Secondary transition expert · Vocational planning</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Transition</span>
+              <span class="chip-ok">Post-Secondary</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80" alt="Lisa Martinez" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Lisa Martinez</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Parent Coach</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">Certified Parent Advocate · Bilingual (EN/ES) · Specializes in parent empowerment</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Coaching</span>
+              <span class="chip-ok">Bilingual</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&w=1200&q=80" alt="Dr. Alicia Johnson" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Dr. Alicia Johnson</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Speech-Language Pathologist</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">CCC-SLP · AAC specialist · Communication services advocacy</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Speech</span>
+              <span class="chip-ok">AAC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80" alt="Robert Kim" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Robert Kim</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Behavioral Consultant</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">BCBA · Positive behavior support · Functional behavior assessment expert</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">BCBA</span>
+              <span class="chip-warn">Behavior</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3" data-reveal>
+          <div class="team-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="team-photo-wrap">
+                <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&w=1200&q=80" alt="Natalie Wright" class="team-photo" loading="lazy" />
+              </div>
+              <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Natalie Wright</h3>
+              <p class="text-sm font-medium mb-2" style="color:#148d8b;">Due Process Specialist</p>
+              <p class="text-xs text-ink-500 dark:text-ink-400">J.D. · Special education law · Mediation &amp; dispute resolution expert</p>
+            </div>
+            <div class="mt-3 flex justify-center gap-2">
+              <span class="chip-brand">Law</span>
+              <span class="chip-ok">Mediation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ HISTORY TIMELINE ═══════════════════════════════════ -->
+  <section class="py-20 bg-ink-50 dark:bg-ink-900">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">Our Journey</p>
+        <h2 class="section-title mb-3">14 Years of Making a Difference</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">From a kitchen table idea to a full-service advocacy organization—here's how AegisPoint came to be.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="timeline" id="history-timeline">
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-brand mb-2 inline-block">2010</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Founded in a Living Room</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">Dr. Maria Reyes and two colleagues begin informally helping local families prepare for IEP meetings after seeing children consistently denied appropriate services.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="Founded in a Living Room 2010" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-brand mb-2 inline-block">2012</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Official 501(c)(3) Status</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">AegisPoint Advocacy achieves nonprofit status and opens its first office. First year serving over 60 families across three school districts.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="First AegisPoint office 2012" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-brand mb-2 inline-block">2015</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Parent Training Program Launched</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">Launched our signature "Know Your Rights" parent coaching curriculum, equipping families with the knowledge and tools to advocate independently.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="Parent training workshop 2015" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-brand mb-2 inline-block">2018</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">Statewide Expansion</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">Expanded services statewide with virtual advocacy. Team grew to 8 specialists covering all disability categories, from autism and ADHD to rare genetic conditions.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="Statewide virtual advocacy expansion 2018" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-brand mb-2 inline-block">2021</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">AegisPoint Online Portal</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">Launched our secure parent portal, allowing families to upload IEP documents, schedule sessions, track case progress, and access resource libraries.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="AegisPoint Parent Portal launch 2021" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-item" data-reveal>
+              <div class="timeline-dot"></div>
+              <div class="timeline-card">
+                <div class="row g-4 align-items-center">
+                  <div class="col-md-7">
+                    <span class="chip-ok mb-2 inline-block">2024</span>
+                    <h3 class="text-base font-bold text-ink-900 dark:text-white mb-1">1,200+ Families Served</h3>
+                    <p class="text-sm text-ink-600 dark:text-ink-400 mb-0">We crossed the milestone of 1,200 families served, maintaining a 98% satisfaction rate and pioneering new bilingual advocacy services for Spanish-speaking communities.</p>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="timeline-img-wrap">
+                      <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&auto=format&fit=crop&w=1000&q=85" alt="1200+ families served milestone 2024" class="timeline-img" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- .timeline -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ TESTIMONIALS ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">What Families Say</p>
+        <h2 class="section-title mb-3">Real Stories, Real Results</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Don't take our word for it—hear from the families whose children received the services they deserved because of AegisPoint.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Testimonial 1 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <span>Facebook Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "AegisPoint helped us finally get my daughter the extended school year services she needed. We had been denied for three years. After one meeting with Maria, the school agreed to everything we asked for."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80" alt="Karen L." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Karen L.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 9-year-old with Autism</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <span>Instagram Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "I walked into my son's IEP meeting terrified. With James by my side, I finally understood what every goal meant and felt empowered to ask for what my son truly needed. Life-changing."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&q=80" alt="Michael T." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Michael T.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 12-year-old with ADHD &amp; Dyslexia</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on X (Twitter)">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  <span>Twitter / X Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "The parent coaching sessions with Lisa gave me the vocabulary and confidence to communicate effectively with the school. I went from feeling dismissed to being an equal partner at the table."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=150&q=80" alt="Sandra R." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Sandra R.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 7-year-old with Down Syndrome</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  <span>Facebook Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "Dr. Johnson's speech therapy advocacy was remarkable. She identified gaps in my son's IEP we never knew existed and secured an AAC device that has transformed his ability to communicate."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Jennifer P." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Jennifer P.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 5-year-old with Cerebral Palsy</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <span>Instagram Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "We were heading toward due process when Natalie stepped in. She mediated a resolution that gave our daughter everything she needed without the stress of a formal hearing. Professional, strategic, compassionate."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" alt="Ahmad M." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Ahmad M.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 15-year-old with Emotional Disability</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 6 -->
+        <div class="col-md-6 col-xl-4" data-reveal>
+          <div class="testimonial-card h-100 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 gap-2">
+                <div class="stars">★★★★★</div>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-review-badge" title="Verified review on X (Twitter)">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  <span>Twitter / X Review</span>
+                </a>
+              </div>
+              <blockquote class="text-sm text-ink-700 dark:text-ink-300 leading-relaxed mb-4">
+                "David's transition planning expertise was invaluable as my son approached graduation. He mapped out a clear path to community college with the right supports in place. I don't know what we would have done without AegisPoint."
+              </blockquote>
+            </div>
+            <div class="d-flex align-items-center justify-content-between gap-3 pt-3 border-top border-ink-100 dark:border-ink-800 mt-auto">
+              <div class="d-flex align-items-center gap-3 min-w-0">
+                <img src="https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&w=150&q=80" alt="Carol W." class="avatar-photo" loading="lazy" />
+                <div class="min-w-0">
+                  <div class="font-semibold text-sm text-ink-900 dark:text-white leading-snug">Carol W.</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 leading-tight">Parent of 18-year-old with Intellectual Disability</div>
+                </div>
+              </div>
+              <div class="testimonial-social-links">
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Facebook" aria-label="Facebook">
+                  <svg class="h-3.5 w-3.5 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View Instagram" aria-label="Instagram">
+                  <svg class="h-3.5 w-3.5 fill-[#E4405F]" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="View on X (Twitter)" aria-label="Twitter">
+                  <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CTA BAND ═══════════════════════════════════ -->
+  <section class="cta-band py-20">
+    <div class="container-wide text-center" data-reveal>
+      <p class="eyebrow text-white/70 mb-3">Ready to Get Started?</p>
+      <h2 class="section-title text-white mb-4" style="font-size:clamp(1.75rem,4vw,2.75rem);">Your Child Deserves the Best—Let's Make It Happen</h2>
+      <p class="text-white/80 mb-8 mx-auto" style="max-width:520px;">Schedule a free 30-minute consultation and let us show you how AegisPoint can transform your IEP experience.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="contact.html" class="btn-lg px-8 py-3 font-semibold rounded-xl" style="background:#f98307;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16l.19.92z"/></svg>
+          Book Free Consultation
+        </a>
+        <a href="services.html" class="btn-lg px-8 py-3 font-semibold rounded-xl" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);text-decoration:none;">
+          View All Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+  <footer class="bg-ink-900 dark:bg-ink-950 text-ink-300 pt-16 pb-8">
+    <div class="container-wide">
+      <div class="row g-5 mb-12">
+        <!-- Brand -->
+        <div class="col-lg-4">
+          <a href="index.html" class="flex items-center gap-2.5 mb-4" style="text-decoration:none;">
+            <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+              <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+                <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+                <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+                <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+                <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+              </svg>
+            </span>
+            <span class="font-display text-lg font-extrabold text-white">AegisPoint<span class="text-brand-400" style="color:#2dd4bf;">Advocacy</span></span>
+          </a>
+          <p class="text-sm leading-relaxed mb-4">Empowering families to secure the special education services their children need and deserve—through expert advocacy, coaching, and unwavering support.</p>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Facebook"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Instagram"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="X"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="LinkedIn"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          </div>
+        </div>
+
+        <!-- Company Links -->
+        <div class="col-6 col-lg-2">
+          <h4 class="text-sm font-bold text-white mb-4">Company</h4>
+          <ul class="list-none p-0 m-0 grid gap-2">
+            <li><a href="about.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">About Us</a></li>
+            <li><a href="services.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Services</a></li>
+            <li><a href="pricing.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Pricing</a></li>
+            <li><a href="blog.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Blog</a></li>
+            <li><a href="contact.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Support Links -->
+        <div class="col-6 col-lg-2">
+          <h4 class="text-sm font-bold text-white mb-4">Support</h4>
+          <ul class="list-none p-0 m-0 grid gap-2">
+            <li><a href="contact.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Contact Us</a></li>
+            <li><a href="login.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Parent Portal</a></li>
+            <li><a href="#" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">FAQ <span class="chip-warn text-xs ml-1">Soon</span></a></li>
+            <li><a href="#" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Resource Library</a></li>
+            <li><a href="#" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Crisis Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-lg-4">
+          <h4 class="text-sm font-bold text-white mb-4">Stay Informed</h4>
+          <p class="text-sm text-ink-400 mb-4">Get monthly advocacy tips, legal updates, and resource guides delivered to your inbox.</p>
+          <form data-validate class="flex flex-col gap-2" novalidate>
+            <div class="form-field mb-0">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="email" name="email" placeholder="your@email.com" required data-rules="required|email" data-label="Email"
+                       class="w-full flex-1 px-4 py-2.5 rounded-xl text-sm bg-ink-800 border border-ink-700 text-white placeholder-ink-500 focus:outline-none focus:border-brand-600" />
+                <button type="submit" class="btn-primary px-4 py-2.5 w-full sm:w-auto whitespace-nowrap shrink-0" style="border-radius:.75rem;">Subscribe</button>
+              </div>
+              <p class="error-msg" data-error></p>
+              <p data-form-success class="mt-2 hidden text-xs font-medium text-emerald-400">Subscribed. Thank you!</p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="border-t border-ink-800 pt-6 flex flex-wrap items-center justify-between gap-3">
+        <p class="text-xs text-ink-500 mb-0">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</p>
+        <div class="flex gap-4">
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Privacy Policy</a>
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Terms of Service</a>
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button type="button" data-back-to-top class="icon-btn fixed bottom-6 right-6 hidden shadow-soft" aria-label="Back to top">
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/validation.js"></script>
+
+  <!-- Scroll Progress Script -->
+  <script>
+    (function () {
+      const bar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', function () {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (bar) bar.style.width = pct + '%';
+      }, { passive: true });
+    })();
+  </script>
+
+  <!-- RTL Timeline Fix Script -->
+  <script>
+    (function () {
+      function applyTimelineDir() {
+        const isRtl = document.documentElement.dir === 'rtl';
+        const timeline = document.getElementById('history-timeline');
+        if (!timeline) return;
+        if (isRtl) {
+          timeline.classList.add('timeline-rtl');
+        } else {
+          timeline.classList.remove('timeline-rtl');
+        }
+      }
+
+      // Observe dir attribute changes
+      const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
+          if (m.attributeName === 'dir') applyTimelineDir();
+        });
+      });
+      observer.observe(document.documentElement, { attributes: true });
+      applyTimelineDir();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+
+  <title>Services – AegisPoint Advocacy</title>
+  <meta name="description" content="Explore AegisPoint Advocacy's full range of special education services: IEP Review, Meeting Advocacy, Parent Coaching, 504 Plans, Transition Planning, and more." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Scroll progress ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: #148d8b; z-index: 9999; transition: width .1s linear;
+    }
+
+    /* ── Hero ── */
+    .services-hero {
+      position: relative; min-height: 480px;
+      display: flex; align-items: center;
+      background: url('assets/images/Comprehensive Advocacy Services Tailored to Your Child.jpg') center/cover no-repeat;
+    }
+    .services-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(14,95,93,.9) 0%, rgba(10,50,70,.78) 100%);
+    }
+    .services-hero .hero-content { position: relative; z-index: 1; }
+
+    /* ── Service accordion ── */
+    .service-accordion-item {
+      background: #fff; border-radius: 1rem; margin-bottom: 1rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06); overflow: hidden;
+      border: 1px solid transparent; transition: border-color .2s;
+    }
+    .dark .service-accordion-item { background: #1e293b; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
+    .service-accordion-item.is-open { border-color: #148d8b; }
+
+    .service-accordion-trigger {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; cursor: pointer;
+      background: none; border: none; text-align: start; gap: 1rem;
+    }
+    .service-accordion-trigger:focus { outline: 2px solid #148d8b; outline-offset: -2px; }
+
+    .service-icon {
+      width: 44px; height: 44px; border-radius: .75rem; flex-shrink: 0;
+      display: grid; place-items: center; background: rgba(20,141,139,.12);
+    }
+    .service-accordion-body { display: none; padding: 0 1.5rem 1.5rem; }
+    .service-accordion-body.is-open { display: block; }
+
+    .chevron-icon { transition: transform .3s; flex-shrink: 0; }
+    .is-open .chevron-icon { transform: rotate(180deg); }
+
+    /* ── Process tabs ── */
+    .tab-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 2rem; justify-content: center; }
+    .tab-btn {
+      padding: .625rem 1.25rem; border-radius: 2rem; border: 2px solid transparent;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      background: #f1f5f9; color: #475569; transition: all .2s;
+    }
+    .dark .tab-btn { background: #1e293b; color: #94a3b8; }
+    .tab-btn.active, .tab-btn:hover {
+      background: #148d8b; color: #fff; border-color: #148d8b;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .process-step {
+      display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 1.5rem;
+    }
+    [dir="rtl"] .process-step { flex-direction: row-reverse; text-align: right; }
+
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%; background: #148d8b;
+      color: #fff; display: grid; place-items: center; font-weight: 800;
+      font-size: .875rem; flex-shrink: 0;
+    }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: 1px solid #e2e8f0; }
+    .dark .faq-item { border-bottom-color: #334155; }
+    .faq-trigger {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 1.125rem 0; background: none; border: none; text-align: start; gap: 1rem;
+      font-size: .9375rem; font-weight: 600; cursor: pointer;
+      color: #1e293b;
+    }
+    .dark .faq-trigger { color: #f1f5f9; }
+    .faq-body { display: none; padding-bottom: 1.125rem; }
+    .faq-body.open { display: block; }
+
+    /* ── Comparison table ── */
+    .comparison-table { border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.08); }
+    .comparison-table th { padding: 1rem 1.25rem; font-weight: 700; font-size: .875rem; }
+    .comparison-table td { padding: .875rem 1.25rem; font-size: .875rem; border-top: 1px solid #e2e8f0; }
+    .dark .comparison-table td { border-top-color: #334155; }
+    .comparison-table thead { background: #148d8b; color: #fff; }
+    .comparison-table tbody tr:hover { background: rgba(20,141,139,.04); }
+    .dark .comparison-table tbody tr:hover { background: rgba(20,141,139,.1); }
+    .check { color: #148d8b; font-size: 1.1rem; }
+    .cross { color: #ef4444; font-size: 1.1rem; }
+    .partial { color: #f98307; font-size: 1.1rem; }
+
+    /* ── CTA ── */
+    .cta-band { background: linear-gradient(135deg, #148d8b 0%, #0f6e6c 100%); }
+
+    /* ── Phase card ── */
+    .phase-card {
+      background: #fff; border-radius: 1.25rem; padding: 1.75rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+    }
+    .dark .phase-card {
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+    @media (min-width: 992px) {
+      .phase-card { padding: 2.25rem; }
+    }
+
+    /* ── Hero Visual Card ── */
+    .hero-visual-card {
+      position: relative;
+    }
+    .hero-img-frame {
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .hero-float-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 0.875rem;
+      padding: 0.5rem 0.875rem;
+      z-index: 2;
+    }
+    [dir="rtl"] .hero-float-badge {
+      left: auto;
+      right: 1rem;
+    }
+    .hero-float-card {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(20, 141, 139, 0.7);
+      border-radius: 0.875rem;
+      padding: 0.625rem 1rem;
+      z-index: 2;
+    }
+    [dir="rtl"] .hero-float-card {
+      right: auto;
+      left: 1rem;
+    }
+
+    /* ── Phase & Feature Image Cards ── */
+    .phase-img-wrap {
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06);
+      width: 100%;
+      aspect-ratio: 16/10;
+      min-height: 260px;
+      max-height: 340px;
+      background: #0f172a;
+    }
+    .dark .phase-img-wrap {
+      border-color: #334155;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
+    }
+    .phase-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .phase-img-wrap:hover .phase-img {
+      transform: scale(1.04);
+    }
+    .phase-img-badge {
+      position: absolute;
+      bottom: 0.85rem;
+      left: 0.85rem;
+      right: 0.85rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 991px) {
+      .phase-img-wrap {
+        aspect-ratio: 16/9;
+        height: auto;
+        min-height: 240px;
+        max-height: 320px;
+        margin-top: 1.5rem;
+      }
+    }
+    @media (max-width: 575px) {
+      .phase-img-wrap {
+        aspect-ratio: 16/10;
+        min-height: 200px;
+        max-height: 240px;
+      }
+      .phase-img-badge {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.6rem;
+      }
+    }
+
+    /* ── Difference Section Image Wrap ── */
+    .difference-img-wrap {
+      aspect-ratio: 16/10;
+      width: 100%;
+      background: #0f172a;
+    }
+    @media (max-width: 767px) {
+      .difference-img-wrap {
+        aspect-ratio: 3/2;
+      }
+    }
+
+    /* ── Showcase Pill Positioning & RTL ── */
+    .showcase-pill-top {
+      position: absolute;
+      top: 1.5rem;
+      right: -1.25rem;
+      z-index: 2;
+    }
+    .showcase-pill-bottom {
+      position: absolute;
+      bottom: 4.5rem;
+      left: -1.25rem;
+      z-index: 2;
+    }
+    [dir="rtl"] .showcase-pill-top {
+      right: auto;
+      left: -1.25rem;
+    }
+    [dir="rtl"] .showcase-pill-bottom {
+      left: auto;
+      right: -1.25rem;
+    }
+    @media (max-width: 767px) {
+      .showcase-pill-top {
+        top: 0.75rem;
+        right: 0.75rem;
+      }
+      .showcase-pill-bottom {
+        bottom: 5rem;
+        left: 0.75rem;
+      }
+      [dir="rtl"] .showcase-pill-top {
+        right: auto;
+        left: 0.75rem;
+      }
+      [dir="rtl"] .showcase-pill-bottom {
+        left: auto;
+        right: 0.75rem;
+      }
+    }
+    @media (max-width: 575px) {
+      .showcase-pill-top, .showcase-pill-bottom {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ═══════════════════════════════════ HEADER ═══════════════════════════════════ -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden items-center gap-1 lg:flex">
+          <!-- Home Dropdown -->
+          <div class="nav-dropdown-wrap" data-dropdown>
+            <button type="button" class="nav-link nav-dropdown-btn" data-dropdown-trigger aria-haspopup="true" aria-expanded="false">
+              <span>Home</span>
+              <svg class="h-3.5 w-3.5 nav-chevron" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown-menu hidden" data-dropdown-menu>
+              <a href="index.html" class="nav-dropdown-link">
+                <span>Home</span>
+              </a>
+              <a href="home-2.html" class="nav-dropdown-link">
+                <span>Strategic Solutions</span>
+              </a>
+            </div>
+          </div>
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link nav-link-active" href="services.html">Services</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="blog.html">Blog</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="dashboard/index.html">Dashboard</a>
+        </nav>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2">
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+          <button type="button" data-theme-toggle class="icon-btn">
+            <svg data-icon-moon xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg data-icon-sun xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </button>
+          <a href="dashboard/index.html" class="btn-primary btn-sm hidden sm:inline-flex items-center gap-1.5" style="text-decoration:none;">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="login.html" class="btn-outline btn-sm hidden md:inline-flex" style="text-decoration:none;">Login</a>
+          <button type="button" data-menu-toggle class="icon-btn lg:hidden" aria-expanded="false">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div data-menu-panel class="hidden border-t border-ink-100 py-3 lg:hidden dark:border-ink-800">
+        <nav class="grid gap-1">
+          <!-- Mobile Home Dropdown Group -->
+          <div class="mobile-nav-group">
+            <a class="nav-link flex items-center justify-between py-2" href="index.html">
+              <span>Home</span>
+            </a>
+            <a class="nav-link flex items-center justify-between py-2" href="home-2.html">
+              <span>Strategic Solutions</span>
+            </a>
+          </div>
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link nav-link-active" href="services.html">Services</a>
+          <a class="nav-link" href="service-details.html">Service Details</a>
+          <a class="nav-link" href="pricing.html">Pricing</a>
+          <a class="nav-link" href="blog.html">Blog</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link font-bold text-brand-600 dark:text-brand-300" href="dashboard/index.html">Parent Dashboard</a>
+          <a class="btn-primary mt-2 flex items-center justify-center gap-2" href="dashboard/index.html" style="text-decoration:none;">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Open Dashboard</span>
+          </a>
+          <a class="btn-outline mt-1" href="login.html">Parent Login</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
+  <section class="services-hero">
+    <div class="container-wide hero-content py-14 sm:py-20 lg:py-24">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7" data-reveal>
+          <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="flex items-center gap-2 text-white/60 text-sm" style="list-style:none;padding:0;margin:0;">
+              <li><a href="index.html" style="color:rgba(255,255,255,.6);text-decoration:none;">Home</a></li>
+              <li><span style="color:rgba(255,255,255,.4);">/</span></li>
+              <li><span style="color:#fff;">Services</span></li>
+            </ol>
+          </nav>
+          <p class="eyebrow text-white/70 mb-3">What We Offer</p>
+          <h1 class="section-title text-white mb-4 sm:mb-5" style="font-size:clamp(1.85rem, 5vw, 3rem); line-height: 1.18; max-width:700px;">
+            Comprehensive Advocacy Services <br class="hidden sm:inline"/>
+            <span style="color:#f98307;">Tailored to Your Child</span>
+          </h1>
+          <p class="section-sub text-white/80 mb-6 sm:mb-8" style="max-width:580px;">
+            From IEP review and meeting support to parent coaching and due process preparation—we offer every service your family needs to secure the education your child deserves.
+          </p>
+          <div class="flex flex-wrap gap-2.5 sm:gap-3 mb-6">
+            <a href="contact.html" class="btn-primary btn-lg text-sm sm:text-base">Get Free Consultation</a>
+            <a href="pricing.html" class="btn-lg px-6 py-3 rounded-xl font-semibold text-sm sm:text-base" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);text-decoration:none;">See Pricing</a>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 text-xs text-white/80 pt-3 border-t border-white/15">
+            <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 100% Confidential</div>
+            <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> In-Person &amp; Virtual</div>
+            <div class="flex items-center gap-1.5"><svg class="h-4 w-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Non-Adversarial Table Presence</div>
+          </div>
+        </div>
+
+        <div class="col-lg-5" data-reveal>
+          <div class="hero-visual-card position-relative">
+            <div class="hero-img-frame" style="position:relative; aspect-ratio: 4/3; max-height: 380px;">
+              <img
+                src="assets/images/Specialized IEP & 504 Advocacy Services.jpg"
+                alt="Special education advocate conducting family strategy consultation"
+                class="w-100 h-100"
+                style="object-fit: cover;"
+                loading="eager"
+              />
+              <div class="position-absolute inset-0" style="background:linear-gradient(180deg, rgba(15,23,42,0.08) 0%, rgba(15,23,42,0.65) 100%); pointer-events:none;"></div>
+            </div>
+            <!-- Floating badge top -->
+            <div class="hero-float-badge shadow-lg d-flex align-items-center gap-2">
+              <span class="text-amber-400">★★★★★</span>
+              <span class="text-white font-semibold text-xs">Top-Rated Advocacy</span>
+            </div>
+            <!-- Floating card bottom -->
+            <div class="hero-float-card shadow-lg text-white">
+              <div class="text-xs text-white/70">Proven Results</div>
+              <div class="font-display font-bold text-sm text-brand-300">1,200+ IEPs Won</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CORE PRACTICE AREAS (FEATURED GRID) ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">Our Practice Areas</p>
+        <h2 class="section-title mb-3">Six Pillars of Specialized IEP &amp; 504 Advocacy</h2>
+        <p class="section-sub mx-auto" style="max-width:620px;">Targeted, expert representation designed to secure measurable progress, individualized services, and full compliance with federal IDEA standards.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- 1. IEP Review -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/IEP Review and Compliance Audit.jpg"
+                alt="IEP Review and Compliance Audit - Comprehensive document review and educational evaluation report"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">IEP Review &amp; Compliance Audit</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Line-by-line legal and educational compliance audit to detect weak baseline data, vague goals, and unfulfilled service hours.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>IDEA compliance &amp; FAPE alignment check</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SMART measurability scoring on each goal</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concrete written amendment recommendations</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">Written Report in 3–5 Days</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Meeting Advocacy -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/IEP & 504 Meeting Advocacy.jpg"
+                alt="IEP &amp; 504 Meeting Advocacy - Strategic table presence and collaborative advocacy"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">IEP &amp; 504 Meeting Advocacy</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Experienced table presence ensuring procedural safeguards are upheld, parental requests are answered, and negotiations remain collaborative.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Pre-meeting strategy call &amp; script preparation</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Real-time table support &amp; active note-taking</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Post-meeting follow-up letter within 48 hours</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">Complete Table Representation</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Progress Monitoring -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/Progress Monitoring & Oversight.jpg"
+                alt="Progress Monitoring &amp; Oversight - Digital tracking of student milestones and IEP service minutes"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">Progress Monitoring &amp; Oversight</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Ongoing tracking of special education services, verifying that contractual minutes, therapies, and accommodations are actively delivered.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Quarterly service log and therapy minute audits</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Early regression alerts &amp; goal trajectory reviews</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Secure portal dashboards for tracking documents</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">Year-Round Protection</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Parent Coaching -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/Parent Coaching and Empowerment.jpg"
+                alt="Parent Coaching and Empowerment - Dedicated special education mentorship and family guidance"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">Parent Coaching &amp; Empowerment</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Comprehensive 1-on-1 mentorship demystifying IDEA terminology, evaluation scores, and negotiation tactics so you can advocate with mastery.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Personalized coaching calls before key meetings</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Pre-drafted email templates and request letters</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>24/7 digital resource and training library access</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">1:1 Advocate Mentorship</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 504 Plan Support -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/Section 504 Plan Support.jpg"
+                alt="Section 504 Plan Support - Securing classroom accommodations and civil rights protections"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">Section 504 Plan Support</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Securing enforceable civil rights accommodations for ADHD, executive dysfunction, medical conditions, and anxiety under Rehabilitation Act §504.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eligibility evaluation and documentation preparation</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Customized classroom &amp; standardized testing supports</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>504 vs. IEP transition and strategic eligibility review</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">Equal Classroom Access</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Document Preparation -->
+        <div class="col-12 col-md-6 col-lg-4" data-reveal>
+          <div class="service-showcase-card">
+            <div class="service-card-img-wrap">
+              <img
+                src="assets/images/Document Preparation and Notices.jpg"
+                alt="Document Preparation and Notices - Prior written notices and legal request letters"
+                class="service-card-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="service-card-body">
+              <div>
+                <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white mb-2 leading-snug">Document Preparation &amp; Notices</h3>
+                <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                  Legally grounded drafting of Prior Written Notices, FERPA educational record requests, independent evaluation demands, and formal complaints.
+                </p>
+                <ul class="text-xs text-ink-600 dark:text-ink-400 space-y-1.5 ps-0 mb-4 list-unstyled">
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>FERPA-compliant comprehensive file demands</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prior Written Notice (PWN) requests &amp; rebuttals</li>
+                  <li class="flex items-center gap-2"><svg class="h-3.5 w-3.5 text-brand-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>State complaint filings &amp; OCR compliance letters</li>
+                </ul>
+              </div>
+              <div class="service-card-footer pt-3 border-t border-ink-100 dark:border-ink-800 d-flex justify-content-between align-items-center">
+                <span class="service-footer-tag">Ironclad Paper Trail</span>
+                <a href="#services-accordion" class="service-card-btn text-decoration-none">Details <span class="arrow-flip">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ SERVICE ACCORDIONS ═══════════════════════════════════ -->
+  <section class="py-20 bg-ink-50 dark:bg-ink-900">
+    <div class="container-wide">
+      <div class="text-center mb-14" data-reveal>
+        <p class="eyebrow mb-2">Deep-Dive Service Inclusions</p>
+        <h2 class="section-title mb-3">Detailed Program Breakdown &amp; Deliverables</h2>
+        <p class="section-sub mx-auto" style="max-width:580px;">Explore specific audit criteria, meeting protocols, and deliverables provided across each advocacy pathway.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-9" id="services-accordion">
+
+          <!-- 1. IEP Review -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon">
+                  <svg class="h-5 w-5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">IEP Review & Development</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Comprehensive analysis of your child's Individualized Education Program</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <div class="row g-4">
+                <div class="col-md-8">
+                  <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">
+                    Our IEP Review service provides a thorough, line-by-line analysis of your child's current IEP to identify weaknesses, missing services, non-compliant language, and goals that fail to meet your child's true needs. We benchmark each section against IDEA requirements and best practices.
+                  </p>
+                  <ul class="text-sm text-ink-600 dark:text-ink-300 grid gap-2 ps-0" style="list-style:none;">
+                    <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5 flex-shrink-0" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Complete legal compliance audit (IDEA, FAPE, LRE)</li>
+                    <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5 flex-shrink-0" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Goal measurability and ambition assessment</li>
+                    <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5 flex-shrink-0" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Service adequacy analysis (frequency, duration, setting)</li>
+                    <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5 flex-shrink-0" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Written report with specific amendment recommendations</li>
+                    <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5 flex-shrink-0" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sample goal language and service language templates</li>
+                  </ul>
+                </div>
+                <div class="col-md-4">
+                  <div class="p-4 rounded-xl" style="background:rgba(20,141,139,.08);">
+                    <div class="text-xs font-semibold text-ink-500 dark:text-ink-400 mb-2 uppercase tracking-wider">Ideal For</div>
+                    <p class="text-sm text-ink-700 dark:text-ink-300">Families receiving a new or renewed IEP, parents who feel goals aren't ambitious enough, or anyone concerned their child isn't making meaningful progress.</p>
+                    <a href="service-details.html" class="btn-primary mt-3 text-sm px-4 py-2">Learn More →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Meeting Advocacy -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon">
+                  <svg class="h-5 w-5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">IEP Meeting Advocacy</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Expert representation at all IEP, eligibility, and resolution meetings</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">Our advocates attend IEP meetings alongside you to ensure your child's rights are protected, the team is balanced, all procedural safeguards are observed, and the meeting produces actionable, compliant outcomes.</p>
+              <div class="row g-3">
+                <div class="col-sm-6"><div class="p-3 rounded-xl bg-white dark:bg-ink-800"><span class="chip-brand mb-2 inline-block">Pre-Meeting</span><p class="text-xs text-ink-600 dark:text-ink-400 mb-0">Strategy session, agenda review, concern list preparation, document analysis</p></div></div>
+                <div class="col-sm-6"><div class="p-3 rounded-xl bg-white dark:bg-ink-800"><span class="chip-ok mb-2 inline-block">During Meeting</span><p class="text-xs text-ink-600 dark:text-ink-400 mb-0">Active participation, note-taking, real-time guidance, professional pushback when needed</p></div></div>
+                <div class="col-sm-6"><div class="p-3 rounded-xl bg-white dark:bg-ink-800"><span class="chip-warn mb-2 inline-block">Post-Meeting</span><p class="text-xs text-ink-600 dark:text-ink-400 mb-0">Meeting notes summary, follow-up letter drafting, implementation monitoring setup</p></div></div>
+                <div class="col-sm-6"><div class="p-3 rounded-xl bg-white dark:bg-ink-800"><span class="chip-brand mb-2 inline-block">Virtual Option</span><p class="text-xs text-ink-600 dark:text-ink-400 mb-0">Available remotely via video conferencing for families anywhere in the state</p></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Progress Monitoring -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon" style="background:rgba(249,131,7,.12);">
+                  <svg class="h-5 w-5" style="color:#f98307;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">Progress Monitoring & Oversight</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Ongoing tracking of goal implementation and service delivery</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">An IEP is only as good as its implementation. We establish a systematic monitoring framework to ensure your child's goals are being actively worked on, data is being collected correctly, and services are being provided at the promised frequency and quality.</p>
+              <ul class="text-sm text-ink-600 dark:text-ink-300 grid gap-2 ps-0" style="list-style:none;">
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Monthly progress report review and analysis</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Service log audits to verify contractual compliance</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Early identification of regression or service gaps</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Parent-facing dashboard summary each quarter</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 4. Parent Coaching -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon">
+                  <svg class="h-5 w-5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">Parent Coaching & Empowerment</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Build your knowledge and confidence as an advocate for your own child</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">Our "Know Your Rights" coaching program walks parents through special education law, IEP process, effective communication strategies, and self-advocacy skills so you can be a powerful, independent voice for your child—with or without us in the room.</p>
+              <div class="row g-3">
+                <div class="col-sm-4"><div class="text-center p-3 rounded-xl bg-white dark:bg-ink-800"><div class="text-2xl font-bold mb-1" style="color:#148d8b;">6</div><div class="text-xs text-ink-500 dark:text-ink-400">Module sessions</div></div></div>
+                <div class="col-sm-4"><div class="text-center p-3 rounded-xl bg-white dark:bg-ink-800"><div class="text-2xl font-bold mb-1" style="color:#f98307;">24/7</div><div class="text-xs text-ink-500 dark:text-ink-400">Resource library access</div></div></div>
+                <div class="col-sm-4"><div class="text-center p-3 rounded-xl bg-white dark:bg-ink-800"><div class="text-2xl font-bold mb-1" style="color:#148d8b;">1:1</div><div class="text-xs text-ink-500 dark:text-ink-400">Personal coach assigned</div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 504 Plan Support -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon" style="background:rgba(249,131,7,.12);">
+                  <svg class="h-5 w-5" style="color:#f98307;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">504 Plan Support</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Securing and strengthening accommodations under Section 504 of the Rehabilitation Act</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">Many children who don't qualify for an IEP are still entitled to a 504 Plan under ADA and Section 504. We help families navigate eligibility, develop strong accommodation lists, and ensure schools actually implement the plan as written.</p>
+              <ul class="text-sm text-ink-600 dark:text-ink-300 grid gap-2 ps-0" style="list-style:none;">
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eligibility determination guidance and documentation</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Comprehensive accommodation recommendations</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>IEP vs. 504 comparison and strategic guidance</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Annual review meeting attendance and preparation</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 6. Document Preparation -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon">
+                  <svg class="h-5 w-5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">Document Preparation</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Professional drafting of prior written notices, complaint letters, and record requests</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">The right paperwork at the right time can be the difference between getting services and losing them. Our team prepares legally precise, professionally worded documents that protect your rights and create a strong paper trail.</p>
+              <div class="row g-3">
+                <div class="col-sm-6"><span class="chip-brand mb-1 inline-block">Prior Written Notices</span><p class="text-xs text-ink-500 dark:text-ink-400">Formally document school decisions and your objections.</p></div>
+                <div class="col-sm-6"><span class="chip-ok mb-1 inline-block">Records Requests</span><p class="text-xs text-ink-500 dark:text-ink-400">FERPA-compliant requests for all educational records.</p></div>
+                <div class="col-sm-6"><span class="chip-warn mb-1 inline-block">Complaint Letters</span><p class="text-xs text-ink-500 dark:text-ink-400">State complaints and OCR complaint preparation and filing.</p></div>
+                <div class="col-sm-6"><span class="chip-brand mb-1 inline-block">Response Letters</span><p class="text-xs text-ink-500 dark:text-ink-400">Professional responses to school-initiated correspondence.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Evaluation Consultation -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon" style="background:rgba(249,131,7,.12);">
+                  <svg class="h-5 w-5" style="color:#f98307;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">Evaluation Consultation</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Navigate psychoeducational evaluations and understand your child's assessment results</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">Evaluation reports are dense, technical, and consequential. Our educational psychologist helps you understand what the numbers mean, whether the evaluation was comprehensive, and how assessment results should translate into specific IEP services and goals.</p>
+              <ul class="text-sm text-ink-600 dark:text-ink-300 grid gap-2 ps-0" style="list-style:none;">
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Evaluation report plain-language explanation</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Independent Educational Evaluation (IEE) guidance</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Adequacy review of school-provided evaluations</li>
+                <li class="flex gap-2"><svg class="h-4 w-4 mt-0.5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Assessment-to-services translation for IEP teams</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 8. Transition Planning -->
+          <div class="service-accordion-item" data-accordion-item>
+            <button class="service-accordion-trigger" data-accordion-trigger aria-expanded="false">
+              <div class="flex items-center gap-4">
+                <div class="service-icon">
+                  <svg class="h-5 w-5" style="color:#148d8b;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
+                <div class="text-start">
+                  <div class="font-bold text-ink-900 dark:text-white">Transition Planning</div>
+                  <div class="text-xs text-ink-500 dark:text-ink-400 mt-0.5">Planning for life after high school—college, employment, and independent living</div>
+                </div>
+              </div>
+              <svg class="chevron-icon h-5 w-5 text-ink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="service-accordion-body" data-accordion-body>
+              <p class="text-sm text-ink-600 dark:text-ink-300 leading-relaxed mb-3">By law, transition planning must begin by age 16. Our transition specialist works with your family and school team to develop a comprehensive post-secondary vision with specific, measurable transition goals covering education, employment, and independent living.</p>
+              <div class="row g-3">
+                <div class="col-sm-4"><div class="p-3 rounded-xl bg-white dark:bg-ink-800 text-center"><div class="mb-2" style="color:#148d8b;"><svg class="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div class="text-xs font-semibold text-ink-700 dark:text-ink-300">Post-Secondary Education</div></div></div>
+                <div class="col-sm-4"><div class="p-3 rounded-xl bg-white dark:bg-ink-800 text-center"><div class="mb-2" style="color:#f98307;"><svg class="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="text-xs font-semibold text-ink-700 dark:text-ink-300">Employment Planning</div></div></div>
+                <div class="col-sm-4"><div class="p-3 rounded-xl bg-white dark:bg-ink-800 text-center"><div class="mb-2" style="color:#148d8b;"><svg class="h-6 w-6 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="text-xs font-semibold text-ink-700 dark:text-ink-300">Independent Living</div></div></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- col -->
+      </div><!-- row -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ PROCESS TABS ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="text-center mb-12" data-reveal>
+        <p class="eyebrow mb-2">How We Work</p>
+        <h2 class="section-title mb-3">Our Three-Phase Advocacy Process</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Every family we serve goes through a structured, proven process designed to maximize outcomes and minimize stress.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+          <!-- Tab Navigation -->
+          <div class="tab-nav" id="process-tabs" role="tablist">
+            <button class="tab-btn active" data-tab="phase1" role="tab" aria-selected="true">Phase 1: Assessment</button>
+            <button class="tab-btn" data-tab="phase2" role="tab" aria-selected="false">Phase 2: Strategy</button>
+            <button class="tab-btn" data-tab="phase3" role="tab" aria-selected="false">Phase 3: Implementation</button>
+          </div>
+
+          <!-- Phase 1 -->
+          <div class="tab-panel active" id="panel-phase1" role="tabpanel">
+            <div class="phase-card">
+              <div class="row g-4 lg:g-5 align-items-center">
+                <div class="col-lg-7">
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="step-num">1</div>
+                    <div>
+                      <h3 class="font-bold text-ink-900 dark:text-white mb-0 text-xl">Assessment & Discovery</h3>
+                      <p class="text-sm text-ink-500 dark:text-ink-400 mb-0">Weeks 1–2 · Diagnostic & Clinical Analysis</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">A</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Free Intake Consultation</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">30-minute call to understand your child's situation, current services, and your primary concerns. We listen first.</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">B</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Document Collection & Review</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We collect and analyze all relevant documents: IEPs, evaluations, report cards, progress reports, and any prior correspondence with the school.</p>
+                    </div>
+                  </div>
+                  <div class="process-step mb-0">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">C</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Needs & Rights Analysis</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">Our team prepares a comprehensive written analysis identifying every gap, concern, and opportunity for improvement in your child's current educational program.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="phase-img-wrap">
+                    <img src="assets/images/Diagnostic - Clinical Analysis.jpg" alt="Diagnostic &amp; Clinical Analysis - Clinical and diagnostic evaluation analysis" class="phase-img w-100 h-100 object-fit-cover" loading="lazy">
+                    <div class="phase-img-badge">
+                      <svg class="h-4 w-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                      <span>Phase 1 · Diagnostic &amp; Clinical Analysis</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="tab-panel" id="panel-phase2" role="tabpanel">
+            <div class="phase-card">
+              <div class="row g-4 lg:g-5 align-items-center">
+                <div class="col-lg-7">
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="step-num">2</div>
+                    <div>
+                      <h3 class="font-bold text-ink-900 dark:text-white mb-0 text-xl">Strategy Development</h3>
+                      <p class="text-sm text-ink-500 dark:text-ink-400 mb-0">Weeks 2–3 · Co-Creating Your Action Plan</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">A</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Family Strategy Session</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">A 90-minute deep-dive session where we review our findings, prioritize goals, and co-create an advocacy strategy aligned with your family's priorities and your child's unique needs.</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">B</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">IEP Amendment Package</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We draft specific, legally precise proposed amendments, including goal language, service minutes, placement rationale, and accommodation recommendations.</p>
+                    </div>
+                  </div>
+                  <div class="process-step mb-0">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">C</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Meeting Preparation</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We prepare you with scripts, talking points, anticipated school responses, and a prioritized negotiation strategy so you walk in confident and ready.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="phase-img-wrap">
+                    <img src="assets/images/SMART Goal Architecture and Strategy.jpg" alt="SMART Goal Architecture and Strategy" class="phase-img" loading="lazy">
+                    <div class="phase-img-badge">
+                      <svg class="h-4 w-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span>Phase 2 · SMART Goal Architecture</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="tab-panel" id="panel-phase3" role="tabpanel">
+            <div class="phase-card">
+              <div class="row g-4 lg:g-5 align-items-center">
+                <div class="col-lg-7">
+                  <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="step-num">3</div>
+                    <div>
+                      <h3 class="font-bold text-ink-900 dark:text-white mb-0 text-xl">Implementation & Monitoring</h3>
+                      <p class="text-sm text-ink-500 dark:text-ink-400 mb-0">Ongoing · Long-Term Accountability & Defense</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">A</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Meeting Attendance & Follow-Up</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We attend IEP meetings with you, ensure outcomes are properly documented, and send a formal follow-up letter confirming agreements within 48 hours of the meeting.</p>
+                    </div>
+                  </div>
+                  <div class="process-step">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">B</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Quarterly Progress Reviews</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">Every three months we review progress data, verify service delivery, and flag any implementation concerns—before they become major problems.</p>
+                    </div>
+                  </div>
+                  <div class="process-step mb-0">
+                    <div class="step-num" style="width:32px;height:32px;font-size:.75rem;">C</div>
+                    <div>
+                      <div class="font-semibold text-sm text-ink-900 dark:text-white mb-1">Escalation When Necessary</div>
+                      <p class="text-sm text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">If the school isn't delivering, we escalate—through complaint letters, state complaints, mediation requests, or due process filings as needed to protect your child's rights.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="phase-img-wrap">
+                    <img src="assets/images/Active Table Defense and Ongoing Oversight.jpg" alt="Active Table Defense and Ongoing Oversight" class="phase-img" loading="lazy">
+                    <div class="phase-img-badge">
+                      <svg class="h-4 w-4 text-brand-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                      <span>Phase 3 · Table Defense & Compliance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ ADVOCACY SHOWCASE & CLIENT EXPERIENCE ═══════════════════════════════════ -->
+  <section class="py-20 bg-slate-50/70 dark:bg-ink-900/60 border-t border-b border-ink-100 dark:border-ink-800">
+    <div class="container-wide">
+      <div class="row g-5 align-items-center">
+        <!-- Visual Feature Column -->
+        <div class="col-lg-6" data-reveal>
+          <div class="position-relative">
+            <div class="rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-ink-700 bg-white dark:bg-ink-800">
+              <div class="relative overflow-hidden difference-img-wrap">
+                <img src="assets/images/Plain-Language IEP Audit - Action Blueprint.jpg" alt="Plain-Language IEP Audit &amp; Action Blueprint - Transparent Special Education Review" class="w-100 h-100 object-fit-cover" loading="lazy">
+                <div class="position-absolute top-0 start-0 w-100 h-100 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.04) 0%, rgba(15,23,42,0.45) 100%);"></div>
+              </div>
+              <div class="p-6 bg-white dark:bg-ink-800">
+                <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-b border-slate-100 dark:border-ink-700">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
+                      ✓ IDEA Standard Aligned
+                    </span>
+                    <span class="text-xs text-ink-500 dark:text-ink-400">Endrew F. Compliant</span>
+                  </div>
+                  <span class="text-xs font-bold text-brand-600 dark:text-brand-400">Audit Grade: A+</span>
+                </div>
+                <h4 class="font-bold text-ink-900 dark:text-white text-base mb-2">Plain-Language IEP Audit & Action Blueprint</h4>
+                <p class="text-xs text-ink-600 dark:text-ink-300 mb-0 leading-relaxed">Every family receives a transparent, color-coded audit of their child's existing plan, pinpointing missing accommodations, weak benchmark metrics, and specific legal citations ready for the next meeting.</p>
+              </div>
+            </div>
+
+            <!-- Floating Pill 1 (Top End) -->
+            <div class="showcase-pill-top d-flex align-items-center gap-3 py-2.5 px-4 rounded-xl shadow-lg bg-white dark:bg-ink-800 border border-slate-200/80 dark:border-ink-700">
+              <div class="w-8 h-8 rounded-lg grid place-items-center bg-brand-50 text-brand-600 dark:bg-brand-900/50 dark:text-brand-300">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-ink-900 dark:text-white">98.4% Approval</div>
+                <div class="text-[11px] text-ink-500 dark:text-ink-400">First-round district consent</div>
+              </div>
+            </div>
+
+            <!-- Floating Pill 2 (Bottom Start) -->
+            <div class="showcase-pill-bottom d-flex align-items-center gap-3 py-2.5 px-4 rounded-xl shadow-lg bg-white dark:bg-ink-800 border border-slate-200/80 dark:border-ink-700">
+              <div class="w-8 h-8 rounded-lg grid place-items-center bg-amber-50 text-amber-600 dark:bg-amber-900/50 dark:text-amber-400">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              </div>
+              <div>
+                <div class="text-xs font-bold text-ink-900 dark:text-white">4.2x Accommodations</div>
+                <div class="text-[11px] text-ink-500 dark:text-ink-400">Average increase per student</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Narrative & Feature Points Column -->
+        <div class="col-lg-6" data-reveal>
+          <div class="ps-lg-4">
+            <p class="eyebrow mb-2">The AegisPoint Difference</p>
+            <h2 class="section-title mb-4">Advocacy Grounded in Data, Delivered with Empathy</h2>
+            <p class="text-ink-600 dark:text-ink-300 mb-6 leading-relaxed">
+              We eliminate the guesswork from special education negotiations. Instead of emotional standoffs, we arm parents with clinical evidence, legal frameworks, and measurable objectives that school districts respect and adopt.
+            </p>
+
+            <div class="grid gap-4 mb-6">
+              <div class="d-flex gap-3 align-items-start">
+                <div class="w-9 h-9 rounded-xl grid place-items-center flex-shrink-0 bg-brand-50 text-brand-600 dark:bg-brand-900/40 dark:text-brand-300 mt-1">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-ink-900 dark:text-white mb-1">Clinical Translation Without the Jargon</h4>
+                  <p class="text-xs text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We decode psychoeducational assessments, neuropsych evaluations, and speech therapy scores into clear classroom accommodations.</p>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 align-items-start">
+                <div class="w-9 h-9 rounded-xl grid place-items-center flex-shrink-0 bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400 mt-1">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-ink-900 dark:text-white mb-1">Measurable SMART Goal Architecture</h4>
+                  <p class="text-xs text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">Every goal we craft contains baseline criteria, quantifiable progress markers, and defined data collection protocols to track progress.</p>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 align-items-start">
+                <div class="w-9 h-9 rounded-xl grid place-items-center flex-shrink-0 bg-teal-50 text-teal-600 dark:bg-teal-900/40 dark:text-teal-300 mt-1">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-ink-900 dark:text-white mb-1">Balanced Table Presence</h4>
+                  <p class="text-xs text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">Our presence at the IEP table ensures equal footing. We ask the probing questions, document commitments, and safeguard procedural rights.</p>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 align-items-start">
+                <div class="w-9 h-9 rounded-xl grid place-items-center flex-shrink-0 bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-300 mt-1">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-ink-900 dark:text-white mb-1">Quarterly Progress Audit & Verification</h4>
+                  <p class="text-xs text-ink-600 dark:text-ink-400 mb-0 leading-relaxed">We audit district progress notes each marking period, ensuring delivered services match IEP mandated frequencies and minutes.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-3">
+              <a href="contact.html" class="btn-primary text-sm px-5 py-2.5 rounded-xl">Book a Free IEP Consultation →</a>
+              <a href="pricing.html" class="inline-flex items-center px-4 py-2.5 rounded-xl text-sm font-semibold text-ink-700 dark:text-ink-200 border border-slate-300 dark:border-ink-700 hover:bg-slate-100 dark:hover:bg-ink-800 transition-colors">Compare Packages</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ COMPARISON TABLE ═══════════════════════════════════ -->
+  <section class="py-20 bg-ink-50 dark:bg-ink-900">
+    <div class="container-wide">
+      <div class="text-center mb-12" data-reveal>
+        <p class="eyebrow mb-2">Competitive Comparison</p>
+        <h2 class="section-title mb-3">How AegisPoint Compares to Other Options</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Not all advocacy looks the same. See how AegisPoint stacks up against going it alone or hiring an attorney.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="comparison-table" style="overflow-x:auto;">
+            <table class="table mb-0" style="min-width:600px;">
+              <thead>
+                <tr>
+                  <th style="background:#148d8b;color:#fff;border:none;border-radius:.5rem 0 0 0;">What You Get</th>
+                  <th class="text-center" style="background:#148d8b;color:#fff;border:none;">AegisPoint</th>
+                  <th class="text-center" style="background:#0f6e6c;color:#fff;border:none;">Going Alone</th>
+                  <th class="text-center" style="background:#0a5254;color:#fff;border:none;border-radius:0 .5rem 0 0;">Hiring a Lawyer</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white dark:bg-ink-800">
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">IEP Review & Analysis</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="partial">~</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Meeting Attendance & Support</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Parent Education & Coaching</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Ongoing Progress Monitoring</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="partial">~</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Collaborative (Not Adversarial)</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="partial">~</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Special Education Specialists</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="partial">~</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Affordable Flat-Rate Pricing</td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                </tr>
+                <tr>
+                  <td class="font-medium text-ink-800 dark:text-ink-200">Legal Representation in Court</td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="cross">✗</span></td>
+                  <td class="text-center"><span class="check">✓</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-ink-500 dark:text-ink-400 mt-3 text-center">✓ Included &nbsp;·&nbsp; ~ Partial or varies &nbsp;·&nbsp; ✗ Not available</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ FAQ ═══════════════════════════════════ -->
+  <section class="py-20 bg-white dark:bg-ink-950">
+    <div class="container-wide">
+      <div class="text-center mb-12" data-reveal>
+        <p class="eyebrow mb-2">Common Questions</p>
+        <h2 class="section-title mb-3">Frequently Asked Questions</h2>
+        <p class="section-sub mx-auto" style="max-width:560px;">Have questions about special education advocacy? We've answered the most common ones below.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8" id="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-trigger" data-faq-trigger>
+              What exactly does a special education advocate do?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">A special education advocate is a knowledgeable professional who helps families navigate the complex special education system. They review IEPs, attend meetings, help parents understand their legal rights under IDEA and Section 504, prepare documents, and work collaboratively with school teams to ensure children receive appropriate, legally compliant educational services. Unlike attorneys, advocates focus on the educational process rather than litigation.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" data-faq-trigger>
+              Do I need an advocate if my child already has an IEP?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">Having an IEP doesn't guarantee your child is receiving everything they need. Many IEPs contain goals that aren't measurable, services that are insufficient, or accommodations that aren't being implemented. A professional review often reveals significant opportunities to strengthen the existing plan and hold the school accountable for proper implementation.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" data-faq-trigger>
+              How is AegisPoint different from hiring a special education attorney?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">Attorneys are essential when legal action is required—but most IEP disputes can and should be resolved collaboratively. AegisPoint advocates are special education specialists (teachers, psychologists, SLPs) who understand the educational system from the inside. We focus on building productive relationships with school teams, which typically produces better outcomes for children. We're also significantly more affordable than attorneys, with transparent flat-rate pricing.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" data-faq-trigger>
+              What disabilities and conditions do you work with?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">We work with children across the full spectrum of disabilities recognized under IDEA, including: Autism Spectrum Disorder, ADHD, Specific Learning Disabilities (dyslexia, dyscalculia, dysgraphia), Intellectual Disabilities, Emotional and Behavioral Disorders, Speech and Language Impairments, Traumatic Brain Injury, Visual or Hearing Impairments, Orthopedic Impairments, and Other Health Impairments. We also work with children seeking 504 Plans who may not qualify for special education.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-trigger" data-faq-trigger>
+              Can you help if we're already in conflict with the school district?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">Absolutely. We regularly work with families who are in active disputes with their school districts. Our due process specialist Natalie Wright has extensive experience with mediation, state complaints, and OCR complaints. We can help de-escalate situations while still achieving meaningful outcomes for your child. In cases requiring formal legal action, we maintain a referral network of special education attorneys.</p>
+            </div>
+          </div>
+
+          <div class="faq-item" style="border-bottom:none;">
+            <button class="faq-trigger" data-faq-trigger>
+              What age groups do you serve?
+              <svg class="chevron-icon h-5 w-5 text-ink-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-body" data-faq-body>
+              <p class="text-sm text-ink-600 dark:text-ink-400 leading-relaxed">We serve children from birth through age 21 who are eligible for or receiving special education services. This includes early intervention (birth–3), preschool special education (3–5), elementary and secondary students (5–21), and young adults still in school through age 21. We also specialize in transition planning for students approaching graduation who need support planning their post-secondary path.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ CTA ═══════════════════════════════════ -->
+  <section class="cta-band py-20">
+    <div class="container-wide text-center" data-reveal>
+      <p class="eyebrow text-white/70 mb-3">Take the First Step</p>
+      <h2 class="section-title text-white mb-4" style="font-size:clamp(1.75rem,4vw,2.75rem);">Let's Build the IEP Your Child Deserves</h2>
+      <p class="text-white/80 mb-8 mx-auto" style="max-width:520px;">Start with a free 30-minute consultation. No pressure, no jargon—just clear answers about how we can help your family.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="contact.html" class="btn-lg px-8 py-3 font-semibold rounded-xl" style="background:#f98307;color:#fff;text-decoration:none;">Book Free Consultation</a>
+        <a href="pricing.html" class="btn-lg px-8 py-3 font-semibold rounded-xl" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);text-decoration:none;">View Pricing Plans</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════ FOOTER ═══════════════════════════════════ -->
+  <footer class="bg-ink-900 dark:bg-ink-950 text-ink-300 pt-16 pb-8">
+    <div class="container-wide">
+      <div class="row g-5 mb-12">
+        <div class="col-lg-4">
+          <a href="index.html" class="flex items-center gap-2.5 mb-4" style="text-decoration:none;">
+            <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+              <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+                <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+                <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+                <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+                <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+              </svg>
+            </span>
+            <span class="font-display text-lg font-extrabold text-white">AegisPoint<span class="text-brand-400" style="color:#2dd4bf;">Advocacy</span></span>
+          </a>
+          <p class="text-sm leading-relaxed mb-4">Empowering families to secure the special education services their children need and deserve.</p>
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Facebook"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="Instagram"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="X"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="LinkedIn"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h4 class="text-sm font-bold text-white mb-4">Company</h4>
+          <ul class="list-none p-0 m-0 grid gap-2">
+            <li><a href="about.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">About Us</a></li>
+            <li><a href="services.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Services</a></li>
+            <li><a href="pricing.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Pricing</a></li>
+            <li><a href="blog.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h4 class="text-sm font-bold text-white mb-4">Support</h4>
+          <ul class="list-none p-0 m-0 grid gap-2">
+            <li><a href="contact.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Contact Us</a></li>
+            <li><a href="login.html" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Parent Portal</a></li>
+            <li><a href="#" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">FAQ</a></li>
+            <li><a href="#" class="text-sm text-ink-400 hover:text-white" style="text-decoration:none;">Resource Library</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h4 class="text-sm font-bold text-white mb-4">Stay Informed</h4>
+          <p class="text-sm text-ink-400 mb-4">Monthly advocacy tips, legal updates, and resource guides.</p>
+          <form data-validate class="flex flex-col gap-2" novalidate>
+            <div class="form-field mb-0">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="email" name="email" placeholder="your@email.com" required data-rules="required|email" data-label="Email" class="w-full flex-1 px-4 py-2.5 rounded-xl text-sm bg-ink-800 border border-ink-700 text-white placeholder-ink-500 focus:outline-none focus:border-brand-600" />
+                <button type="submit" class="btn-primary px-4 py-2.5 w-full sm:w-auto whitespace-nowrap shrink-0" style="border-radius:.75rem;">Subscribe</button>
+              </div>
+              <p class="error-msg" data-error></p>
+              <p data-form-success class="mt-2 hidden text-xs font-medium text-emerald-400">Subscribed. Thank you!</p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-ink-800 pt-6 flex flex-wrap items-center justify-between gap-3">
+        <p class="text-xs text-ink-500 mb-0">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</p>
+        <div class="flex gap-4">
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Privacy Policy</a>
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Terms of Service</a>
+          <a href="#" class="text-xs text-ink-500 hover:text-white" style="text-decoration:none;">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button type="button" data-back-to-top class="icon-btn fixed bottom-6 right-6 hidden shadow-soft" aria-label="Back to top">
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/validation.js"></script>
+
+  <!-- Scroll Progress -->
+  <script>
+    (function () {
+      const bar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', function () {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (bar) bar.style.width = pct + '%';
+      }, { passive: true });
+    })();
+  </script>
+
+  <!-- Services Accordion -->
+  <script>
+    (function () {
+      document.querySelectorAll('[data-accordion-trigger]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const item = btn.closest('[data-accordion-item]');
+          const body = item.querySelector('[data-accordion-body]');
+          const isOpen = body.classList.contains('is-open');
+          // Close all
+          document.querySelectorAll('[data-accordion-body]').forEach(function (b) {
+            b.classList.remove('is-open');
+            b.closest('[data-accordion-item]').classList.remove('is-open');
+            b.closest('[data-accordion-item]').querySelector('[data-accordion-trigger]').setAttribute('aria-expanded','false');
+            b.closest('[data-accordion-item]').querySelector('.chevron-icon').style.transform = '';
+          });
+          if (!isOpen) {
+            body.classList.add('is-open');
+            item.classList.add('is-open');
+            btn.setAttribute('aria-expanded','true');
+            item.querySelector('.chevron-icon').style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- Process Tabs -->
+  <script>
+    (function () {
+      document.querySelectorAll('[data-tab]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const target = btn.getAttribute('data-tab');
+          document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          document.querySelectorAll('.tab-panel').forEach(function (p) { p.classList.remove('active'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+          const panel = document.getElementById('panel-' + target);
+          if (panel) panel.classList.add('active');
+        });
+      });
+    })();
+  </script>
+
+  <!-- FAQ Accordion -->
+  <script>
+    (function () {
+      document.querySelectorAll('[data-faq-trigger]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const body = btn.nextElementSibling;
+          const isOpen = body.classList.contains('open');
+          document.querySelectorAll('[data-faq-body]').forEach(function (b) { b.classList.remove('open'); });
+          document.querySelectorAll('[data-faq-trigger] .chevron-icon').forEach(function (c) { c.style.transform = ''; });
+          if (!isOpen) {
+            body.classList.add('open');
+            btn.querySelector('.chevron-icon').style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

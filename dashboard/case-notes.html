@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <meta name="description" content="Advocacy case notes, document logs and meeting outcomes for the AegisPoint Advocacy parent portal." />
+  <title>Case Notes | AegisPoint Advocacy Parent Portal</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="../assets/css/style.min.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #148d8b, #f98307);
+      z-index: 9999; transition: width 0.1s linear;
+    }
+    [dir="rtl"] #scroll-progress { left: auto; right: 0; }
+    [dir="rtl"] .dash-sidebar-col { order: 2; }
+    [dir="rtl"] .dash-main-col { order: 1; }
+
+    .note-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .dark .note-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    .note-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20, 141, 139, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-ink-50 dark:bg-ink-950">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <a href="../index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle text direction">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+          <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
+            <svg data-icon-moon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg data-icon-sun class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button class="btn-primary btn-sm lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashOffcanvas">
+            Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== DASHBOARD LAYOUT ===================== -->
+  <div class="container-wide py-8">
+    <div class="row g-4">
+      <!-- Desktop Sidebar -->
+      <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
+        <div class="dash-card sticky top-24 p-4">
+          <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0">PT</span>
+            <div class="min-w-0">
+              <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya Thompson</p>
+              <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava &amp; Noah's Parent</p>
+            </div>
+          </div>
+
+          <nav class="space-y-1">
+            <a class="dash-side-link" href="index.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Dashboard Overview</span>
+            </a>
+            <a class="dash-side-link" href="schedule.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>Schedule &amp; Calendar</span>
+            </a>
+            <a class="dash-side-link active" href="case-notes.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+              <span>Case Notes</span>
+            </a>
+            <a class="dash-side-link" href="progress.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+              <span>Goals Progress</span>
+            </a>
+            <a class="dash-side-link" href="profile.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span>Profile &amp; Settings</span>
+            </a>
+          </nav>
+
+          <div class="divider my-4"></div>
+
+          <a class="dash-side-link" href="../index.html">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Exit to Public Site</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Column -->
+      <main class="col-lg-9 dash-main-col space-y-6">
+        <!-- Header & Action -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="eyebrow">Advocacy Records</p>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-ink-900 dark:text-white">Case Notes &amp; Activity Log</h1>
+            <p class="text-sm text-ink-500 dark:text-ink-400">Complete chronological record of school communications, agreements, and requests.</p>
+          </div>
+          <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#addNoteModal">
+            + Add New Note
+          </button>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="dash-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap gap-1.5" id="noteFilters">
+            <button class="btn btn-primary btn-sm filter-btn active" data-filter="all">All (10)</button>
+            <button class="btn btn-outline btn-sm filter-btn" data-filter="win">Wins</button>
+            <button class="btn btn-outline btn-sm filter-btn" data-filter="doc">Documents</button>
+            <button class="btn btn-outline btn-sm filter-btn" data-filter="request">Requests</button>
+            <button class="btn btn-outline btn-sm filter-btn" data-filter="action">Actions</button>
+          </div>
+          <!-- Search -->
+          <div class="relative w-full md:w-64">
+            <input type="text" id="noteSearch" class="input py-1.5 text-sm" placeholder="Search case notes..." />
+          </div>
+        </div>
+
+        <!-- Notes Timeline / List -->
+        <div class="space-y-4" id="notesContainer">
+          <!-- Note 1: Win -->
+          <div class="note-card note-item" data-category="win">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-ok">Win</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">District Agreement Reached</span>
+              </div>
+              <span class="text-xs text-ink-400">Nov 12, 2026 · Maya Rodriguez (Lead Advocate)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              District Special Ed Director officially confirmed via email that they will restore <strong>30 minutes/day of specialized resource room reading instruction</strong> for Ava beginning Monday, Nov 23. This satisfies our prior written dispute letter.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Related: Ava's IEP Review</div>
+          </div>
+
+          <!-- Note 2: Document -->
+          <div class="note-card note-item" data-category="doc">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-brand">Document</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Private SLP Evaluation Uploaded</span>
+              </div>
+              <span class="text-xs text-ink-400">Nov 09, 2026 · Priya Thompson (Parent)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Uploaded comprehensive private speech-language evaluation by Boston Children's Clinic. The report highlights severe phonological processing delays and recommends 2x45 min/week 1:1 sessions.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Attached: Speech_Evaluation_Nov2026.pdf (3.4 MB)</div>
+          </div>
+
+          <!-- Note 3: Request -->
+          <div class="note-card note-item" data-category="request">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-accent">Request</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Formal IEE Request Submitted</span>
+              </div>
+              <span class="text-xs text-ink-400">Nov 05, 2026 · Maya Rodriguez (Lead Advocate)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Disagreed in writing with the district's triennial psychoeducational assessment due to lack of dyslexia-specific testing. Formally requested an Independent Educational Evaluation (IEE) at public expense pursuant to 34 CFR § 300.502.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Status: Awaiting district response within statutory timeline</div>
+          </div>
+
+          <!-- Note 4: Action -->
+          <div class="note-card note-item" data-category="action">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-warn">Action</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">IEP Agenda Drafted</span>
+              </div>
+              <span class="text-xs text-ink-400">Oct 28, 2026 · Maya Rodriguez (Lead Advocate)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Drafted structured parent agenda for Ava's annual review on Nov 18. Identified top 3 discussion targets: Orton-Gillingham methodology fidelity, assistive tech accommodations, and sensory break protocols.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Sent to parent for final review</div>
+          </div>
+
+          <!-- Note 5: Document -->
+          <div class="note-card note-item" data-category="doc">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-brand">Document</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Progress Monitoring Data Audit</span>
+              </div>
+              <span class="text-xs text-ink-400">Oct 20, 2026 · Thomas Hughes (Compliance Analyst)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Audited 8 weeks of DIBELS reading fluency probes provided by the school. Progress line indicates student is plateauing at 44 WPM against an annual target of 85 WPM.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Gaps flagged in written review report</div>
+          </div>
+
+          <!-- Note 6: Action -->
+          <div class="note-card note-item" data-category="action">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-warn">Action</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Parent Rights Strategy Call</span>
+              </div>
+              <span class="text-xs text-ink-400">Oct 15, 2026 · Adaeze Okafor (Founder)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Conducted 60-minute strategy call with Priya regarding procedural safeguards. Rehearsed non-confrontational scripts for refusing to sign consent for service cuts.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Recording &amp; script notes added to portal</div>
+          </div>
+
+          <!-- Note 7: Action -->
+          <div class="note-card note-item" data-category="action">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-warn">Action</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Response to District OT Denial</span>
+              </div>
+              <span class="text-xs text-ink-400">Oct 10, 2026 · Sunita Krishnan (Specialist)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              District verbally denied occupational therapy evaluation. Sent certified email citing Child Find obligations requesting formal Prior Written Notice (PWN) explaining reasons for refusal.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Prior Written Notice requested</div>
+          </div>
+
+          <!-- Note 8: Document -->
+          <div class="note-card note-item" data-category="doc">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-brand">Document</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Present Levels Review Completed</span>
+              </div>
+              <span class="text-xs text-ink-400">Sep 28, 2026 · Daniel Reyes (Psychologist)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Completed forensic review of 2025-2026 IEP present levels. Identified that student's dysgraphia and executive functioning difficulties were omitted completely from the academic narrative.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Audit report version 1.0 finalized</div>
+          </div>
+
+          <!-- Note 9: Action -->
+          <div class="note-card note-item" data-category="action">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-warn">Action</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Intake Consultation Completed</span>
+              </div>
+              <span class="text-xs text-ink-400">Sep 22, 2026 · Ethan Osei (Coordinator)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              Completed 30-minute intake interview. Identified three immediate priorities: reading fluency plateau, denial of OT services, and upcoming 3-year triennial review.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Client onboarding package approved</div>
+          </div>
+
+          <!-- Note 10: Win -->
+          <div class="note-card note-item" data-category="win">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="chip-ok">Win</span>
+                <span class="text-xs font-bold text-ink-900 dark:text-white">Advocacy Case Opened</span>
+              </div>
+              <span class="text-xs text-ink-400">Sep 15, 2026 · Adaeze Okafor (Lead Advocate)</span>
+            </div>
+            <p class="text-sm text-ink-700 dark:text-ink-200 mb-2">
+              AegisPoint Advocacy formally retained for Ava Thompson (Grade 4) and Noah Thompson (Grade 2). Client records portal initiated and advocate assigned.
+            </p>
+            <div class="text-xs text-brand-600 font-semibold">Initial retainer processed</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== ADD NOTE MODAL ===================== -->
+  <div class="modal fade" id="addNoteModal" tabindex="-1" aria-labelledby="addNoteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-3">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="addNoteModalLabel">Add New Case Note</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form data-validate id="newNoteForm">
+            <div class="form-field">
+              <label class="label" for="nt-type">Note Category <span class="req">*</span></label>
+              <select id="nt-type" class="select" data-rules="required" data-label="Note Category">
+                <option value="win">Win / Agreement</option>
+                <option value="doc">Document Uploaded</option>
+                <option value="request">Formal Request</option>
+                <option value="action">Action Item</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="form-field">
+              <label class="label" for="nt-title">Note Subject / Title <span class="req">*</span></label>
+              <input id="nt-title" type="text" class="input" placeholder="e.g. Spoke with school psychologist regarding OT" data-rules="required|minlength:5" data-label="Subject / Title" />
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="form-field">
+              <label class="label" for="nt-author">Logged By <span class="req">*</span></label>
+              <input id="nt-author" type="text" class="input" value="Priya Thompson" data-rules="required|name" data-label="Logged By" />
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="form-field">
+              <label class="label" for="nt-body">Details &amp; Key Discussions <span class="req">*</span></label>
+              <textarea id="nt-body" class="textarea" placeholder="Detail agreements, promises, or deadlines discussed with school staff..." data-rules="required|minlength:10" data-label="Details"></textarea>
+              <p class="error-msg" data-error></p>
+            </div>
+            <p data-form-success class="hidden rounded-xl bg-emerald-50 p-3 text-sm font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 mb-2">Case note successfully saved.</p>
+            <button type="submit" class="btn-primary w-full mt-2">Save Case Note</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OFFCANVAS FOR MOBILE ===================== -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="dashOffcanvas" aria-labelledby="dashOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title font-display font-bold" id="dashOffcanvasLabel">Dashboard Navigation</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="space-y-2">
+        <a class="dash-side-link" href="index.html">Dashboard Overview</a>
+        <a class="dash-side-link" href="schedule.html">Schedule &amp; Calendar</a>
+        <a class="dash-side-link active" href="case-notes.html">Case Notes</a>
+        <a class="dash-side-link" href="progress.html">Goals Progress</a>
+        <a class="dash-side-link" href="profile.html">Profile &amp; Settings</a>
+        <div class="divider my-3"></div>
+        <a class="dash-side-link" href="../index.html">Exit to Public Site</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-ink-100 bg-white py-6 dark:border-ink-800 dark:bg-ink-900 mt-12">
+    <div class="container-wide flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-500 dark:text-ink-400">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;" title="AegisPoint Advocacy Home">
+          <span class="grid h-8 w-8 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-5 w-5" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+        <span class="text-ink-300 dark:text-ink-700">|</span>
+        <p class="mb-0">© <span data-year></span> AegisPoint Advocacy &amp; Consulting. All rights reserved.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <a href="schedule.html" class="hover:text-brand-600">Schedule</a>
+        <a href="case-notes.html" class="hover:text-brand-600">Case Notes</a>
+        <a href="progress.html" class="hover:text-brand-600">Goal Progress</a>
+        <a href="../contact.html" class="hover:text-brand-600">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/validation.js" defer></script>
+
+  <script>
+    // Search & Filter Logic
+    document.addEventListener('DOMContentLoaded', function() {
+      var filterBtns = document.querySelectorAll('.filter-btn');
+      var noteItems = document.querySelectorAll('.note-item');
+      var searchInput = document.getElementById('noteSearch');
+
+      function filterNotes() {
+        var activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        var query = searchInput.value.toLowerCase().trim();
+
+        noteItems.forEach(function(item) {
+          var category = item.getAttribute('data-category');
+          var text = item.textContent.toLowerCase();
+          var matchesFilter = (activeFilter === 'all' || category === activeFilter);
+          var matchesSearch = (!query || text.indexOf(query) !== -1);
+
+          item.style.display = (matchesFilter && matchesSearch) ? 'block' : 'none';
+        });
+      }
+
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(function(b) {
+            b.classList.remove('btn-primary', 'active');
+            b.classList.add('btn-outline');
+          });
+          btn.classList.remove('btn-outline');
+          btn.classList.add('btn-primary', 'active');
+          filterNotes();
+        });
+      });
+
+      searchInput.addEventListener('input', filterNotes);
+    });
+
+    window.addEventListener('scroll', function() {
+      var p = document.getElementById('scroll-progress');
+      if (p) {
+        var pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        p.style.width = pct + '%';
+      }
+    });
+  </script>
+</body>
+</html>

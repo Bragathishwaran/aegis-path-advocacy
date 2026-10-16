@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <meta name="description" content="Track special education IEP goals, objective baselines and quarterly progress reports in the AegisPoint Advocacy parent portal." />
+  <title>Goals Progress Tracker | AegisPoint Advocacy Parent Portal</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="../assets/css/style.min.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #148d8b, #f98307);
+      z-index: 9999; transition: width 0.1s linear;
+    }
+    [dir="rtl"] #scroll-progress { left: auto; right: 0; }
+    [dir="rtl"] .dash-sidebar-col { order: 2; }
+    [dir="rtl"] .dash-main-col { order: 1; }
+
+    /* Chart bars */
+    .bar-chart-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 1.5rem;
+      height: 180px;
+      padding-top: 1.5rem;
+    }
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bar-fill {
+      width: 100%;
+      max-width: 44px;
+      border-radius: 6px 6px 0 0;
+      background: #148d8b;
+      transition: height 1s ease;
+      position: relative;
+    }
+    .bar-fill:hover {
+      filter: brightness(1.15);
+    }
+  </style>
+</head>
+<body class="bg-ink-50 dark:bg-ink-950">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <a href="../index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle text direction">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+          <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
+            <svg data-icon-moon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg data-icon-sun class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button class="btn-primary btn-sm lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashOffcanvas">
+            Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== DASHBOARD LAYOUT ===================== -->
+  <div class="container-wide py-8">
+    <div class="row g-4">
+      <!-- Desktop Sidebar -->
+      <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
+        <div class="dash-card sticky top-24 p-4">
+          <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0">PT</span>
+            <div class="min-w-0">
+              <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya Thompson</p>
+              <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava &amp; Noah's Parent</p>
+            </div>
+          </div>
+
+          <nav class="space-y-1">
+            <a class="dash-side-link" href="index.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Dashboard Overview</span>
+            </a>
+            <a class="dash-side-link" href="schedule.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>Schedule &amp; Calendar</span>
+            </a>
+            <a class="dash-side-link" href="case-notes.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+              <span>Case Notes</span>
+            </a>
+            <a class="dash-side-link active" href="progress.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+              <span>Goals Progress</span>
+            </a>
+            <a class="dash-side-link" href="profile.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span>Profile &amp; Settings</span>
+            </a>
+          </nav>
+
+          <div class="divider my-4"></div>
+
+          <a class="dash-side-link" href="../index.html">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Exit to Public Site</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Column -->
+      <main class="col-lg-9 dash-main-col space-y-6">
+        <!-- Top Title & Student Selector -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="eyebrow">IEP Accountability</p>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-ink-900 dark:text-white">Goal Progress Tracking</h1>
+            <p class="text-sm text-ink-500 dark:text-ink-400">Current IEP Period: Sep 2026 – Jun 2027 · Next Annual Review: Nov 18, 2026</p>
+          </div>
+          <div class="w-full sm:w-56">
+            <select class="select" id="childSelector">
+              <option value="ava" selected>Ava Thompson (IEP)</option>
+              <option value="noah">Noah Thompson (504 Plan)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Progress Overview Stats -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="dash-card p-4">
+            <span class="text-xs font-bold text-ink-400 uppercase">Total Goals</span>
+            <p class="stat-value mt-2">10</p>
+            <span class="text-xs text-ink-500">Across 6 domain areas</span>
+          </div>
+          <div class="dash-card p-4">
+            <span class="text-xs font-bold text-emerald-600 uppercase">On Track</span>
+            <p class="stat-value mt-2 text-emerald-600">8</p>
+            <span class="chip-ok mt-1">80% Adequate Progress</span>
+          </div>
+          <div class="dash-card p-4">
+            <span class="text-xs font-bold text-amber-600 uppercase">Needs Attention</span>
+            <p class="stat-value mt-2 text-amber-600">1</p>
+            <span class="chip-warn mt-1">Speech Pragmatics</span>
+          </div>
+          <div class="dash-card p-4">
+            <span class="text-xs font-bold text-brand-600 uppercase">Mastered</span>
+            <p class="stat-value mt-2 text-brand-600">1</p>
+            <span class="chip-brand mt-1">Math Calculation</span>
+          </div>
+        </div>
+
+        <!-- Progress History Bar Chart -->
+        <div class="dash-card p-5">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white">Quarterly Mastery Trend</h3>
+            <span class="text-xs text-ink-400">Baseline vs. Current Progress</span>
+          </div>
+
+          <div class="bar-chart-container">
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 82%;" title="Reading Fluency: 82%"></div>
+              <span class="text-xs font-bold mt-2">Reading</span>
+              <span class="text-xs text-ink-400">82%</span>
+            </div>
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 58%; background: #04c9c8;" title="Writing: 58%"></div>
+              <span class="text-xs font-bold mt-2">Writing</span>
+              <span class="text-xs text-ink-400">58%</span>
+            </div>
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 90%; background: #1cb1ab;" title="Math: 90%"></div>
+              <span class="text-xs font-bold mt-2">Math</span>
+              <span class="text-xs text-ink-400">90%</span>
+            </div>
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 64%; background: #f98307;" title="Speech: 64%"></div>
+              <span class="text-xs font-bold mt-2">Speech</span>
+              <span class="text-xs text-ink-400">64%</span>
+            </div>
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 45%; background: #fb923c;" title="Social-Emotional: 45%"></div>
+              <span class="text-xs font-bold mt-2">Social</span>
+              <span class="text-xs text-ink-400">45%</span>
+            </div>
+            <div class="bar-col">
+              <div class="bar-fill" style="height: 70%; background: #148d8b;" title="Fine Motor: 70%"></div>
+              <span class="text-xs font-bold mt-2">Motor</span>
+              <span class="text-xs text-ink-400">70%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 Detailed Goal Cards -->
+        <div class="space-y-4">
+          <h3 class="font-display text-xl font-bold text-ink-900 dark:text-white">Active IEP Goal Inventory (10 Goals)</h3>
+
+          <!-- Goal 1 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #1 · Reading Fluency &amp; Decodability</span>
+              <span class="chip-ok">82% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"From a baseline of 42 words per minute, Ava will orally read grade-level decodable passages at 85 WPM with 95% accuracy over 3 consecutive weekly probes."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 82%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 42 WPM</span>
+              <span>Current Probe: 77 WPM</span>
+              <span>Target: 85 WPM</span>
+            </div>
+          </div>
+
+          <!-- Goal 2 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #2 · Reading Comprehension &amp; Text Inference</span>
+              <span class="chip-ok">75% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"When presented with a 4th grade informational text, Ava will correctly answer explicit and inferential questions with 80% accuracy across 4 of 5 trials."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 75%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 45%</span>
+              <span>Current Probe: 75%</span>
+              <span>Target: 80%</span>
+            </div>
+          </div>
+
+          <!-- Goal 3 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #3 · Written Expression &amp; Sentence Mechanics</span>
+              <span class="chip-ok">58% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"Ava will compose a multi-paragraph opinion essay with graphic organizer support, incorporating topic sentences and correct punctuation with no more than 3 errors per 100 words."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-500 rounded-full" style="width: 58%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 25%</span>
+              <span>Current Probe: 58%</span>
+              <span>Target: 85%</span>
+            </div>
+          </div>
+
+          <!-- Goal 4 -->
+          <div class="dash-card p-5 border-emerald-300 dark:border-emerald-800">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #4 · Math Calculation &amp; Equivalent Fractions</span>
+              <span class="chip-brand font-bold">90% · Mastered / Achieved</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"Ava will solve multi-digit multiplication and equivalent fraction problems with 90% accuracy using visual manipulatives across 5 consecutive assessments."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-emerald-500 rounded-full" style="width: 90%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 50%</span>
+              <span>Current Probe: 90%</span>
+              <span>Target: 90% (Goal Met)</span>
+            </div>
+          </div>
+
+          <!-- Goal 5 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #5 · Multi-Step Word Problems</span>
+              <span class="chip-ok">72% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"When given two-step real-world math word problems, Ava will independently identify the operation, draw a model, and solve with 75% accuracy."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 72%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 35%</span>
+              <span>Current Probe: 72%</span>
+              <span>Target: 75%</span>
+            </div>
+          </div>
+
+          <!-- Goal 6 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #6 · Speech Articulation (/r/ and /th/ blends)</span>
+              <span class="chip-ok">64% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"Ava will produce vocalic /r/ and voiced /th/ sounds in structured conversational speech with 75% accuracy across 3 speech therapy sessions."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-accent-500 rounded-full" style="width: 64%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 30%</span>
+              <span>Current Probe: 64%</span>
+              <span>Target: 75%</span>
+            </div>
+          </div>
+
+          <!-- Goal 7 -->
+          <div class="dash-card p-5 border-amber-300 dark:border-amber-800">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #7 · Speech Pragmatics &amp; Social Communication</span>
+              <span class="chip-warn">50% · Needs Attention</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"In unstructured peer interactions, Ava will initiate and sustain a 3-turn communicative exchange on a shared topic in 4 out of 5 opportunities."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-amber-500 rounded-full" style="width: 50%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 25%</span>
+              <span>Current Probe: 50%</span>
+              <span>Target: 80% (Advocate noted plateau)</span>
+            </div>
+          </div>
+
+          <!-- Goal 8 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #8 · Emotional Regulation &amp; Sensory Self-Advocacy</span>
+              <span class="chip-ok">45% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"When feeling overwhelmed or sensory-fatigued, Ava will identify her state using a Zones of Regulation visual chart and independently request a break in 4 of 5 instances."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 45%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 15%</span>
+              <span>Current Probe: 45%</span>
+              <span>Target: 80%</span>
+            </div>
+          </div>
+
+          <!-- Goal 9 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #9 · Fine Motor Stamina &amp; Handwriting</span>
+              <span class="chip-ok">70% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"Ava will print 5 continuous sentences with legible letter sizing and appropriate word spacing on wide-ruled paper within 10 minutes."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 70%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 35%</span>
+              <span>Current Probe: 70%</span>
+              <span>Target: 80%</span>
+            </div>
+          </div>
+
+          <!-- Goal 10 -->
+          <div class="dash-card p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #10 · Executive Function &amp; Material Management</span>
+              <span class="chip-ok">68% · On Track</span>
+            </div>
+            <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
+              <em>"Using an end-of-day visual checklist, Ava will pack her homework folder, agenda, and necessary materials with no more than 1 verbal prompt in 4 of 5 days."</em>
+            </p>
+            <div class="h-2.5 rounded-full bg-ink-100 dark:bg-ink-800 overflow-hidden mb-2">
+              <div class="h-full bg-brand-600 rounded-full" style="width: 68%;"></div>
+            </div>
+            <div class="flex justify-between text-xs text-ink-400">
+              <span>Baseline: 20%</span>
+              <span>Current Probe: 68%</span>
+              <span>Target: 80%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Official Progress Reports Log -->
+        <div class="dash-card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white">School Progress Reports on File</h3>
+            <span class="text-xs text-ink-400">Issued concurrently with general report cards</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Reporting Period</th>
+                  <th>Date Issued</th>
+                  <th>Overall Progress Status</th>
+                  <th>Special Ed Case Manager</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="font-bold text-ink-900 dark:text-white">Quarter 1 (Fall 2026)</td>
+                  <td>Nov 02, 2026</td>
+                  <td><span class="chip-ok">Making Expected Progress</span></td>
+                  <td>Ms. Sarah Jenkins, M.Ed.</td>
+                  <td><a href="#" class="btn btn-outline btn-sm">Download PDF</a></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-ink-900 dark:text-white">Quarter 4 (Spring 2026)</td>
+                  <td>Jun 15, 2026</td>
+                  <td><span class="chip-warn">ESY Qualification Documented</span></td>
+                  <td>Ms. Sarah Jenkins, M.Ed.</td>
+                  <td><a href="#" class="btn btn-outline btn-sm">Download PDF</a></td>
+                </tr>
+                <tr>
+                  <td class="font-bold text-ink-900 dark:text-white">Quarter 3 (Winter 2026)</td>
+                  <td>Apr 04, 2026</td>
+                  <td><span class="chip-ok">Making Expected Progress</span></td>
+                  <td>Ms. Sarah Jenkins, M.Ed.</td>
+                  <td><a href="#" class="btn btn-outline btn-sm">Download PDF</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== OFFCANVAS FOR MOBILE ===================== -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="dashOffcanvas" aria-labelledby="dashOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title font-display font-bold" id="dashOffcanvasLabel">Dashboard Navigation</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="space-y-2">
+        <a class="dash-side-link" href="index.html">Dashboard Overview</a>
+        <a class="dash-side-link" href="schedule.html">Schedule &amp; Calendar</a>
+        <a class="dash-side-link" href="case-notes.html">Case Notes</a>
+        <a class="dash-side-link active" href="progress.html">Goals Progress</a>
+        <a class="dash-side-link" href="profile.html">Profile &amp; Settings</a>
+        <div class="divider my-3"></div>
+        <a class="dash-side-link" href="../index.html">Exit to Public Site</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-ink-100 bg-white py-6 dark:border-ink-800 dark:bg-ink-900 mt-12">
+    <div class="container-wide flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-500 dark:text-ink-400">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;" title="AegisPoint Advocacy Home">
+          <span class="grid h-8 w-8 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-5 w-5" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+        <span class="text-ink-300 dark:text-ink-700">|</span>
+        <p class="mb-0">© <span data-year></span> AegisPoint Advocacy &amp; Consulting. All rights reserved.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <a href="schedule.html" class="hover:text-brand-600">Schedule</a>
+        <a href="case-notes.html" class="hover:text-brand-600">Case Notes</a>
+        <a href="progress.html" class="hover:text-brand-600">Goal Progress</a>
+        <a href="../contact.html" class="hover:text-brand-600">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/validation.js" defer></script>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var p = document.getElementById('scroll-progress');
+      if (p) {
+        var pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        p.style.width = pct + '%';
+      }
+    });
+  </script>
+</body>
+</html>

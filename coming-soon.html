@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+
+  <title>Coming Soon | AegisPoint Advocacy</title>
+  <meta name="description" content="AegisPoint Advocacy is building exciting new tools to help families navigate IEP progress and connect with advocates." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      background: #060f1e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 2rem 1.5rem;
+    }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #148d8b, #f98307); z-index: 9999; transition: width 0.1s; }
+
+    /* Radial Gradient Background */
+    .page-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 20% 30%, rgba(20,141,139,.4) 0%, transparent 55%),
+                  radial-gradient(ellipse at 80% 70%, rgba(16,116,114,.3) 0%, transparent 55%),
+                  linear-gradient(180deg, #060f1e 0%, #0d1f35 100%);
+    }
+
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(70px); z-index: 1; pointer-events: none; }
+    .blob-a { width: 500px; height: 500px; top: -150px; left: -150px; background: radial-gradient(circle, rgba(20,141,139,.35) 0%, transparent 70%); }
+    .blob-b { width: 400px; height: 400px; bottom: -120px; right: -100px; background: radial-gradient(circle, rgba(249,131,7,.2) 0%, transparent 70%); }
+    .blob-c { width: 280px; height: 280px; top: 50%; left: 55%; background: radial-gradient(circle, rgba(20,141,139,.15) 0%, transparent 70%); }
+
+    /* Grid lines overlay */
+    .grid-overlay {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background-image: linear-gradient(rgba(20,141,139,.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(20,141,139,.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Content */
+    .cs-wrap { position: relative; z-index: 10; width: 100%; max-width: 720px; text-align: center; }
+
+    .logo-link { display: inline-flex; align-items: center; gap: .75rem; text-decoration: none; margin-bottom: 3rem; }
+    .logo-icon { width: 48px; height: 48px; background: #148d8b; border-radius: .875rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(20,141,139,.5); }
+    .logo-name { font-weight: 800; font-size: 1.3rem; color: #f1f5f9; }
+    .logo-sub { font-weight: 700; font-size: .7rem; color: #35aeac; letter-spacing: .08em; text-transform: uppercase; }
+
+    .chip {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(20,141,139,.18); color: #35aeac; border: 1px solid rgba(53,174,172,.3);
+      border-radius: 100px; padding: .375rem 1rem; font-size: .8rem; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .chip-dot { width: 8px; height: 8px; background: #35aeac; border-radius: 50%; animation: pulse-dot 1.8s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+    h1.cs-title {
+      font-size: clamp(2.25rem, 7vw, 4rem); font-weight: 800;
+      color: #f1f5f9; line-height: 1.15; margin-bottom: 1.25rem;
+      text-shadow: 0 2px 40px rgba(20,141,139,.3);
+    }
+    h1.cs-title span { background: linear-gradient(135deg, #148d8b, #35aeac); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .cs-sub { font-size: clamp(.95rem, 2vw, 1.125rem); color: #94a3b8; line-height: 1.75; max-width: 580px; margin: 0 auto 3rem; }
+
+    /* Countdown */
+    .countdown-grid { display: flex; align-items: center; justify-content: center; gap: clamp(.75rem, 2vw, 1.5rem); margin-bottom: 3rem; flex-wrap: wrap; }
+    .countdown-unit {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(20,141,139,.25);
+      border-radius: 1rem; padding: clamp(1rem, 3vw, 1.5rem) clamp(1.25rem, 3vw, 2rem);
+      min-width: clamp(72px, 18vw, 100px); backdrop-filter: blur(8px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.05);
+      transition: transform .2s; position: relative; overflow: hidden;
+    }
+    .countdown-unit::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,141,139,.08) 0%, transparent 60%); pointer-events: none; }
+    .countdown-unit:hover { transform: translateY(-3px); }
+    .countdown-number { font-size: clamp(2rem, 6vw, 3.25rem); font-weight: 800; color: #f1f5f9; line-height: 1; display: block; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+    .countdown-label { font-size: clamp(.65rem, 1.5vw, .75rem); font-weight: 700; color: #35aeac; letter-spacing: .12em; text-transform: uppercase; margin-top: .375rem; display: block; }
+    .countdown-sep { font-size: 2rem; font-weight: 700; color: #334155; line-height: 1; padding-top: .25rem; }
+
+    /* Email form */
+    .notify-form { display: flex; gap: .75rem; max-width: 440px; margin: 0 auto 1rem; flex-wrap: wrap; }
+    .notify-input {
+      flex: 1; min-width: 220px; padding: .75rem 1.25rem;
+      background: rgba(255,255,255,.08); border: 1.5px solid rgba(20,141,139,.3);
+      border-radius: .625rem; color: #f1f5f9; font-size: .9375rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; transition: border-color .2s, box-shadow .2s;
+    }
+    .notify-input::placeholder { color: #475569; }
+    .notify-input:focus { outline: none; border-color: #148d8b; box-shadow: 0 0 0 3px rgba(20,141,139,.15); }
+    .notify-input.invalid { border-color: #ef4444; }
+    .btn-notify {
+      background: #148d8b; color: #fff; border: none; border-radius: .625rem;
+      font-weight: 700; padding: .75rem 1.5rem; font-size: .9375rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background .2s, transform .1s; white-space: nowrap;
+    }
+    .btn-notify:hover { background: #107472; transform: translateY(-1px); }
+    .notify-error { color: #ef4444; font-size: .8rem; margin-bottom: .5rem; display: none; }
+    .notify-error.show { display: block; }
+    .notify-success { color: #35aeac; font-size: .875rem; font-weight: 600; display: none; margin-bottom: .75rem; }
+    .notify-success.show { display: block; }
+    .notify-note { color: #475569; font-size: .78rem; margin-bottom: 2.5rem; }
+
+    /* Social links */
+    .social-links { display: flex; align-items: center; justify-content: center; gap: .75rem; margin-bottom: 2.5rem; }
+    .social-link {
+      width: 40px; height: 40px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      border-radius: .625rem; display: flex; align-items: center; justify-content: center;
+      color: #94a3b8; text-decoration: none; transition: all .2s;
+    }
+    .social-link:hover { background: rgba(20,141,139,.2); border-color: #148d8b; color: #35aeac; transform: translateY(-2px); }
+
+    .back-home {
+      display: inline-flex; align-items: center; gap: .5rem; color: #64748b; text-decoration: none;
+      font-size: .875rem; font-weight: 600; transition: color .2s;
+    }
+    .back-home:hover { color: #35aeac; }
+
+    .cs-footer { position: relative; z-index: 10; margin-top: 2rem; color: rgba(255,255,255,.25); font-size: .75rem; text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress" style="width:0"></div>
+<script>
+  window.addEventListener('scroll', function() {
+    var el = document.getElementById('scroll-progress');
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    el.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  });
+</script>
+
+<!-- Background -->
+<div class="page-bg" aria-hidden="true"></div>
+<div class="blob blob-a" aria-hidden="true"></div>
+<div class="blob blob-b" aria-hidden="true"></div>
+<div class="blob blob-c" aria-hidden="true"></div>
+<div class="grid-overlay" aria-hidden="true"></div>
+
+<!-- Top Navigation Controls -->
+<div class="position-fixed top-0 start-0 w-100 p-3 d-flex justify-content-between align-items-center" style="z-index:100;pointer-events:none;">
+  <a href="index.html" class="btn btn-sm text-white text-decoration-none d-flex align-items-center gap-1" style="pointer-events:auto;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-flip"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>Home</span>
+  </a>
+  <div class="d-flex gap-2" style="pointer-events:auto;">
+    <button type="button" class="btn btn-sm text-white fw-bold" data-dir-toggle title="Toggle RTL/LTR" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">
+      <span data-dir-label>RTL</span>
+    </button>
+    <button type="button" class="btn btn-sm text-white" data-theme-toggle title="Toggle dark mode" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="dashboard/index.html" class="btn btn-sm text-white d-inline-flex align-items-center gap-1.5" style="background:#148d8b;border-radius:8px;text-decoration:none;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Dashboard</span>
+    </a>
+  </div>
+</div>
+
+<!-- ===== COMING SOON CONTENT ===== -->
+<main class="cs-wrap">
+  <!-- Logo -->
+  <a href="index.html" class="logo-wrap inline-flex items-center gap-2.5 mb-6 text-decoration-none">
+    <span class="grid h-11 w-11 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+      <svg class="h-7 w-7" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+        <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+        <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+        <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+      </svg>
+    </span>
+    <div class="text-left">
+      <div class="logo-name font-extrabold text-xl text-white">AegisPoint</div>
+      <div class="logo-sub text-xs text-teal-400 font-bold uppercase tracking-wider">Advocacy</div>
+    </div>
+  </a>
+
+  <!-- Status Chip -->
+  <div class="chip">
+    <span class="chip-dot"></span>
+    Under Construction
+  </div>
+
+  <!-- Headline -->
+  <h1 class="cs-title">Something <span>exciting</span><br/>is coming</h1>
+
+  <!-- Subtitle -->
+  <p class="cs-sub">We are building new tools to help families track IEP progress, connect with advocates, and prepare for meetings — all in one place.</p>
+
+  <!-- Countdown Timer -->
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-days">000</span>
+      <span class="countdown-label">Days</span>
+    </div>
+    <span class="countdown-sep" aria-hidden="true">:</span>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-hours">00</span>
+      <span class="countdown-label">Hours</span>
+    </div>
+    <span class="countdown-sep" aria-hidden="true">:</span>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-minutes">00</span>
+      <span class="countdown-label">Minutes</span>
+    </div>
+    <span class="countdown-sep" aria-hidden="true">:</span>
+    <div class="countdown-unit">
+      <span class="countdown-number" id="cd-seconds">00</span>
+      <span class="countdown-label">Seconds</span>
+    </div>
+  </div>
+
+  <!-- Email Signup -->
+  <p class="notify-error" id="notify-error">Please enter a valid email address.</p>
+  <p class="notify-success" id="notify-success">🎉 You're on the list! We'll notify you when we launch.</p>
+  <form id="notifyForm" class="notify-form" data-validate novalidate>
+    <input class="notify-input" type="email" id="notifyEmail" name="notifyEmail" placeholder="Enter your email address" required data-rules="required|email" data-label="Email" autocomplete="email" />
+    <button type="submit" class="btn-notify">Notify Me</button>
+  </form>
+  <p class="notify-note">🔒 No spam, ever. We'll only email you when we launch.</p>
+
+  <!-- Social Links -->
+  <div class="social-links">
+    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter/X">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+  </div>
+
+  <!-- Back to Home & Dashboard -->
+  <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
+    <a href="index.html" class="back-home">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-flip"><polyline points="15 18 9 12 15 6"/></svg>
+      Go back home
+    </a>
+    <span style="color:rgba(255,255,255,0.3)">·</span>
+    <a href="dashboard/index.html" class="back-home" style="color:#35aeac;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      Open Parent Dashboard
+    </a>
+  </div>
+</main>
+
+<footer class="cs-footer flex items-center justify-center gap-3 flex-wrap">
+  <a href="index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-white" style="text-decoration:none;">
+    <span class="grid h-7 w-7 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+      <svg class="h-4 w-4" viewBox="0 0 32 32" fill="none">
+        <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+        <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+        <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+        <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+      </svg>
+    </span>
+    <span>AegisPoint<span class="text-brand-400" style="color:#2dd4bf;">Advocacy</span></span>
+  </a>
+  <span style="opacity:0.4;">·</span>
+  <span>© <span data-year></span> AegisPoint Advocacy. All rights reserved.</span>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- App JS -->
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/validation.js" defer></script>
+
+<script>
+  // Year
+  document.querySelectorAll('[data-year]').forEach(function(el) { el.textContent = new Date().getFullYear(); });
+
+  // Countdown Timer — target Jan 1, 2026
+  var target = new Date('2026-01-01T00:00:00').getTime();
+
+  function pad(n, len) {
+    return String(n).padStart(len || 2, '0');
+  }
+
+  function updateCountdown() {
+    var now = Date.now();
+    var diff = target - now;
+    if (diff <= 0) {
+      document.getElementById('cd-days').textContent = '000';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-minutes').textContent = '00';
+      document.getElementById('cd-seconds').textContent = '00';
+      return;
+    }
+    var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById('cd-days').textContent    = pad(days, 3);
+    document.getElementById('cd-hours').textContent   = pad(hours);
+    document.getElementById('cd-minutes').textContent = pad(minutes);
+    document.getElementById('cd-seconds').textContent = pad(seconds);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+</script>
+
+</body>
+</html>

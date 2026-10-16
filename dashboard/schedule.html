@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <meta name="description" content="Schedule and manage IEP, 504 and re-evaluation meetings with the AegisPoint Advocacy parent dashboard calendar." />
+  <title>Schedule &amp; Calendar | AegisPoint Advocacy Parent Portal</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="../assets/css/style.min.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #148d8b, #f98307);
+      z-index: 9999; transition: width 0.1s linear;
+    }
+    [dir="rtl"] #scroll-progress { left: auto; right: 0; }
+    [dir="rtl"] .dash-sidebar-col { order: 2; }
+    [dir="rtl"] .dash-main-col { order: 1; }
+
+    /* Calendar Grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 1px;
+      background-color: #e2e8f0;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .dark .cal-grid {
+      background-color: #334155;
+      border-color: #334155;
+    }
+    .cal-header-cell {
+      background-color: #f8fafc;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .dark .cal-header-cell {
+      background-color: #0f172a;
+      color: #94a3b8;
+    }
+    .cal-cell {
+      background-color: #fff;
+      min-height: 85px;
+      padding: 0.5rem;
+      position: relative;
+      transition: background-color 0.2s;
+    }
+    .dark .cal-cell {
+      background-color: #1e293b;
+    }
+    .cal-cell.other-month {
+      background-color: #f8fafc;
+      color: #94a3b8;
+    }
+    .dark .cal-cell.other-month {
+      background-color: #0f172a;
+      color: #475569;
+    }
+    .cal-cell.today {
+      background-color: #effffe;
+    }
+    .dark .cal-cell.today {
+      background-color: #062d2e;
+    }
+    .event-pill {
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+      font-weight: 600;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    .event-brand { background: #d0f0ef; color: #0f7170; }
+    .event-accent { background: #ffeec6; color: #b74106; }
+    .event-ok { background: #dcfce7; color: #15803d; }
+  </style>
+</head>
+<body class="bg-ink-50 dark:bg-ink-950">
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <a href="../index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle text direction">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+          <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
+            <svg data-icon-moon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+            <svg data-icon-sun class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button class="btn-primary btn-sm lg:hidden" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashOffcanvas">
+            Menu
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== DASHBOARD LAYOUT ===================== -->
+  <div class="container-wide py-8">
+    <div class="row g-4">
+      <!-- Desktop Sidebar -->
+      <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
+        <div class="dash-card sticky top-24 p-4">
+          <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0">PT</span>
+            <div class="min-w-0">
+              <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya Thompson</p>
+              <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava &amp; Noah's Parent</p>
+            </div>
+          </div>
+
+          <nav class="space-y-1">
+            <a class="dash-side-link" href="index.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Dashboard Overview</span>
+            </a>
+            <a class="dash-side-link active" href="schedule.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>Schedule &amp; Calendar</span>
+            </a>
+            <a class="dash-side-link" href="case-notes.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+              <span>Case Notes</span>
+            </a>
+            <a class="dash-side-link" href="progress.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+              <span>Goals Progress</span>
+            </a>
+            <a class="dash-side-link" href="profile.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span>Profile &amp; Settings</span>
+            </a>
+          </nav>
+
+          <div class="divider my-4"></div>
+
+          <a class="dash-side-link" href="../index.html">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Exit to Public Site</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Column -->
+      <main class="col-lg-9 dash-main-col space-y-6">
+        <!-- Top bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <p class="eyebrow">Meetings Calendar</p>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-ink-900 dark:text-white">Schedule &amp; Appointments</h1>
+            <p class="text-sm text-ink-500 dark:text-ink-400">Keep every IEP review, 504 evaluation and advocate prep session organized.</p>
+          </div>
+          <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+            + Schedule New Meeting
+          </button>
+        </div>
+
+        <!-- Month Calendar Card -->
+        <div class="dash-card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-display text-xl font-bold text-ink-900 dark:text-white">November 2026</h2>
+            <div class="flex items-center gap-2">
+              <span class="chip-brand">3 Scheduled</span>
+              <div class="btn-group">
+                <button class="btn btn-outline btn-sm">&lt;</button>
+                <button class="btn btn-outline btn-sm">Today</button>
+                <button class="btn btn-outline btn-sm">&gt;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar Grid -->
+          <div class="cal-grid">
+            <div class="cal-header-cell">Sun</div>
+            <div class="cal-header-cell">Mon</div>
+            <div class="cal-header-cell">Tue</div>
+            <div class="cal-header-cell">Wed</div>
+            <div class="cal-header-cell">Thu</div>
+            <div class="cal-header-cell">Fri</div>
+            <div class="cal-header-cell">Sat</div>
+
+            <!-- Week 1 -->
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">26</span></div>
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">27</span></div>
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">28</span></div>
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">29</span></div>
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">30</span></div>
+            <div class="cal-cell other-month"><span class="text-xs font-semibold">31</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">1</span></div>
+
+            <!-- Week 2 -->
+            <div class="cal-cell"><span class="text-xs font-semibold">2</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">3</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">4</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">5</span><span class="event-pill event-accent">IEE Filing</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">6</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">7</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">8</span></div>
+
+            <!-- Week 3 -->
+            <div class="cal-cell"><span class="text-xs font-semibold">9</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">10</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">11</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">12</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">13</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">14</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">15</span></div>
+
+            <!-- Week 4 -->
+            <div class="cal-cell"><span class="text-xs font-semibold">16</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">17</span></div>
+            <div class="cal-cell today">
+              <span class="text-xs font-bold text-brand-600 dark:text-brand-300">18</span>
+              <span class="event-pill event-brand" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">10am Ava IEP Review</span>
+            </div>
+            <div class="cal-cell"><span class="text-xs font-semibold">19</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">20</span></div>
+            <div class="cal-cell">
+              <span class="text-xs font-semibold">21</span>
+              <span class="event-pill event-ok">1:30pm Noah Speech</span>
+            </div>
+            <div class="cal-cell"><span class="text-xs font-semibold">22</span></div>
+
+            <!-- Week 5 -->
+            <div class="cal-cell"><span class="text-xs font-semibold">23</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">24</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">25</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">26</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">27</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">28</span></div>
+            <div class="cal-cell"><span class="text-xs font-semibold">29</span></div>
+          </div>
+        </div>
+
+        <!-- Upcoming Meetings Table -->
+        <div class="dash-card p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white">Upcoming Confirmed Meetings</h3>
+            <span class="text-xs text-ink-400">Times in EST</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student &amp; Meeting Type</th>
+                  <th>Date &amp; Time</th>
+                  <th>Location</th>
+                  <th>Advocate Assigned</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="font-bold text-ink-900 dark:text-white">Ava Thompson · Annual IEP Review</div>
+                    <div class="text-xs text-ink-500">Grade 4 Annual Re-evaluation</div>
+                  </td>
+                  <td>
+                    <div class="font-semibold text-ink-900 dark:text-white">Wed, Nov 18, 2026</div>
+                    <div class="text-xs text-ink-500">10:00 AM – 11:30 AM</div>
+                  </td>
+                  <td>Riverside Elementary (Conf Room B)</td>
+                  <td>Maya Rodriguez (Lead)</td>
+                  <td><span class="chip-ok">Confirmed</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">View Details</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="font-bold text-ink-900 dark:text-white">Noah Thompson · Speech Therapy Review</div>
+                    <div class="text-xs text-ink-500">Triennial SLP Service Check</div>
+                  </td>
+                  <td>
+                    <div class="font-semibold text-ink-900 dark:text-white">Fri, Nov 21, 2026</div>
+                    <div class="text-xs text-ink-500">1:30 PM – 2:30 PM</div>
+                  </td>
+                  <td>Virtual (Zoom Meeting)</td>
+                  <td>Sunita Krishnan (SLP)</td>
+                  <td><span class="chip-brand">Scheduled</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">View Details</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="font-bold text-ink-900 dark:text-white">Ava Thompson · 504 Accommodation Check-in</div>
+                    <div class="text-xs text-ink-500">Sensory &amp; OT Plan Adjustment</div>
+                  </td>
+                  <td>
+                    <div class="font-semibold text-ink-900 dark:text-white">Tue, Dec 2, 2026</div>
+                    <div class="text-xs text-ink-500">3:00 PM – 3:45 PM</div>
+                  </td>
+                  <td>District Admin Office</td>
+                  <td>Maya Rodriguez</td>
+                  <td><span class="chip-warn">Pending Confirmation</span></td>
+                  <td>
+                    <button class="btn btn-outline btn-sm" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">View Details</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== SCHEDULE MODAL ===================== -->
+  <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-3">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="scheduleModalLabel">Schedule a Meeting</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form data-validate>
+            <div class="form-field">
+              <label class="label" for="sch-child">Student <span class="req">*</span></label>
+              <select id="sch-child" class="select" data-rules="required" data-label="Student">
+                <option value="Ava">Ava Thompson (Grade 4 - IEP)</option>
+                <option value="Noah">Noah Thompson (Grade 2 - 504)</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="form-field">
+              <label class="label" for="sch-type">Meeting Type <span class="req">*</span></label>
+              <select id="sch-type" class="select" data-rules="required" data-label="Meeting Type">
+                <option value="Annual IEP">Annual IEP Review</option>
+                <option value="504 Review">504 Plan Review</option>
+                <option value="Eligibility">Eligibility Determination</option>
+                <option value="Advocate Prep">Advocate Strategy Prep Call</option>
+                <option value="Manifestation">Manifestation Determination</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="row g-3">
+              <div class="col-6 form-field">
+                <label class="label" for="sch-date">Date <span class="req">*</span></label>
+                <input id="sch-date" type="date" class="input" data-rules="required" data-label="Meeting Date" />
+                <p class="error-msg" data-error></p>
+              </div>
+              <div class="col-6 form-field">
+                <label class="label" for="sch-time">Time <span class="req">*</span></label>
+                <input id="sch-time" type="time" class="input" data-rules="required" data-label="Meeting Time" />
+                <p class="error-msg" data-error></p>
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="label" for="sch-loc">Location / Link <span class="req">*</span></label>
+              <input id="sch-loc" type="text" class="input" placeholder="e.g. School Library or Zoom link" data-rules="required" data-label="Location" />
+              <p class="error-msg" data-error></p>
+            </div>
+            <div class="form-field">
+              <label class="label" for="sch-notes">Meeting Agenda / Notes</label>
+              <textarea id="sch-notes" class="textarea" placeholder="List key topics to address (e.g. increase resource minutes, request OT eval)..."></textarea>
+            </div>
+            <p data-form-success class="hidden rounded-xl bg-emerald-50 p-3 text-sm font-medium text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 mb-2">Meeting successfully scheduled.</p>
+            <button type="submit" class="btn-primary w-full mt-2">Confirm &amp; Add to Calendar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DETAIL MODAL ===================== -->
+  <div class="modal fade" id="meetingDetailModal" tabindex="-1" aria-labelledby="meetingDetailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <span class="chip-ok mb-2">Confirmed</span>
+            <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="meetingDetailLabel">Ava Thompson · Annual IEP Review</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body space-y-4 pt-4">
+          <div class="rounded-xl bg-ink-50 p-3 dark:bg-ink-900 text-sm space-y-2">
+            <div><span class="font-bold">Date &amp; Time:</span> Wednesday, November 18, 2026 · 10:00 AM – 11:30 AM</div>
+            <div><span class="font-bold">Location:</span> Riverside Elementary, Room 104</div>
+            <div><span class="font-bold">Attending Advocate:</span> Maya Rodriguez (In-person)</div>
+          </div>
+          <div>
+            <h6 class="font-bold text-xs uppercase tracking-wide text-ink-500 mb-2">Meeting Strategy Goals</h6>
+            <ul class="text-sm list-disc ps-5 space-y-1 text-ink-700 dark:text-ink-300">
+              <li>Restore 30 minutes/day of specialized reading resource support</li>
+              <li>Finalize SMART goals for speech articulation based on private evaluation</li>
+              <li>Add explicit accommodation for noise-canceling headphones in noisy settings</li>
+            </ul>
+          </div>
+          <div class="flex gap-2 pt-2">
+            <a href="case-notes.html" class="btn-primary btn-sm flex-1 text-center">Open Case Notes</a>
+            <button class="btn-outline btn-sm" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OFFCANVAS FOR MOBILE ===================== -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="dashOffcanvas" aria-labelledby="dashOffcanvasLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title font-display font-bold" id="dashOffcanvasLabel">Dashboard Navigation</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="space-y-2">
+        <a class="dash-side-link" href="index.html">Dashboard Overview</a>
+        <a class="dash-side-link active" href="schedule.html">Schedule &amp; Calendar</a>
+        <a class="dash-side-link" href="case-notes.html">Case Notes</a>
+        <a class="dash-side-link" href="progress.html">Goals Progress</a>
+        <a class="dash-side-link" href="profile.html">Profile &amp; Settings</a>
+        <div class="divider my-3"></div>
+        <a class="dash-side-link" href="../index.html">Exit to Public Site</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-ink-100 bg-white py-6 dark:border-ink-800 dark:bg-ink-900 mt-12">
+    <div class="container-wide flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-500 dark:text-ink-400">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;" title="AegisPoint Advocacy Home">
+          <span class="grid h-8 w-8 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-5 w-5" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+        <span class="text-ink-300 dark:text-ink-700">|</span>
+        <p class="mb-0">© <span data-year></span> AegisPoint Advocacy &amp; Consulting. All rights reserved.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <a href="schedule.html" class="hover:text-brand-600">Schedule</a>
+        <a href="case-notes.html" class="hover:text-brand-600">Case Notes</a>
+        <a href="progress.html" class="hover:text-brand-600">Goal Progress</a>
+        <a href="../contact.html" class="hover:text-brand-600">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/validation.js" defer></script>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      var p = document.getElementById('scroll-progress');
+      if (p) {
+        var pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        p.style.width = pct + '%';
+      }
+    });
+  </script>
+</body>
+</html>

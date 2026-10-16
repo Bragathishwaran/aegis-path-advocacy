@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <title>Parent Dashboard — AegisPoint Advocacy</title>
+  <meta name="description" content="AegisPoint Advocacy Parent Portal: Track IEP meeting schedules, access advocacy case notes, and view real-time progress toward IEP and 504 goals." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../assets/css/style.min.css" />
+  <link rel="stylesheet" href="../assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    /* Custom enhancements for the Parent Dashboard */
+    .pillar-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pillar-card:hover {
+      box-shadow: 0 10px 30px -10px rgba(20, 141, 139, 0.15);
+    }
+    .badge-win { background-color: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .badge-doc { background-color: #f0fdfa; color: #0f766e; border: 1px solid #99f6e4; }
+    .badge-req { background-color: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+    .badge-act { background-color: #fefce8; color: #a16207; border: 1px solid #fef08a; }
+    .dark .badge-win { background-color: #064e3b; color: #6ee7b7; border-color: #065f46; }
+    .dark .badge-doc { background-color: #134e4a; color: #5eead4; border-color: #115e59; }
+    .dark .badge-req { background-color: #7c2d12; color: #fdba74; border-color: #9a3412; }
+    .dark .badge-act { background-color: #713f12; color: #fde047; border-color: #854d0e; }
+  </style>
+</head>
+<body class="bg-ink-50 font-body text-ink-800 antialiased dark:bg-ink-950 dark:text-ink-100">
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress" style="width:0"></div>
+
+  <!-- ===================== SITE HEADER ===================== -->
+  <header class="site-header">
+    <div class="container-wide">
+      <div class="flex h-16 items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="../index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+
+        <!-- Header Actions: RTL, Dark Mode, Offcanvas menu -->
+        <div class="flex items-center gap-2">
+          <!-- RTL / LTR Direction Toggle -->
+          <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle RTL/LTR text direction">
+            <span data-dir-label class="text-xs font-bold">RTL</span>
+          </button>
+
+          <!-- Dark / Light Theme Toggle -->
+          <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
+            <svg data-icon-moon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+            </svg>
+            <svg data-icon-sun class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+            </svg>
+          </button>
+
+          <!-- User profile indicator -->
+          <a href="profile.html" class="hidden sm:inline-flex items-center gap-2 rounded-full border border-ink-200 bg-white py-1 ps-1 pe-3 text-xs font-bold text-ink-700 shadow-sm transition hover:border-brand-400 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-200" style="text-decoration:none;">
+            <span class="grid h-7 w-7 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white">PT</span>
+            <span>Priya Thompson</span>
+          </a>
+
+          <!-- Mobile Sidebar Toggle -->
+          <button class="btn-primary btn-sm lg:hidden inline-flex items-center gap-1.5" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashOffcanvas" aria-controls="dashOffcanvas">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            <span>Menu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== DASHBOARD LAYOUT ===================== -->
+  <div class="container-wide py-8">
+    <div class="row g-4">
+
+      <!-- ===== DESKTOP SIDEBAR ===== -->
+      <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
+        <div class="dash-card sticky top-24 p-4">
+          <!-- Parent & Children Badge -->
+          <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
+            <span class="grid h-11 w-11 place-items-center rounded-full bg-brand-600 font-bold text-white flex-shrink-0">PT</span>
+            <div class="min-w-0">
+              <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya Thompson</p>
+              <p class="truncate text-xs text-brand-700 dark:text-brand-300 mb-0 font-medium">Ava (IEP) &amp; Noah (504)</p>
+            </div>
+          </div>
+
+          <!-- Navigation Links -->
+          <nav class="space-y-1">
+            <a class="dash-side-link active" href="index.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              <span>Dashboard Overview</span>
+            </a>
+            <a class="dash-side-link" href="schedule.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span>IEP Meeting Schedules</span>
+            </a>
+            <a class="dash-side-link" href="case-notes.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+              <span>Advocacy Case Notes</span>
+            </a>
+            <a class="dash-side-link" href="progress.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+              <span>Goal Progress Tracker</span>
+            </a>
+            <a class="dash-side-link" href="profile.html">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+              <span>Profile &amp; Settings</span>
+            </a>
+          </nav>
+
+          <div class="divider my-4"></div>
+
+          <!-- Assigned Advocate Card -->
+          <div class="rounded-xl border border-ink-100 bg-ink-50 p-3 text-xs dark:border-ink-800 dark:bg-ink-950/60 mb-4">
+            <span class="font-bold text-ink-900 dark:text-white block mb-1">Lead Advocate</span>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="grid h-6 w-6 place-items-center rounded-full bg-accent-500 text-white font-bold text-[10px]">MR</span>
+              <span class="font-semibold text-ink-800 dark:text-ink-200">Maya Rodriguez, M.Ed.</span>
+            </div>
+            <a href="../contact.html" class="link block text-xs">Send Direct Message →</a>
+          </div>
+
+          <a class="dash-side-link" href="../index.html" style="text-decoration:none;">
+            <svg class="h-5 w-5 arrow-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>Exit to Public Site</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- ===== MAIN DASHBOARD CONTENT ===== -->
+      <main class="col-lg-9 dash-main-col space-y-6">
+
+        <!-- Welcome Banner & Quick Actions -->
+        <div class="dash-card bg-gradient-to-br from-white to-brand-50/40 p-6 dark:from-ink-900 dark:to-brand-950/20">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="eyebrow">Parent Advocacy Command Center</span>
+                <span class="chip-ok text-[11px] py-0.5 px-2">Live Sync</span>
+              </div>
+              <h1 class="font-display text-2xl font-extrabold text-ink-900 sm:text-3xl dark:text-white mt-1 mb-2">
+                Good morning, Priya 👋
+              </h1>
+              <p class="text-sm text-ink-500 dark:text-ink-300 max-w-2xl leading-relaxed mb-0">
+                Welcome to your AegisPoint portal. Track upcoming IEP meeting schedules, access chronological advocacy case notes, and view real-time progress toward your children's annual goals.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 shrink-0">
+              <button type="button" class="btn-primary btn-sm flex items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#quickScheduleModal">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M12 14v4M10 16h4"/></svg>
+                <span>Schedule Meeting</span>
+              </button>
+              <button type="button" class="btn-outline btn-sm flex items-center gap-1.5" data-bs-toggle="modal" data-bs-target="#quickNoteModal">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                <span>Add Case Note</span>
+              </button>
+              <button type="button" class="btn-outline btn-sm" data-bs-toggle="modal" data-bs-target="#exportModal" title="Export PDF progress report">
+                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Key Stat Metrics -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Stat 1: Upcoming Meetings -->
+          <div class="dash-card p-4 transition-transform hover:-translate-y-1">
+            <div class="flex items-center justify-between text-xs font-semibold text-ink-500 uppercase tracking-wide">
+              <span>IEP Meetings</span>
+              <svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="stat-value text-3xl font-extrabold text-ink-900 dark:text-white mt-2">3</div>
+            <div class="mt-2 flex items-center gap-1.5">
+              <span class="chip-brand text-[11px] py-0.5 px-2 font-bold">Next: Nov 18</span>
+            </div>
+          </div>
+
+          <!-- Stat 2: Case Notes -->
+          <div class="dash-card p-4 transition-transform hover:-translate-y-1">
+            <div class="flex items-center justify-between text-xs font-semibold text-ink-500 uppercase tracking-wide">
+              <span>Advocacy Notes</span>
+              <svg class="h-4 w-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+            </div>
+            <div class="stat-value text-3xl font-extrabold text-ink-900 dark:text-white mt-2">12</div>
+            <div class="mt-2 flex items-center gap-1.5">
+              <span class="chip-warn text-[11px] py-0.5 px-2 font-bold">4 need review</span>
+            </div>
+          </div>
+
+          <!-- Stat 3: Goals On Track -->
+          <div class="dash-card p-4 transition-transform hover:-translate-y-1">
+            <div class="flex items-center justify-between text-xs font-semibold text-ink-500 uppercase tracking-wide">
+              <span>Goals On Track</span>
+              <svg class="h-4 w-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-value text-3xl font-extrabold text-ink-900 dark:text-white mt-2">
+              8<span class="text-base text-ink-400 font-semibold">/10</span>
+            </div>
+            <div class="mt-2 flex items-center gap-1.5">
+              <span class="chip-ok text-[11px] py-0.5 px-2 font-bold">80% Mastery</span>
+            </div>
+          </div>
+
+          <!-- Stat 4: Active Plans -->
+          <div class="dash-card p-4 transition-transform hover:-translate-y-1">
+            <div class="flex items-center justify-between text-xs font-semibold text-ink-500 uppercase tracking-wide">
+              <span>Children Enrolled</span>
+              <svg class="h-4 w-4 text-accent-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            </div>
+            <div class="stat-value text-3xl font-extrabold text-ink-900 dark:text-white mt-2">2</div>
+            <div class="mt-2 flex items-center gap-1.5">
+              <span class="chip-accent text-[11px] py-0.5 px-2 font-bold">Ava &amp; Noah</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PILLAR 1: TRACKING IEP MEETING SCHEDULES
+             =================================================================== -->
+        <section class="dash-card p-6 pillar-card" aria-labelledby="pillar1-title">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-ink-100 dark:border-ink-800">
+            <div class="flex items-center gap-3">
+              <div class="grid h-10 w-10 place-items-center rounded-xl bg-brand-600 text-white flex-shrink-0">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                </svg>
+              </div>
+              <div>
+                <h2 id="pillar1-title" class="font-display text-lg font-bold text-ink-900 dark:text-white mb-0">
+                  Pillar 1: Tracking IEP Meeting Schedules
+                </h2>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">
+                  Stay organized with automated meeting countdowns, agenda strategy, and attendance tracking.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" class="btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#quickScheduleModal">
+                + Schedule Meeting
+              </button>
+              <a href="schedule.html" class="link text-xs font-bold" style="text-decoration:none;">
+                Full Calendar →
+              </a>
+            </div>
+          </div>
+
+          <!-- Highlight Banner: Next Scheduled Meeting Countdown -->
+          <div class="mt-4 rounded-xl border border-brand-200 bg-gradient-to-r from-brand-50 to-teal-50/50 p-4 dark:border-brand-800 dark:from-brand-950/60 dark:to-teal-950/30">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div class="flex items-start gap-3">
+                <div class="rounded-xl bg-brand-600 p-2.5 text-white font-bold text-center min-w-[56px] shadow-sm">
+                  <div class="text-xs uppercase tracking-wider font-semibold opacity-80">NOV</div>
+                  <div class="text-xl font-extrabold leading-none mt-0.5">18</div>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="chip-ok text-[11px] py-0.5 px-2">Confirmed</span>
+                    <span class="chip-brand text-[11px] py-0.5 px-2">Annual IEP Review</span>
+                    <span class="text-xs font-semibold text-brand-700 dark:text-brand-300">⏳ 3 Days Remaining</span>
+                  </div>
+                  <h3 class="font-display text-base font-bold text-ink-900 dark:text-white mt-1 mb-0.5">
+                    Ava Thompson · Annual IEP Triennial Review &amp; Goals Finalization
+                  </h3>
+                  <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-500 dark:text-ink-400 mt-1">
+                    <span>🕒 10:00 AM – 11:30 AM EST</span>
+                    <span>📍 Riverside Elementary · Conference Rm 104 &amp; Zoom</span>
+                    <span>👩‍🏫 Advocate: Maya Rodriguez (In-person)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button type="button" class="btn-outline btn-sm bg-white dark:bg-ink-900" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">
+                  Prep Strategy
+                </button>
+                <a href="schedule.html" class="btn-primary btn-sm">
+                  Meeting Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Upcoming & Recent Meetings Table -->
+          <div class="mt-4 table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Child</th>
+                  <th>Meeting Type</th>
+                  <th>Date &amp; Time</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="font-bold text-ink-900 dark:text-white">Ava Thompson</span> (Grade 4)</td>
+                  <td>Annual IEP Review</td>
+                  <td>Nov 18, 2026 · 10:00 AM</td>
+                  <td>Riverside Elementary (Rm 104)</td>
+                  <td><span class="chip-ok text-[11px] py-0.5 px-2">Confirmed</span></td>
+                  <td><button class="link text-xs font-semibold" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">View Agenda</button></td>
+                </tr>
+                <tr>
+                  <td><span class="font-bold text-ink-900 dark:text-white">Ava Thompson</span> (Grade 4)</td>
+                  <td>Speech Therapy Quarterly Review</td>
+                  <td>Nov 21, 2026 · 2:30 PM</td>
+                  <td>Virtual Teleconference</td>
+                  <td><span class="chip-brand text-[11px] py-0.5 px-2">Confirmed Virtual</span></td>
+                  <td><a href="schedule.html" class="link text-xs font-semibold">Details</a></td>
+                </tr>
+                <tr>
+                  <td><span class="font-bold text-ink-900 dark:text-white">Noah Thompson</span> (Grade 2)</td>
+                  <td>504 Accommodation Check-In</td>
+                  <td>Dec 02, 2026 · 11:00 AM</td>
+                  <td>Riverside Elementary (Rm 12)</td>
+                  <td><span class="chip-warn text-[11px] py-0.5 px-2">In Prep</span></td>
+                  <td><a href="schedule.html" class="link text-xs font-semibold">Prep Plan</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PILLAR 2: ACCESSING ADVOCACY CASE NOTES
+             =================================================================== -->
+        <section class="dash-card p-6 pillar-card" aria-labelledby="pillar2-title">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-ink-100 dark:border-ink-800">
+            <div class="flex items-center gap-3">
+              <div class="grid h-10 w-10 place-items-center rounded-xl bg-brand-600 text-white flex-shrink-0">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/>
+                </svg>
+              </div>
+              <div>
+                <h2 id="pillar2-title" class="font-display text-lg font-bold text-ink-900 dark:text-white mb-0">
+                  Pillar 2: Accessing Advocacy Case Notes
+                </h2>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">
+                  Searchable, time-stamped timeline of advocate case consultations, formal district responses, and parent wins.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" class="btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#quickNoteModal">
+                + Add Note
+              </button>
+              <a href="case-notes.html" class="link text-xs font-bold" style="text-decoration:none;">
+                Browse All (10) →
+              </a>
+            </div>
+          </div>
+
+          <!-- Real-Time Filter & Search Toolbar -->
+          <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex flex-wrap gap-1.5" role="tablist" id="noteCategoryFilter">
+              <button type="button" class="btn-sm rounded-full px-3 py-1 text-xs font-bold bg-brand-600 text-white" data-note-filter="all">All Notes</button>
+              <button type="button" class="btn-sm rounded-full px-3 py-1 text-xs font-medium border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50" data-note-filter="win">Wins</button>
+              <button type="button" class="btn-sm rounded-full px-3 py-1 text-xs font-medium border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50" data-note-filter="document">Documents</button>
+              <button type="button" class="btn-sm rounded-full px-3 py-1 text-xs font-medium border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50" data-note-filter="request">Requests</button>
+              <button type="button" class="btn-sm rounded-full px-3 py-1 text-xs font-medium border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50" data-note-filter="action">Actions</button>
+            </div>
+            <div class="relative min-w-[200px]">
+              <input type="search" id="noteSearchInput" class="input py-1.5 px-3 text-xs" placeholder="Search case notes…" />
+            </div>
+          </div>
+
+          <!-- Chronological Case Notes Feed -->
+          <div class="mt-4 space-y-3" id="caseNotesFeed">
+            <!-- Note 1: Win -->
+            <div class="note-card rounded-xl border border-ink-100 bg-white p-4 transition dark:border-ink-800 dark:bg-ink-900" data-category="win">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="chip-ok text-[11px] py-0.5 px-2 font-bold">🎉 Advocacy Win</span>
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Ava Thompson</span>
+                  <span class="text-xs text-ink-400">· Nov 12, 2026</span>
+                </div>
+                <span class="text-xs text-ink-500 font-medium">Logged by Maya Rodriguez (Advocate)</span>
+              </div>
+              <h4 class="text-sm font-bold text-ink-900 dark:text-white mb-1">
+                District agreed in writing to add 30 min/day specialized resource room support
+              </h4>
+              <p class="text-xs text-ink-600 dark:text-ink-300 mb-2 leading-relaxed">
+                Following our formal review letter referencing Ava's psychoeducational evaluation, Special Education Director Sarah Jenkins confirmed in writing that the district will provide 150 minutes weekly of dedicated 1:1 reading and phonemic intervention.
+              </p>
+              <div class="flex items-center gap-3 text-xs">
+                <a href="case-notes.html" class="link font-semibold">View Attachment: district_agreement_nov12.pdf</a>
+              </div>
+            </div>
+
+            <!-- Note 2: Document -->
+            <div class="note-card rounded-xl border border-ink-100 bg-white p-4 transition dark:border-ink-800 dark:bg-ink-900" data-category="document">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="chip-brand text-[11px] py-0.5 px-2 font-bold">📄 Document Shared</span>
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Ava Thompson</span>
+                  <span class="text-xs text-ink-400">· Nov 09, 2026</span>
+                </div>
+                <span class="text-xs text-ink-500 font-medium">Logged by Maya Rodriguez (Advocate)</span>
+              </div>
+              <h4 class="text-sm font-bold text-ink-900 dark:text-white mb-1">
+                Shared independent private speech pathology evaluation with school team
+              </h4>
+              <p class="text-xs text-ink-600 dark:text-ink-300 mb-2 leading-relaxed">
+                Transmitted Dr. Lin’s comprehensive clinical articulation assessment (showing 64% phonetic clarity) to the school psychologist and lead speech pathologist for incorporation into Nov 18 present levels.
+              </p>
+              <div class="flex items-center gap-3 text-xs">
+                <a href="case-notes.html" class="link font-semibold">View Evaluation Summary</a>
+              </div>
+            </div>
+
+            <!-- Note 3: Request -->
+            <div class="note-card rounded-xl border border-ink-100 bg-white p-4 transition dark:border-ink-800 dark:bg-ink-900" data-category="request">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="chip-accent text-[11px] py-0.5 px-2 font-bold">✉️ Formal Request</span>
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Ava Thompson</span>
+                  <span class="text-xs text-ink-400">· Nov 05, 2026</span>
+                </div>
+                <span class="text-xs text-ink-500 font-medium">Logged by Priya Thompson (Parent)</span>
+              </div>
+              <h4 class="text-sm font-bold text-ink-900 dark:text-white mb-1">
+                Submitted written request for Independent Educational Evaluation (IEE)
+              </h4>
+              <p class="text-xs text-ink-600 dark:text-ink-300 mb-2 leading-relaxed">
+                Disagreed with district’s triennial occupational therapy testing. Sent formal request under IDEA 34 CFR § 300.502 for an outside OT assessment at public expense. District timeline to respond: Nov 20.
+              </p>
+              <div class="flex items-center gap-3 text-xs">
+                <span class="chip-warn text-[10px] py-0.5 px-1.5 font-bold">15-Day Clock Running</span>
+                <a href="case-notes.html" class="link font-semibold">View Prior Written Notice Draft</a>
+              </div>
+            </div>
+
+            <!-- Note 4: Action -->
+            <div class="note-card rounded-xl border border-ink-100 bg-white p-4 transition dark:border-ink-800 dark:bg-ink-900" data-category="action">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="chip-warn text-[11px] py-0.5 px-2 font-bold">🎯 Meeting Action</span>
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Ava Thompson</span>
+                  <span class="text-xs text-ink-400">· Oct 28, 2026</span>
+                </div>
+                <span class="text-xs text-ink-500 font-medium">Logged by Maya Rodriguez (Advocate)</span>
+              </div>
+              <h4 class="text-sm font-bold text-ink-900 dark:text-white mb-1">
+                Drafted 5-point meeting agenda and parent strategy talking points for Nov 18 review
+              </h4>
+              <p class="text-xs text-ink-600 dark:text-ink-300 mb-2 leading-relaxed">
+                Completed pre-meeting coaching session with Priya. Aligned priority goals: reading fluency accommodations, private speech evaluation acceptance, and assistive technology assessment.
+              </p>
+              <div class="flex items-center gap-3 text-xs">
+                <button type="button" class="link font-semibold" data-bs-toggle="modal" data-bs-target="#meetingDetailModal">Read Strategy Outline</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+             PILLAR 3: VIEWING PROGRESS TOWARD GOALS
+             =================================================================== -->
+        <section class="dash-card p-6 pillar-card" aria-labelledby="pillar3-title">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-ink-100 dark:border-ink-800">
+            <div class="flex items-center gap-3">
+              <div class="grid h-10 w-10 place-items-center rounded-xl bg-brand-600 text-white flex-shrink-0">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>
+                </svg>
+              </div>
+              <div>
+                <h2 id="pillar3-title" class="font-display text-lg font-bold text-ink-900 dark:text-white mb-0">
+                  Pillar 3: Viewing Progress Toward Goals
+                </h2>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">
+                  Measure tangible IEP and 504 plan gains against IDEA-mandated SMART criteria, baselines, and target benchmarks.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="progress.html" class="link text-xs font-bold" style="text-decoration:none;">
+                Deep-Dive Analytics →
+              </a>
+            </div>
+          </div>
+
+          <!-- Student Selector Tabs -->
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button type="button" class="btn-sm rounded-xl px-4 py-2 font-bold bg-brand-600 text-white shadow-soft transition" id="tabAvaBtn">
+              Ava Thompson · Grade 4 (Active IEP)
+            </button>
+            <button type="button" class="btn-sm rounded-xl px-4 py-2 font-semibold border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50 transition" id="tabNoahBtn">
+              Noah Thompson · Grade 2 (Active 504 Plan)
+            </button>
+          </div>
+
+          <!-- Ava's IEP Progress Panel -->
+          <div id="panelAvaGoals" class="mt-4 space-y-4">
+            <!-- Progress summary banner -->
+            <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-ink-50 p-3 text-xs dark:bg-ink-950">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-ink-900 dark:text-white">Annual IEP Cycle:</span>
+                <span class="text-ink-600 dark:text-ink-300">Sep 2026 – Jun 2027</span>
+                <span class="text-ink-300">·</span>
+                <span class="font-bold text-emerald-600 dark:text-emerald-400">8 of 10 Goals On Track (80%)</span>
+              </div>
+              <span class="text-ink-500">Next Quarterly Progress Report: Dec 15, 2026</span>
+            </div>
+
+            <!-- SMART Goal Progress Gauges -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Goal 1: Reading Fluency -->
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 1: Reading Fluency</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">82% · On Track</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 45 wpm &rarr; Current: 74 wpm &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 90 wpm</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-brand-600 rounded-full transition-all duration-1000" style="width: 82%;"></div>
+                </div>
+              </div>
+
+              <!-- Goal 2: Reading Comprehension -->
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 2: Reading Comprehension</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">75% · On Track</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 50% accuracy &rarr; Current: 75% &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 85%</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-brand-600 rounded-full transition-all duration-1000" style="width: 75%;"></div>
+                </div>
+              </div>
+
+              <!-- Goal 3: Speech Articulation -->
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 3: Speech Articulation (/r/ and /s/)</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">64% · On Track</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 40% correct &rarr; Current: 64% &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 80%</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-brand-600 rounded-full transition-all duration-1000" style="width: 64%;"></div>
+                </div>
+              </div>
+
+              <!-- Goal 4: Social-Emotional Regulation -->
+              <div class="rounded-xl border border-amber-200 bg-amber-50/30 p-4 dark:border-amber-900 dark:bg-amber-950/20">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 4: Emotional Regulation</span>
+                  <span class="chip-warn text-[11px] py-0.5 px-2">45% · Needs Review</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 25% independence &rarr; Current: 45% &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 75%</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-amber-500 rounded-full transition-all duration-1000" style="width: 45%;"></div>
+                </div>
+              </div>
+
+              <!-- Goal 5: Math Calculation -->
+              <div class="rounded-xl border border-emerald-200 bg-emerald-50/30 p-4 dark:border-emerald-900 dark:bg-emerald-950/20">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 5: Math Multi-Digit Calculation</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">90% · Mastered 🎉</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 60% &rarr; Current: 90% &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 90% (Met)</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-emerald-600 rounded-full transition-all duration-1000" style="width: 90%;"></div>
+                </div>
+              </div>
+
+              <!-- Goal 6: Written Expression -->
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">Goal 6: Written Expression &amp; Structure</span>
+                  <span class="chip-brand text-[11px] py-0.5 px-2">58% · On Track</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">
+                  Baseline: 30% organized &rarr; Current: 58% &rarr; <span class="font-semibold text-ink-800 dark:text-ink-200">Target: 70%</span>
+                </p>
+                <div class="h-2 w-full rounded-full bg-ink-100 overflow-hidden dark:bg-ink-800">
+                  <div class="h-full bg-brand-600 rounded-full transition-all duration-1000" style="width: 58%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Noah's 504 Plan Panel (Hidden by default, toggled via tabs) -->
+          <div id="panelNoahGoals" class="mt-4 space-y-4 hidden">
+            <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-ink-50 p-3 text-xs dark:bg-ink-950">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-ink-900 dark:text-white">Noah Thompson · Grade 2:</span>
+                <span class="text-ink-600 dark:text-ink-300">ADHD Accommodation Plan (Section 504)</span>
+                <span class="text-ink-300">·</span>
+                <span class="font-bold text-brand-600 dark:text-brand-400">4 of 4 Accommodations Active</span>
+              </div>
+              <span class="text-ink-500">Annual 504 Review: Dec 02, 2026</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">1. Preferential Seating</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">100% Implemented</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">Seated near front of classroom away from distracting windows or door traffic.</p>
+              </div>
+
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">2. Extended Time (1.5x)</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">100% Implemented</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">Provided on all standardized assessments and independent writing assignments.</p>
+              </div>
+
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">3. Scheduled Movement Breaks</span>
+                  <span class="chip-brand text-[11px] py-0.5 px-2">90% Implemented</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">Allowed 2-minute stretch breaks every 30 minutes of seatwork.</p>
+              </div>
+
+              <div class="rounded-xl border border-ink-100 bg-white p-4 dark:border-ink-800 dark:bg-ink-900">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-ink-900 dark:text-white">4. Visual Checklist for Tasks</span>
+                  <span class="chip-ok text-[11px] py-0.5 px-2">95% Implemented</span>
+                </div>
+                <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">Laminated desk checklist with dry-erase marker for step-by-step task breakdown.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: QUICK SCHEDULE MEETING ===================== -->
+  <div class="modal fade" id="quickScheduleModal" tabindex="-1" aria-labelledby="quickScheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="quickScheduleModalLabel">
+            Schedule an IEP / 504 Meeting
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <form id="quickScheduleForm" data-validate novalidate>
+            <div class="form-field">
+              <label class="label" for="schedChild">Student Name <span class="req">*</span></label>
+              <select class="select" id="schedChild" data-rules="required" data-label="Student Name" required>
+                <option value="Ava Thompson (Grade 4)">Ava Thompson (Grade 4 · IEP)</option>
+                <option value="Noah Thompson (Grade 2)">Noah Thompson (Grade 2 · 504 Plan)</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="schedType">Meeting Type <span class="req">*</span></label>
+              <select class="select" id="schedType" data-rules="required" data-label="Meeting Type" required>
+                <option value="Annual IEP Review">Annual IEP Review</option>
+                <option value="IEP Amendment Meeting">IEP Amendment Meeting</option>
+                <option value="Evaluation / Triennial Review">Evaluation / Triennial Review</option>
+                <option value="Section 504 Meeting">Section 504 Meeting</option>
+                <option value="Manifestation Determination">Manifestation Determination</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="form-field mb-0">
+                <label class="label" for="schedDate">Proposed Date <span class="req">*</span></label>
+                <input type="date" class="input" id="schedDate" data-rules="required" data-label="Proposed Date" required value="2026-11-25" />
+                <p class="error-msg" data-error></p>
+              </div>
+              <div class="form-field mb-0">
+                <label class="label" for="schedTime">Preferred Time <span class="req">*</span></label>
+                <select class="select" id="schedTime" data-rules="required" data-label="Preferred Time" required>
+                  <option value="9:00 AM">9:00 AM</option>
+                  <option value="10:00 AM" selected>10:00 AM</option>
+                  <option value="1:00 PM">1:00 PM</option>
+                  <option value="2:30 PM">2:30 PM</option>
+                </select>
+                <p class="error-msg" data-error></p>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="schedFormat">Meeting Format <span class="req">*</span></label>
+              <select class="select" id="schedFormat" data-rules="required" data-label="Meeting Format" required>
+                <option value="In-Person at School">In-Person at School</option>
+                <option value="Virtual Zoom Conference">Virtual Zoom Conference</option>
+                <option value="Hybrid (Parent in Person, Advocate Virtual)">Hybrid (Parent in Person, Advocate Virtual)</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="schedNotes">Key Agenda Topics / Concerns</label>
+              <textarea class="textarea" id="schedNotes" rows="3" placeholder="e.g. Review speech therapy progress, adjust resource room hours…"></textarea>
+            </div>
+
+            <div id="schedSuccessMsg" class="hidden rounded-xl bg-emerald-50 p-3 text-xs text-emerald-800 font-bold mb-3 dark:bg-emerald-950 dark:text-emerald-300" data-form-success>
+              ✅ Meeting schedule request submitted to your lead advocate!
+            </div>
+
+            <div class="flex gap-2">
+              <button type="submit" class="btn-primary flex-1">Submit Request</button>
+              <button type="button" class="btn-outline" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: QUICK ADD CASE NOTE ===================== -->
+  <div class="modal fade" id="quickNoteModal" tabindex="-1" aria-labelledby="quickNoteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="quickNoteModalLabel">
+            Add Advocacy Case Note
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-3">
+          <form id="quickNoteForm" data-validate novalidate>
+            <div class="form-field">
+              <label class="label" for="noteChild">Student <span class="req">*</span></label>
+              <select class="select" id="noteChild" data-rules="required" data-label="Student" required>
+                <option value="Ava Thompson">Ava Thompson</option>
+                <option value="Noah Thompson">Noah Thompson</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="noteCategory">Note Category <span class="req">*</span></label>
+              <select class="select" id="noteCategory" data-rules="required" data-label="Note Category" required>
+                <option value="win">Win / Breakthrough</option>
+                <option value="document">Document / Assessment Shared</option>
+                <option value="request">Formal District Request</option>
+                <option value="action" selected>Action Item / Agenda Prep</option>
+              </select>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="noteTitle">Subject / Summary <span class="req">*</span></label>
+              <input type="text" class="input" id="noteTitle" required data-rules="required|minlength:3" data-label="Subject / Summary" placeholder="e.g. Discussed accommodations with Ms. Davis" />
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div class="form-field">
+              <label class="label" for="noteContent">Details &amp; Observations <span class="req">*</span></label>
+              <textarea class="textarea" id="noteContent" rows="3" required data-rules="required|minlength:5" data-label="Details" placeholder="Enter detailed advocacy notes, district comments, or observations…"></textarea>
+              <p class="error-msg" data-error></p>
+            </div>
+
+            <div id="noteSuccessMsg" class="hidden rounded-xl bg-emerald-50 p-3 text-xs text-emerald-800 font-bold mb-3 dark:bg-emerald-950 dark:text-emerald-300" data-form-success>
+              ✅ Case note added to your timeline!
+            </div>
+
+            <div class="flex gap-2">
+              <button type="submit" class="btn-primary flex-1">Save Case Note</button>
+              <button type="button" class="btn-outline" data-bs-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: MEETING DETAIL STRATEGY ===================== -->
+  <div class="modal fade" id="meetingDetailModal" tabindex="-1" aria-labelledby="meetingDetailLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <div>
+            <span class="chip-ok mb-2">Confirmed Meeting</span>
+            <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="meetingDetailLabel">
+              Ava Thompson · Annual IEP Review Strategy
+            </h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body space-y-4 pt-4">
+          <div class="rounded-xl bg-ink-50 p-3 dark:bg-ink-900 text-xs space-y-2">
+            <div><span class="font-bold">Scheduled Time:</span> Wednesday, November 18, 2026 · 10:00 AM – 11:30 AM EST</div>
+            <div><span class="font-bold">Venue:</span> Riverside Elementary, Room 104 (In-Person &amp; Video Link)</div>
+            <div><span class="font-bold">Advocate Attendance:</span> Maya Rodriguez (In-person with parent)</div>
+          </div>
+          <div>
+            <h6 class="font-bold text-xs uppercase tracking-wide text-brand-600 mb-2">Advocate Strategy Checklist</h6>
+            <ul class="text-xs list-disc ps-5 space-y-1.5 text-ink-700 dark:text-ink-300">
+              <li>Formally incorporate 30 minutes/day specialized reading resource room support.</li>
+              <li>Present Dr. Lin's clinical speech evaluation and write measurable articulation goals.</li>
+              <li>Request independent sensory accommodation (noise-canceling headphones for assemblies).</li>
+              <li>Ensure Present Levels of Academic Achievement (PLAAFP) include parent input verbatim.</li>
+            </ul>
+          </div>
+          <div class="flex gap-2 pt-2">
+            <a href="case-notes.html" class="btn-primary btn-sm flex-1 text-center" style="text-decoration:none;">View Related Notes</a>
+            <button class="btn-outline btn-sm" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL: EXPORT REPORT ===================== -->
+  <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content card border-0 p-4 text-center">
+        <div class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand-100 text-brand-700 mb-3 dark:bg-brand-900 dark:text-brand-300">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        </div>
+        <h5 class="modal-title font-display font-bold text-ink-900 dark:text-white" id="exportModalLabel">
+          Export IEP Summary
+        </h5>
+        <p class="text-xs text-ink-500 dark:text-ink-400 mt-1 mb-4">
+          Generate an official compiled PDF of Ava's goal mastery benchmarks, case notes, and scheduled reviews.
+        </p>
+        <button type="button" class="btn-primary btn-sm w-full mb-2" onclick="alert('IEP Progress Summary PDF generated. Download started.');">
+          Download PDF Report
+        </button>
+        <button type="button" class="btn-outline btn-sm w-full" data-bs-dismiss="modal">
+          Dismiss
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MOBILE OFFCANVAS SIDEBAR ===================== -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="dashOffcanvas" aria-labelledby="dashOffcanvasLabel">
+    <div class="offcanvas-header border-b border-ink-100 dark:border-ink-800">
+      <h5 class="offcanvas-title font-display font-bold text-ink-900 dark:text-white" id="dashOffcanvasLabel">
+        Parent Portal Menu
+      </h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-4">
+      <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-600 font-bold text-white flex-shrink-0">PT</span>
+        <div class="min-w-0">
+          <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya Thompson</p>
+          <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava (IEP) &amp; Noah (504)</p>
+        </div>
+      </div>
+      <nav class="space-y-1">
+        <a class="dash-side-link active" href="index.html">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>Dashboard Overview</span>
+        </a>
+        <a class="dash-side-link" href="schedule.html">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span>IEP Meeting Schedules</span>
+        </a>
+        <a class="dash-side-link" href="case-notes.html">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+          <span>Advocacy Case Notes</span>
+        </a>
+        <a class="dash-side-link" href="progress.html">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+          <span>Goal Progress Tracker</span>
+        </a>
+        <a class="dash-side-link" href="profile.html">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          <span>Profile &amp; Settings</span>
+        </a>
+        <div class="divider my-3"></div>
+        <a class="dash-side-link" href="../index.html">
+          <svg class="h-5 w-5 arrow-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>Exit to Public Site</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="border-t border-ink-100 bg-white py-6 dark:border-ink-800 dark:bg-ink-900 mt-12">
+    <div class="container-wide flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-500 dark:text-ink-400">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="flex items-center gap-2 font-display text-sm font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;" title="AegisPoint Advocacy Home">
+          <span class="grid h-8 w-8 place-items-center rounded-lg overflow-hidden shadow-sm flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+            <svg class="h-5 w-5" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+              <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+              <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+            </svg>
+          </span>
+          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        </a>
+        <span class="text-ink-300 dark:text-ink-700">|</span>
+        <p class="mb-0">© <span data-year></span> AegisPoint Advocacy &amp; Consulting. All rights reserved.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <a href="schedule.html" class="hover:text-brand-600">Schedule</a>
+        <a href="case-notes.html" class="hover:text-brand-600">Case Notes</a>
+        <a href="progress.html" class="hover:text-brand-600">Goal Progress</a>
+        <a href="../contact.html" class="hover:text-brand-600">Contact Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/validation.js" defer></script>
+
+  <!-- Interactive Dashboard Controls Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Dynamic Year
+      document.querySelectorAll('[data-year]').forEach(function(el) {
+        el.textContent = new Date().getFullYear();
+      });
+
+      // 2. Student Switcher Tabs (Ava vs Noah)
+      var tabAva = document.getElementById('tabAvaBtn');
+      var tabNoah = document.getElementById('tabNoahBtn');
+      var panelAva = document.getElementById('panelAvaGoals');
+      var panelNoah = document.getElementById('panelNoahGoals');
+
+      if (tabAva && tabNoah && panelAva && panelNoah) {
+        tabAva.addEventListener('click', function() {
+          tabAva.className = 'btn-sm rounded-xl px-4 py-2 font-bold bg-brand-600 text-white shadow-soft transition';
+          tabNoah.className = 'btn-sm rounded-xl px-4 py-2 font-semibold border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50 transition';
+          panelAva.classList.remove('hidden');
+          panelNoah.classList.add('hidden');
+        });
+
+        tabNoah.addEventListener('click', function() {
+          tabNoah.className = 'btn-sm rounded-xl px-4 py-2 font-bold bg-brand-600 text-white shadow-soft transition';
+          tabAva.className = 'btn-sm rounded-xl px-4 py-2 font-semibold border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50 transition';
+          panelNoah.classList.remove('hidden');
+          panelAva.classList.add('hidden');
+        });
+      }
+
+      // 3. Case Notes Category Filter
+      var filterButtons = document.querySelectorAll('[data-note-filter]');
+      var noteCards = document.querySelectorAll('.note-card');
+      var searchInput = document.getElementById('noteSearchInput');
+
+      function filterNotes() {
+        var activeFilter = document.querySelector('[data-note-filter].bg-brand-600') ? document.querySelector('[data-note-filter].bg-brand-600').getAttribute('data-note-filter') : 'all';
+        var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        noteCards.forEach(function(card) {
+          var cat = card.getAttribute('data-category');
+          var text = card.textContent.toLowerCase();
+          var matchesFilter = (activeFilter === 'all' || cat === activeFilter);
+          var matchesQuery = (query === '' || text.indexOf(query) !== -1);
+
+          if (matchesFilter && matchesQuery) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      filterButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterButtons.forEach(function(b) {
+            b.className = 'btn-sm rounded-full px-3 py-1 text-xs font-medium border border-ink-200 dark:border-ink-800 text-ink-600 dark:text-ink-300 hover:bg-brand-50';
+          });
+          btn.className = 'btn-sm rounded-full px-3 py-1 text-xs font-bold bg-brand-600 text-white';
+          filterNotes();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', filterNotes);
+      }
+
+      // 4. Quick Schedule Form Submission
+      var schedForm = document.getElementById('quickScheduleForm');
+      if (schedForm) {
+        schedForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var successMsg = document.getElementById('schedSuccessMsg');
+          if (successMsg) {
+            successMsg.classList.remove('hidden');
+          }
+          setTimeout(function() {
+            var modal = bootstrap.Modal.getInstance(document.getElementById('quickScheduleModal'));
+            if (modal) modal.hide();
+            if (successMsg) successMsg.classList.add('hidden');
+            schedForm.reset();
+          }, 1400);
+        });
+      }
+
+      // 5. Quick Add Case Note Form Submission
+      var noteForm = document.getElementById('quickNoteForm');
+      if (noteForm) {
+        noteForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var title = document.getElementById('noteTitle').value;
+          var content = document.getElementById('noteContent').value;
+          var category = document.getElementById('noteCategory').value;
+          var child = document.getElementById('noteChild').value;
+
+          var successMsg = document.getElementById('noteSuccessMsg');
+          if (successMsg) successMsg.classList.remove('hidden');
+
+          // Prepend new note card to the feed
+          var feed = document.getElementById('caseNotesFeed');
+          if (feed) {
+            var newCard = document.createElement('div');
+            newCard.className = 'note-card rounded-xl border border-brand-200 bg-brand-50/20 p-4 transition dark:border-brand-800 dark:bg-ink-900';
+            newCard.setAttribute('data-category', category);
+            var badgeText = category === 'win' ? '🎉 Win' : (category === 'document' ? '📄 Document' : (category === 'request' ? '✉️ Request' : '🎯 Action'));
+            newCard.innerHTML = '<div class="flex flex-wrap items-center justify-between gap-2 mb-2">' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="chip-brand text-[11px] py-0.5 px-2 font-bold">' + badgeText + '</span>' +
+                '<span class="text-xs font-bold text-ink-900 dark:text-white">' + child + '</span>' +
+                '<span class="text-xs text-ink-400">· Just Now</span>' +
+              '</div>' +
+              '<span class="text-xs text-ink-500 font-medium">Logged by Priya Thompson (Parent)</span>' +
+            '</div>' +
+            '<h4 class="text-sm font-bold text-ink-900 dark:text-white mb-1">' + title + '</h4>' +
+            '<p class="text-xs text-ink-600 dark:text-ink-300 mb-0 leading-relaxed">' + content + '</p>';
+            feed.insertBefore(newCard, feed.firstChild);
+          }
+
+          setTimeout(function() {
+            var modal = bootstrap.Modal.getInstance(document.getElementById('quickNoteModal'));
+            if (modal) modal.hide();
+            if (successMsg) successMsg.classList.add('hidden');
+            noteForm.reset();
+          }, 1200);
+        });
+      }
+
+      // 6. RTL Offcanvas Sync on Direction Toggle
+      document.addEventListener('dirchange', function(e) {
+        var isRtl = e.detail.dir === 'rtl';
+        var offcanvas = document.getElementById('dashOffcanvas');
+        if (offcanvas) {
+          if (isRtl) {
+            offcanvas.classList.remove('offcanvas-start');
+            offcanvas.classList.add('offcanvas-end');
+          } else {
+            offcanvas.classList.remove('offcanvas-end');
+            offcanvas.classList.add('offcanvas-start');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

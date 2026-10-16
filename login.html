@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <link rel="alternate icon" href="favicon.svg" />
+
+  <title>Parent Portal Sign In | AegisPoint Advocacy</title>
+  <meta name="description" content="Sign in to your AegisPoint Advocacy Parent Portal to access your child's IEP tracker and case notes." />
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50:'#f0fafa', 100:'#d0f0ef', 600:'#148d8b', 700:'#107472' },
+            accent: { 500:'#f98307' }
+          },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      background: #0f172a;
+    }
+    /* Background image with overlay */
+    .bg-cover {
+      position: fixed;
+      inset: 0;
+      background-image: url('assets/images/Parent Portal Sign In.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(6px) brightness(0.35);
+      z-index: 0;
+      transform: scale(1.05);
+    }
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(20,141,139,.55) 0%, rgba(15,23,42,.8) 100%);
+      z-index: 1;
+    }
+    /* Decorative blobs */
+    .blob-1 {
+      position: fixed;
+      top: -120px;
+      left: -120px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(20,141,139,.35) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .blob-2 {
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(249,131,7,.2) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #148d8b, #f98307); z-index: 9999; transition: width 0.1s; }
+    .login-wrapper { position: relative; z-index: 10; width: 100%; max-width: 460px; padding: 1.5rem; }
+    .login-card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 1.25rem;
+      box-shadow: 0 32px 80px rgba(0,0,0,.35), 0 0 0 1px rgba(20,141,139,.1);
+      padding: 2.5rem;
+      backdrop-filter: blur(20px);
+    }
+    [data-theme="dark"] .login-card { background: rgba(15,23,42,.96); border: 1px solid #334155; }
+    .logo-wrap { display: flex; align-items: center; gap: .75rem; justify-content: center; margin-bottom: 1.75rem; text-decoration: none; }
+    .logo-icon { width: 44px; height: 44px; background: #148d8b; border-radius: .875rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-name { font-weight: 800; font-size: 1.25rem; color: #0f172a; line-height: 1; }
+    [data-theme="dark"] .logo-name { color: #f1f5f9; }
+    .logo-sub { font-weight: 700; font-size: .7rem; color: #148d8b; letter-spacing: .08em; text-transform: uppercase; }
+    h1.portal-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; text-align: center; margin-bottom: .5rem; }
+    [data-theme="dark"] h1.portal-title { color: #f1f5f9; }
+    .portal-sub { font-size: .9rem; color: #64748b; text-align: center; margin-bottom: 2rem; line-height: 1.6; }
+    .label { display: block; font-size: .875rem; font-weight: 600; color: #334155; margin-bottom: .375rem; }
+    [data-theme="dark"] .label { color: #cbd5e1; }
+    .input-wrap { position: relative; }
+    .input {
+      width: 100%; padding: .75rem 1rem; border: 1.5px solid #e2e8f0; border-radius: .625rem;
+      font-size: .9375rem; font-family: 'Plus Jakarta Sans', sans-serif; background: #fff;
+      color: #1e293b; transition: border-color .2s, box-shadow .2s;
+    }
+    .input:focus { outline: none; border-color: #148d8b; box-shadow: 0 0 0 3px rgba(20,141,139,.12); }
+    [data-theme="dark"] .input { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+    [data-theme="dark"] .input:focus { border-color: #35aeac; }
+    .input.invalid { border-color: #ef4444; }
+    .input-pw { padding-right: 3rem; }
+    .pw-toggle {
+      position: absolute; right: .875rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #94a3b8; padding: 0; display: flex;
+    }
+    [dir="rtl"] .pw-toggle { right: auto; left: .875rem; }
+    .pw-toggle:hover { color: #148d8b; }
+    .error-msg { display: none; font-size: .8rem; color: #ef4444; margin-top: .25rem; }
+    .error-msg.show { display: block; }
+    .btn-primary {
+      background: #148d8b; color: #fff; border: none; border-radius: .625rem;
+      font-weight: 700; padding: .75rem 1.5rem; font-size: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background .2s, transform .1s;
+      width: 100%; text-align: center;
+    }
+    .btn-primary:hover { background: #107472; transform: translateY(-1px); }
+    .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; color: #94a3b8; font-size: .8rem; font-weight: 600; }
+    .divider::before, .divider::after { content: ''; flex: 1; border-top: 1px solid #e2e8f0; }
+    [data-theme="dark"] .divider::before, [data-theme="dark"] .divider::after { border-color: #334155; }
+    .link-action { color: #148d8b; text-decoration: none; font-weight: 600; font-size: .875rem; }
+    .link-action:hover { text-decoration: underline; }
+    .success-msg { display: none; background: #f0fafa; border: 1px solid #35aeac; border-radius: .75rem; padding: 1.25rem; color: #148d8b; font-weight: 600; text-align: center; margin-top: 1rem; }
+    .success-msg.show { display: block; }
+    .login-intimation {
+      display: none;
+      background: #ecfdf5;
+      border: 1.5px solid #10b981;
+      border-radius: .875rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      color: #065f46;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+    }
+    @keyframes bannerFadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .login-intimation.show { display: block; animation: bannerFadeIn .3s ease-out; }
+    .login-intimation .intimation-title { font-weight: 800; font-size: 1rem; color: #065f46; display: flex; align-items: center; gap: .5rem; }
+    .login-intimation .intimation-sub { font-size: .85rem; color: #047857; margin-top: .25rem; }
+    [data-theme="dark"] .login-intimation { background: rgba(6,78,59,.45); border-color: #059669; color: #a7f3d0; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+    [data-theme="dark"] .login-intimation .intimation-title { color: #6ee7b7; }
+    [data-theme="dark"] .login-intimation .intimation-sub { color: #a7f3d0; }
+    .cta-below { text-align: center; margin-top: 1.75rem; color: rgba(255,255,255,.75); font-size: .9rem; }
+    .cta-below a { color: #fff; font-weight: 700; text-decoration: underline; }
+    .cta-below a:hover { color: #a2e1e0; }
+    .copyright-line { position: relative; z-index: 10; text-align: center; color: rgba(255,255,255,.35); font-size: .75rem; margin-top: .75rem; padding-bottom: 1.5rem; }
+    .theme-btn { position: fixed; top: 1rem; right: 1rem; z-index: 100; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: .5rem; padding: .5rem; cursor: pointer; color: #fff; backdrop-filter: blur(8px); display: flex; }
+    .theme-btn:hover { background: rgba(255,255,255,.25); }
+    .form-field { margin-bottom: 1.25rem; }
+    .check-row { display: flex; align-items: flex-start; gap: .625rem; }
+    .check-row input[type="checkbox"] { margin-top: 2px; accent-color: #148d8b; width: 15px; height: 15px; flex-shrink: 0; }
+    .check-label { font-size: .85rem; color: #475569; cursor: pointer; line-height: 1.5; }
+    [data-theme="dark"] .check-label { color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div id="scroll-progress" style="width:0"></div>
+<script>
+  window.addEventListener('scroll', function() {
+    var el = document.getElementById('scroll-progress');
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    el.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+  });
+</script>
+
+<!-- Background -->
+<div class="bg-cover" aria-hidden="true"></div>
+<div class="bg-overlay" aria-hidden="true"></div>
+<div class="blob-1" aria-hidden="true"></div>
+<div class="blob-2" aria-hidden="true"></div>
+
+<!-- Top Navigation & Controls Bar -->
+<div class="position-fixed top-0 start-0 w-100 p-3 d-flex justify-content-between align-items-center" style="z-index:100;pointer-events:none;">
+  <a href="index.html" class="btn btn-sm text-white text-decoration-none d-flex align-items-center gap-1" style="pointer-events:auto;background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-flip"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>Back to Website</span>
+  </a>
+  <div class="d-flex gap-2" style="pointer-events:auto;">
+    <button type="button" class="btn btn-sm text-white fw-bold" data-dir-toggle title="Toggle RTL/LTR" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
+      <span data-dir-label>RTL</span>
+    </button>
+    <button type="button" class="btn btn-sm text-white" data-theme-toggle title="Toggle dark mode" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===== LOGIN CARD ===== -->
+<main class="login-wrapper">
+  <div class="login-card">
+    <!-- Logo -->
+    <a href="index.html" class="logo-wrap">
+      <div class="logo-icon" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);border-radius:.875rem;box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+          <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
+          <path d="M16 11.5 L22 16.5 L19.2 16.5 L16 14 L12.8 16.5 L10 16.5 Z" fill="#ffffff" opacity="0.9"/>
+          <path d="M16 10.5 L17.8 16.5 L23.8 18 L17.8 19.5 L16 25.5 L14.2 19.5 L8.2 18 L14.2 16.5 Z" fill="#fbbf24"/>
+          <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-name">AegisPoint</div>
+        <div class="logo-sub">Advocacy</div>
+      </div>
+    </a>
+
+    <!-- Heading -->
+    <h1 class="portal-title">Parent Portal Sign In</h1>
+    <p class="portal-sub">Access your child's IEP tracker, case notes, and upcoming meeting schedule.</p>
+
+    <!-- Login Success Intimation Banner -->
+    <div id="loginSuccessBanner" class="login-intimation" role="alert">
+      <div class="d-flex align-items-start justify-content-between gap-2">
+        <div class="d-flex align-items-start gap-2.5">
+          <span style="font-size:1.35rem;line-height:1;">✅</span>
+          <div>
+            <div class="intimation-title">Login successfully</div>
+            <div class="intimation-sub">You have signed in successfully. Welcome back to your Parent Portal!</div>
+          </div>
+        </div>
+        <button type="button" class="btn-close ms-2" aria-label="Close" onclick="dismissIntimation()" style="font-size:.7rem;"></button>
+      </div>
+    </div>
+
+    <!-- Quick Demo Access Callout -->
+    <div class="demo-access-callout mb-4 p-3 rounded-3 text-center" style="background:#effffe;border:1.5px dashed #148d8b;">
+      <div class="small fw-semibold mb-2" style="color:#0f7170;">Reviewing or testing the Parent Portal?</div>
+      <a href="dashboard/index.html" class="btn btn-sm text-white d-inline-flex align-items-center justify-content-center gap-1.5 px-3 py-1.5 text-decoration-none" style="background:#148d8b;border-radius:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Open Parent Dashboard Directly →</span>
+      </a>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" novalidate>
+      <div class="form-field">
+        <label class="label" for="loginEmail">Email Address <span class="req">*</span></label>
+        <input class="input" type="email" id="loginEmail" name="loginEmail" placeholder="jane@example.com" required data-rules="required|email" autocomplete="email" />
+        <div class="error-msg" id="loginEmail-error">Enter a valid email address (e.g. name@example.com).</div>
+      </div>
+
+      <div class="form-field">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <label class="label mb-0" for="loginPassword">Password <span class="req">*</span></label>
+          <a href="#" class="link-action" style="font-size:.8rem;">Forgot password?</a>
+        </div>
+        <div class="input-wrap">
+          <input class="input input-pw" type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required data-rules="required|passwordBasic" autocomplete="current-password" />
+          <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show/hide password">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="eye-show"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="eye-hide" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="error-msg" id="loginPassword-error">Please enter your password (at least 6 characters).</div>
+      </div>
+
+      <div class="form-field">
+        <div class="check-row">
+          <input type="checkbox" id="keepSignedIn" name="keepSignedIn" />
+          <label class="check-label" for="keepSignedIn">Keep me signed in on this device</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Sign in to Portal</button>
+      <p class="success-msg" data-form-success>
+        ✅ Login successfully! Redirecting…
+      </p>
+    </form>
+
+    <!-- Divider -->
+    <div class="divider">or</div>
+
+    <!-- Links -->
+    <div class="text-center d-flex flex-column gap-2">
+      <div style="font-size:.875rem;color:#64748b;">
+        Don't have an account?
+        <a href="contact.html" class="link-action ms-1">Request access →</a>
+      </div>
+      <a href="index.html" class="link-action" style="color:#94a3b8;">
+        ← Back to website
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA Below Card -->
+  <div class="cta-below">
+    Don't have an account yet?
+    <a href="contact.html">Book a free consultation</a>
+  </div>
+
+  <!-- Copyright -->
+  <div class="copyright-line">
+    © <span data-year></span> AegisPoint Advocacy. All rights reserved.
+  </div>
+</main>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- App JS -->
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/validation.js" defer></script>
+
+<script>
+  // Year
+  document.querySelectorAll('[data-year]').forEach(function(el) { el.textContent = new Date().getFullYear(); });
+
+  // RTL / LTR toggle
+  document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+      var next = isRtl ? 'ltr' : 'rtl';
+      document.documentElement.setAttribute('dir', next);
+      document.documentElement.setAttribute('lang', next === 'rtl' ? 'ar' : 'en');
+      var label = btn.querySelector('[data-dir-label]') || btn;
+      if (label) label.textContent = next === 'rtl' ? 'LTR' : 'RTL';
+      try { localStorage.setItem('iep-dir', next); } catch(e) {}
+    });
+  });
+
+  // Dark mode toggle
+  document.querySelectorAll('[data-theme-toggle]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark' || document.documentElement.classList.contains('dark');
+      var next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      document.documentElement.classList.toggle('dark', next === 'dark');
+      document.querySelectorAll('.moon-icon').forEach(function(el) { el.style.display = next === 'dark' ? 'none' : ''; });
+      document.querySelectorAll('.sun-icon').forEach(function(el) { el.style.display = next === 'dark' ? '' : 'none'; });
+      try { localStorage.setItem('iep-theme', next); } catch(e) {}
+    });
+  });
+
+  // Password toggle
+  var pwToggle = document.getElementById('pwToggle');
+  var pwInput = document.getElementById('loginPassword');
+  if (pwToggle && pwInput) {
+    pwToggle.addEventListener('click', function() {
+      var isPass = pwInput.type === 'password';
+      pwInput.type = isPass ? 'text' : 'password';
+      pwToggle.querySelector('.eye-show').style.display = isPass ? 'none' : '';
+      pwToggle.querySelector('.eye-hide').style.display = isPass ? '' : 'none';
+    });
+  }
+
+  // Intimation dismiss helper
+  function dismissIntimation() {
+    var banner = document.getElementById('loginSuccessBanner');
+    if (banner) banner.classList.remove('show');
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+  window.dismissIntimation = dismissIntimation;
+
+  // Check URL parameters on load for redirect intimation
+  (function checkLoginParam() {
+    var isSuccess = false;
+    try {
+      var params = new URLSearchParams(window.location.search);
+      isSuccess = params.get('login') === 'success' || params.get('status') === 'success';
+    } catch(e) {
+      isSuccess = window.location.search.indexOf('login=success') !== -1 || window.location.search.indexOf('status=success') !== -1;
+    }
+    if (isSuccess) {
+      var banner = document.getElementById('loginSuccessBanner');
+      if (banner) {
+        banner.classList.add('show');
+        try {
+          banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch(e) {}
+      }
+    }
+  })();
+
+</script>
+
+</body>
+</html>
