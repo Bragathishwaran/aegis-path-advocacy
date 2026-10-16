@@ -258,17 +258,23 @@ function validateProfile(data = {}) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = {
-    PATTERNS,
-    MESSAGES,
-    validateName,
-    validateMobile,
-    validateEmail,
-    validateAge,
-    validateContactForm,
-    validateConsultationForm,
-    validateNewsletter,
-    validateLogin,
-    validateProfile
-  };
+  function handler(req, res) {
+    if (res && typeof res.status === "function") {
+      return res.status(200).json({ ok: true, service: "AegisPoint Validator API" });
+    }
+  }
+
+  handler.PATTERNS = PATTERNS;
+  handler.MESSAGES = MESSAGES;
+  handler.validateName = validateName;
+  handler.validateMobile = validateMobile;
+  handler.validateEmail = validateEmail;
+  handler.validateAge = validateAge;
+  handler.validateContactForm = validateContactForm;
+  handler.validateConsultationForm = validateConsultationForm;
+  handler.validateNewsletter = validateNewsletter;
+  handler.validateLogin = validateLogin;
+  handler.validateProfile = validateProfile;
+
+  module.exports = handler;
 }
