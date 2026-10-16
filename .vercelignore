@@ -3,5 +3,4 @@ node_modules
 .gemini
 test/
 data
-dist
 .vercel
