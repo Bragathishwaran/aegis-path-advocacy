@@ -14,6 +14,23 @@
   --bs-border-radius: 0.75rem;
   --bs-border-radius-lg: 1rem;
   --bs-border-radius-xl: 1.25rem;
+
+  /* ── Theme tokens · LIGHT (Executive Calm & Clarity) ─────────────── */
+  --bg-primary: #F8F9FA;      /* Soft off-white canvas */
+  --bg-surface: #FFFFFF;      /* Crisp white cards & containers */
+  --bg-subtle: #F1F3F5;       /* Light borders & inputs */
+
+  --text-main: #111827;       /* Near black for crisp readability */
+  --text-muted: #4B5563;      /* Professional slate gray for descriptions */
+  --text-subtle: #9CA3AF;     /* Placeholder & secondary text */
+
+  --brand-primary: #0A2540;   /* Deep Trust Navy */
+  --brand-secondary: #0D9488; /* Deep Emerald/Teal (logo accent) */
+  --brand-accent: #D97706;    /* Warm Champagne Gold */
+
+  --border-color: #E5E7EB;    /* Clean subtle border */
+  --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
 }
 
 /* ── RTL/LTR core flip rules ─────────────────────────────────────── */
@@ -1086,6 +1103,29 @@ body[data-theme="dark"] {
   --bs-border-color-translucent: rgba(255, 255, 255, 0.1) !important;
 }
 
+/* ── Theme tokens · DARK (Midnight Executive & Secure Vault) ─────── */
+html.dark,
+html[data-theme="dark"],
+.dark-theme,
+body.dark,
+body[data-theme="dark"] {
+  --bg-primary: #0B0F19;      /* Rich obsidian dark background */
+  --bg-surface: #111827;      /* Deep charcoal card containers */
+  --bg-subtle: #1F2937;       /* Elevated borders & inputs */
+
+  --text-main: #F9FAFB;       /* Soft pristine white */
+  --text-muted: #9CA3AF;      /* Muted light gray */
+  --text-subtle: #6B7280;     /* Low-contrast details */
+
+  --brand-primary: #38BDF8;   /* Luminous Ice Blue for headers */
+  --brand-secondary: #14B8A6; /* Vibrant Teal for interactive states */
+  --brand-accent: #FBBF24;    /* Glowing Gold for stars/accents */
+
+  --border-color: #374151;    /* Dark-mode refined border */
+  --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
 /* 2. Overriding Bootstrap's !important .bg-white and .bg-light in Dark Mode */
 .dark .bg-white,
 [data-theme="dark"] .bg-white,
@@ -1930,4 +1970,172 @@ img {
   transform: scale3d(1.05, 1.05, 1) translateZ(0) !important;
   -webkit-transform: scale3d(1.05, 1.05, 1) translateZ(0) !important;
 }
+
+/* ===================================================================
+   THEME TOKEN BRIDGE
+   Wires the design tokens above into the core UI surfaces so the whole
+   site follows the Light / Dark palettes consistently. Placed last so it
+   wins over Tailwind utilities and Bootstrap component styles; authored
+   with !important so it also wins over equal-specificity dark variants
+   and per-page inline <style> blocks.
+=================================================================== */
+
+/* --- 1. Canvas ---------------------------------------------------- */
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- 2. Cards, containers & surfaces ------------------------------ */
+.card,
+.contact-form-container,
+.dash-card,
+.dash-pillar,
+.modal-content,
+.dropdown-menu,
+.accordion-item,
+.offcanvas,
+.service-showcase-card,
+.pillar-card,
+.pricing-card,
+.blog-card,
+.feature-card,
+.team-card,
+.value-card,
+.phase-card,
+.persona-card,
+.testimonial-card,
+.quick-card,
+.consult-card,
+.topic-card,
+.popular-card {
+  background-color: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-subtle);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- 3. Primary button ------------------------------------------- */
+.btn-primary {
+  background-color: var(--brand-secondary) !important;
+  border-color: var(--brand-secondary) !important;
+  color: #ffffff !important;
+  box-shadow: var(--shadow-subtle);
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+}
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--brand-secondary) !important;
+  border-color: var(--brand-secondary) !important;
+  filter: brightness(1.08);
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-2px);
+}
+.btn-primary:active {
+  filter: brightness(0.94);
+  box-shadow: var(--shadow-subtle);
+  transform: translateY(0);
+}
+
+/* --- 4. Inputs, selects & textareas ------------------------------ */
+.input,
+.textarea,
+.select,
+.form-control,
+.form-select,
+textarea,
+select,
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="color"]):not([type="file"]) {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-color) !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.input::placeholder,
+.textarea::placeholder,
+.form-control::placeholder,
+textarea::placeholder,
+input::placeholder {
+  color: var(--text-subtle) !important;
+}
+.input:focus,
+.textarea:focus,
+.select:focus,
+.form-control:focus,
+.form-select:focus,
+textarea:focus,
+select:focus,
+input:focus {
+  border-color: var(--brand-secondary) !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25) !important;
+  outline: none !important;
+}
+
+/* --- 5. Home page accents & helpers ------------------------------ */
+/* Stats counter gradient follows the brand tokens */
+.stat-value {
+  background-image: linear-gradient(135deg, var(--brand-secondary) 0%, var(--brand-accent) 100%) !important;
+}
+
+/* Service card footer divider + tag text follow the border/text tokens */
+.service-card-footer {
+  border-top-color: var(--border-color) !important;
+}
+.service-footer-tag {
+  color: var(--text-muted) !important;
+}
+
+/* Inline service-card action chips use the brand secondary token */
+.service-card-btn,
+.btn-card-action,
+.dark .service-card-btn,
+.dark .btn-card-action,
+[data-theme="dark"] .service-card-btn,
+[data-theme="dark"] .btn-card-action {
+  background-color: var(--brand-secondary) !important;
+  color: #ffffff !important;
+}
+.service-card-btn:hover,
+.btn-card-action:hover,
+.service-showcase-card:hover .service-card-btn,
+.service-showcase-card:hover .btn-card-action {
+  background-color: var(--brand-secondary) !important;
+  filter: brightness(1.1);
+}
+
+/* Soften the decorative hero gradient blobs in dark mode */
+html.dark .hero-blob,
+[data-theme="dark"] .hero-blob {
+  opacity: 0.2 !important;
+}
+
+/* --- 6. Section header centering --------------------------------- */
+/* A centered section header (.text-center) holds an eyebrow, a title and a
+   subtitle. The subtitle is a capped-width block (max-w-2xl); without auto
+   side margins it stays left-anchored inside a full-width wrapper, so its
+   text centers slightly left of the title. Auto-center it in every centered
+   header, while leaving responsive left-aligned heroes (.text-lg-start)
+   untouched. */
+.text-center:not(.text-lg-start) .section-sub {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* --- 7. Dashboard responsive header ------------------------------- */
+/* On phones the header actions (RTL, theme, Menu) plus the full wordmark
+   are wider than the viewport, which forces a horizontal scroll and knocks
+   every card out of alignment. Drop the wordmark and tighten the gap below
+   the sm breakpoint so the bar (and all section cards) stay in-viewport. */
+@media (max-width: 639.98px) {
+  .dash-header .container-wide > .flex {
+    gap: 0.5rem;
+  }
+  .dash-header .container-wide > .flex > a.font-display > span:last-child {
+    display: none;
+  }
+}
+
 

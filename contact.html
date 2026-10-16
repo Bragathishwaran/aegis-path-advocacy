@@ -203,7 +203,6 @@
         <a class="nav-link" href="pricing.html">Pricing</a>
         <a class="nav-link" href="blog.html">Blog</a>
         <a class="nav-link nav-link-active" href="contact.html" aria-current="page">Contact</a>
-        <a class="nav-link" href="dashboard/index.html">Dashboard</a>
       </nav>
 
       <!-- Right Controls / Header actions -->
@@ -223,7 +222,7 @@
           <span>Dashboard</span>
         </a>
         <!-- Parent Login -->
-        <a href="login.html" class="btn-outline btn-sm hidden md:inline-flex" style="text-decoration:none;">Login</a>
+        <a href="login.html" class="btn-outline btn-sm hidden sm:inline-flex" style="text-decoration:none;">Login</a>
         <!-- Mobile Hamburger Toggle -->
         <button type="button" data-menu-toggle class="icon-btn lg:hidden" aria-expanded="false" title="Open menu">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -248,7 +247,6 @@
         <a class="nav-link" href="pricing.html">Pricing</a>
         <a class="nav-link" href="blog.html">Blog</a>
         <a class="nav-link nav-link-active" href="contact.html" aria-current="page">Contact</a>
-        <a class="nav-link font-bold text-brand-600 dark:text-brand-300" href="dashboard/index.html">Parent Dashboard</a>
         <a class="btn-primary mt-2 flex items-center justify-center gap-2" href="dashboard/index.html" style="text-decoration:none;">
           <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
           <span>Open Dashboard</span>
@@ -265,11 +263,6 @@
     <div class="row align-items-center g-4 g-lg-5">
       <!-- Left: Heading & Intro -->
       <div class="col-lg-7">
-        <div class="breadcrumb-custom mb-3">
-          <a href="index.html">Home</a>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          <span>Contact</span>
-        </div>
         <div class="eyebrow mb-2">Parent Advocacy Support Desk</div>
         <h1 class="section-title mb-3" style="font-size:clamp(1.85rem, 5vw, 3rem); line-height: 1.18;">Get in touch with our <br class="d-none d-md-block"/>advocacy team</h1>
         <p class="section-sub mb-4" style="max-width:580px;">Whether you have a question about IEP services, need help preparing for an upcoming meeting, or are ready to start your advocacy journey — we're here for your family every step of the way.</p>
@@ -755,13 +748,12 @@
 </section>
 
 <!-- ===== FOOTER ===== -->
-<footer class="pt-5 pb-4">
-  <div class="container-xl px-4">
-    <div class="row g-5 mb-5">
-      <!-- Brand -->
-      <div class="col-lg-4 col-md-6">
-        <a href="index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white mb-3" style="text-decoration:none;">
-          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
+<footer class="border-t border-ink-100 bg-white dark:border-ink-800 dark:bg-ink-900">
+  <div class="container-wide py-14">
+    <div class="row g-4 g-lg-5">
+      <div class="col-12 col-md-6 col-lg-3">
+        <a href="index.html" class="flex items-center gap-2.5 font-display text-lg font-extrabold text-ink-900 dark:text-white" style="text-decoration:none;">
+          <span class="grid h-10 w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20" style="background:linear-gradient(135deg,#14b8a6 0%,#0f766e 55%,#115e59 100%);">
             <svg class="h-6 w-6" viewBox="0 0 32 32" fill="none">
               <path d="M16 3.5 L26.5 7.5 C26.5 16.5 22 23.5 16 27.5 C10 23.5 5.5 16.5 5.5 7.5 Z" fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
               <path d="M16 6.8 L23.5 12.8 L20.2 12.8 L16 9.5 L11.8 12.8 L8.5 12.8 Z" fill="#ffffff"/>
@@ -772,61 +764,59 @@
           </span>
           <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
         </a>
-        <p style="font-size:.875rem;line-height:1.7;color:#64748b;">Empowering families to navigate special education with confidence, clarity, and compassion.</p>
-        <div class="d-flex gap-2 mt-3">
-          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="icon-btn" style="border-color:#334155;color:#64748b;" aria-label="Facebook">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="icon-btn" style="border-color:#334155;color:#64748b;" aria-label="Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          </a>
-          <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="icon-btn" style="border-color:#334155;color:#64748b;" aria-label="Twitter/X">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn" style="border-color:#334155;color:#64748b;" aria-label="LinkedIn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
+        <p class="mt-4 text-sm leading-relaxed text-ink-500 dark:text-ink-400">Special education advocacy and IEP consulting that keeps families informed, empowered and heard.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="Facebook"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="Instagram"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="X"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="LinkedIn"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
       </div>
-      <!-- Company -->
-      <div class="col-lg-2 col-md-6 col-6">
-        <div class="footer-brand-text mb-3" style="font-size:.9rem;font-weight:700;">Company</div>
-        <div class="d-flex flex-column gap-2" style="font-size:.875rem;">
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="pricing.html">Pricing</a>
-          <a href="blog.html">Blog</a>
-          <a href="contact.html">Contact</a>
-        </div>
+      <div class="col-6 col-lg-3">
+        <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Navigation</h3>
+        <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
+          <li><a class="hover:text-brand-600" href="index.html" style="color:inherit;text-decoration:none;">Home 1 &mdash; Family Advocacy</a></li>
+          <li><a class="hover:text-brand-600" href="home-2.html" style="color:inherit;text-decoration:none;">Home 2 &mdash; Strategic Solutions</a></li>
+          <li><a class="hover:text-brand-600" href="about.html" style="color:inherit;text-decoration:none;">About us</a></li>
+          <li><a class="hover:text-brand-600" href="services.html" style="color:inherit;text-decoration:none;">Services</a></li>
+          <li><a class="hover:text-brand-600" href="pricing.html" style="color:inherit;text-decoration:none;">Pricing</a></li>
+          <li><a class="hover:text-brand-600" href="blog.html" style="color:inherit;text-decoration:none;">Blog</a></li>
+        </ul>
       </div>
-      <!-- Support -->
-      <div class="col-lg-2 col-md-6 col-6">
-        <div class="footer-brand-text mb-3" style="font-size:.9rem;font-weight:700;">Support</div>
-        <div class="d-flex flex-column gap-2" style="font-size:.875rem;">
-          <a href="login.html">Parent Login</a>
-          <a href="coming-soon.html">IEP Tracker</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="404.html">Sitemap</a>
-        </div>
+      <div class="col-6 col-lg-3">
+        <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Support</h3>
+        <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
+          <li><a class="hover:text-brand-600" href="contact.html" style="color:inherit;text-decoration:none;">Contact us</a></li>
+          <li><a class="hover:text-brand-600" href="login.html" style="color:inherit;text-decoration:none;">Parent portal</a></li>
+          <li><a class="hover:text-brand-600" href="dashboard/index.html" style="color:inherit;text-decoration:none;">Parent dashboard</a></li>
+          <li><a class="hover:text-brand-600" href="service-details.html" style="color:inherit;text-decoration:none;">FAQ</a></li>
+          <li><a class="hover:text-brand-600" href="coming-soon.html" style="color:inherit;text-decoration:none;">Coming soon</a></li>
+        </ul>
       </div>
-      <!-- Newsletter -->
-      <div class="col-lg-4 col-md-6">
-        <div class="footer-brand-text mb-3" style="font-size:.9rem;font-weight:700;">Stay in the Loop</div>
-        <p style="font-size:.875rem;color:#64748b;margin-bottom:1rem;">Get monthly IEP tips and advocacy resources delivered to your inbox.</p>
-        <div class="d-flex flex-column flex-sm-row gap-2">
-          <input type="email" class="footer-input w-100 flex-grow-1" placeholder="Your email address" />
-          <button class="btn-primary w-100 w-sm-auto flex-shrink-0" style="padding:.625rem 1.25rem;font-size:.875rem;">Subscribe</button>
-        </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Get updates</h3>
+        <p class="mt-4 text-sm text-ink-500 dark:text-ink-400">Monthly advocacy tips. No spam.</p>
+        <form data-validate class="mt-3">
+          <div class="form-field">
+            <label class="sr-only" for="nl-email">Email</label>
+            <div class="flex gap-2">
+              <input id="nl-email" name="newsletterEmail" class="input" type="email" placeholder="you@example.com" data-rules="required|email" data-label="Email" />
+              <button class="btn-primary shrink-0" type="submit">Join</button>
+            </div>
+            <p class="error-msg" data-error></p>
+            <p data-form-success class="mt-2 hidden text-xs font-medium text-emerald-600 dark:text-emerald-400">Subscribed. Thank you!</p>
+          </div>
+        </form>
       </div>
     </div>
-    <!-- Bottom Bar -->
-    <div class="border-top pt-4 d-flex flex-wrap align-items-center justify-content-between gap-3" style="border-color:#1e293b !important;">
-      <div style="font-size:.8rem;color:#475569;">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</div>
-      <div class="d-flex gap-4" style="font-size:.8rem;">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Sitemap</a>
+  </div>
+  <div class="border-t border-ink-100 dark:border-ink-800">
+    <div class="container-wide flex flex-col items-center justify-between gap-3 py-5 text-xs text-ink-400 sm:flex-row">
+      <p class="mb-0">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</p>
+      <div class="flex gap-5">
+        <a class="hover:text-brand-600" href="#" style="color:inherit;text-decoration:none;">Privacy</a>
+        <a class="hover:text-brand-600" href="#" style="color:inherit;text-decoration:none;">Terms</a>
+        <a class="hover:text-brand-600" href="404.html" style="color:inherit;text-decoration:none;">Sitemap</a>
       </div>
     </div>
   </div>
