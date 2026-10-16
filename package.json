@@ -6,7 +6,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.min.css --watch",
-    "build": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.min.css --minify",
+    "build:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.min.css --minify",
+    "build:static": "node scripts/build-static.js",
+    "build": "npm run build:css && npm run build:static",
     "serve": "node server.js",
     "start": "node server.js",
     "test": "node test/validation.test.js"

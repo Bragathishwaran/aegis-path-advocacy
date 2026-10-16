@@ -8,58 +8,9 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
-const url = require("url");
-const {
-  validateContactForm,
-  validateConsultationForm,
-  validateNewsletter,
-  validateLogin,
-  validateProfile,
-  validateName,
-  validateMobile,
-  validateEmail,
-  validateAge
-} = require("./api/validator");
+const { handleApiRequest, sendJson } = require("./lib/api-core");
 
-const os = require("os");
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME 
-  ? path.join(os.tmpdir(), "data") 
-  : path.join(__dirname, "data");
-const SUBMISSIONS_FILE = path.join(DATA_DIR, "submissions.json");
-
-// Ensure data directory exists safely
-try {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(SUBMISSIONS_FILE)) {
-    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify([]));
-  }
-} catch (e) {
-  console.warn("Could not initialize submissions directory:", e.message);
-}
-
-function saveSubmission(type, payload) {
-  try {
-    let existing = [];
-    if (fs.existsSync(SUBMISSIONS_FILE)) {
-      existing = JSON.parse(fs.readFileSync(SUBMISSIONS_FILE, "utf-8") || "[]");
-    }
-    const record = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      type,
-      data: payload,
-      createdAt: new Date().toISOString()
-    };
-    existing.push(record);
-    fs.writeFileSync(SUBMISSIONS_FILE, JSON.stringify(existing, null, 2));
-    return record;
-  } catch (err) {
-    console.error("Error saving submission:", err);
-    return null;
-  }
-}
 
 function parseJsonBody(req) {
   return new Promise((resolve, reject) => {
@@ -95,16 +46,6 @@ function parseJsonBody(req) {
   });
 }
 
-function sendJson(res, statusCode, data) {
-  res.writeHead(statusCode, {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  });
-  res.end(JSON.stringify(data));
-}
-
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -136,7 +77,8 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
 
-  // API Endpoints
+  // API Endpoints (delegated to the shared core so the local server and the
+  // Vercel Serverless Functions in /api behave identically)
   if (pathname.startsWith("/api/")) {
     if (method !== "POST" && method !== "GET") {
       return sendJson(res, 405, { success: false, error: "Method not allowed" });
@@ -145,111 +87,8 @@ const server = http.createServer(async (req, res) => {
     try {
       const query = Object.fromEntries(parsedUrl.searchParams.entries());
       const body = method === "POST" ? await parseJsonBody(req) : query;
-
-      // 1. Contact Form
-      if (pathname === "/api/contact") {
-        const result = validateContactForm(body);
-        if (!result.isValid) {
-          return sendJson(res, 400, {
-            success: false,
-            message: "Validation failed. Please correct the highlighted errors.",
-            errors: result.errors
-          });
-        }
-        const record = saveSubmission("contact", body);
-        return sendJson(res, 200, {
-          success: true,
-          message: "Thank you! Your message has been received. An advocate will reach out within 1 business day.",
-          recordId: record ? record.id : null
-        });
-      }
-
-      // 2. Consultation Form
-      if (pathname === "/api/consultation") {
-        const result = validateConsultationForm(body);
-        if (!result.isValid) {
-          return sendJson(res, 400, {
-            success: false,
-            message: "Validation failed. Please correct the highlighted errors.",
-            errors: result.errors
-          });
-        }
-        const record = saveSubmission("consultation", body);
-        return sendJson(res, 200, {
-          success: true,
-          message: "Thank you! Your consultation request has been received.",
-          recordId: record ? record.id : null
-        });
-      }
-
-      // 3. Newsletter / Notify
-      if (pathname === "/api/newsletter" || pathname === "/api/notify") {
-        const result = validateNewsletter(body);
-        if (!result.isValid) {
-          return sendJson(res, 400, {
-            success: false,
-            message: "Validation failed. Please enter a valid email address.",
-            errors: result.errors
-          });
-        }
-        const record = saveSubmission("newsletter", body);
-        return sendJson(res, 200, {
-          success: true,
-          message: "Subscribed! Thank you for joining our community.",
-          recordId: record ? record.id : null
-        });
-      }
-
-      // 4. Login
-      if (pathname === "/api/login") {
-        const result = validateLogin(body);
-        if (!result.isValid) {
-          return sendJson(res, 400, {
-            success: false,
-            message: "Invalid login credentials format.",
-            errors: result.errors
-          });
-        }
-        return sendJson(res, 200, {
-          success: true,
-          message: "Login successful.",
-          token: "demo-jwt-token"
-        });
-      }
-
-      // 5. Profile Update
-      if (pathname === "/api/profile") {
-        const result = validateProfile(body);
-        if (!result.isValid) {
-          return sendJson(res, 400, {
-            success: false,
-            message: "Profile validation failed.",
-            errors: result.errors
-          });
-        }
-        saveSubmission("profile_update", body);
-        return sendJson(res, 200, {
-          success: true,
-          message: "Profile settings successfully saved."
-        });
-      }
-
-      // 6. Generic Field Validation
-      if (pathname === "/api/validate") {
-        const { field, value, type } = body;
-        let error = null;
-        if (type === "name") error = validateName(value, field || "Name");
-        else if (type === "mobile" || type === "phone") error = validateMobile(value, field || "Mobile");
-        else if (type === "email") error = validateEmail(value, field || "Email");
-        else if (type === "age") error = validateAge(value);
-
-        return sendJson(res, 200, {
-          valid: !error,
-          error: error || null
-        });
-      }
-
-      return sendJson(res, 404, { success: false, error: "API endpoint not found" });
+      const { status, payload } = await handleApiRequest(pathname, method, body);
+      return sendJson(res, status, payload);
     } catch (err) {
       console.error("API error:", err);
       return sendJson(res, 500, { success: false, error: "Internal server error" });

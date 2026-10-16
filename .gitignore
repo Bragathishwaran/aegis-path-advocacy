@@ -6,3 +6,5 @@ yarn-error.log*
 Thumbs.db
 .env
 .vscode/
+dist/
+.vercel/
