@@ -144,7 +144,27 @@
     [data-theme="dark"] .page-hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-color: #334155; }
     .success-msg { display: none; background: #f0fafa; border: 1px solid #35aeac; border-radius: 0.75rem; padding: 1.25rem; color: #148d8b; font-weight: 600; text-align: center; }
     .success-msg.show { display: block; }
-    @media (max-width: 991px) { .contact-split { flex-direction: column; } }
+    /* ===== Contact layout: sidebar + message form (CSS Grid) ===== */
+    .contact-split {
+      --contact-card-pad: 1.125rem;
+      display: grid;
+      grid-template-columns: 1fr;            /* mobile & tablet: single column stack */
+      gap: 1.25rem;
+      align-items: start;                    /* both column headers start on the same plane */
+    }
+    @media (min-width: 768px) { .contact-split { --contact-card-pad: 1.25rem; } }
+    @media (min-width: 992px) {
+      .contact-split { grid-template-columns: 1fr 1.4fr; gap: 1.75rem; }  /* desktop: sidebar + form */
+    }
+    .contact-split-aside, .contact-split-main { display: flex; flex-direction: column; min-width: 0; }
+    .contact-split-aside { gap: 0.875rem; }   /* tight vertical rhythm between stacked cards */
+    /* Unified card padding & radii (shared token) */
+    .contact-form-card { padding: var(--contact-card-pad); }
+    .contact-info-card { padding: var(--contact-card-pad); border-radius: 1rem; min-width: 0; }
+    .contact-info-card .contact-info-body { min-width: 0; }
+    .contact-info-card a { overflow-wrap: anywhere; }   /* long email/phone never clips */
+    .roadmap-body { padding: var(--contact-card-pad); }
+    .object-fit-cover { object-fit: cover; }   /* keep photos cropped, never stretched */
   </style>
 </head>
 <body>
@@ -176,7 +196,7 @@
             <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
           </svg>
         </span>
-        <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+        <span>Aegis<span class="text-brand-600 dark:text-brand-300">Point</span></span>
       </a>
 
       <!-- Desktop Nav -->
@@ -208,8 +228,10 @@
       <!-- Right Controls / Header actions -->
       <div class="flex items-center gap-2">
         <!-- RTL Toggle -->
-        <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle RTL/LTR">
-          <span data-dir-label class="text-xs font-bold">RTL</span>
+        <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction">
+          <svg data-icon-rtl class="h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M6 9l-3 3 3 3"/><path d="M21 18H3"/></svg>
+          <svg data-icon-ltr class="hidden h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M3 12h12"/><path d="M18 9l3 3-3 3"/><path d="M3 18h18"/></svg>
+          <span data-dir-label class="sr-only">RTL</span>
         </button>
         <!-- Dark Mode Toggle -->
         <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
@@ -318,23 +340,23 @@
 </section>
 
 <!-- ===== MAIN CONTACT SECTION ===== -->
-<section class="py-5">
+<section class="section">
   <div class="container-xl px-4">
-    <div class="row g-5">
+    <div class="contact-split">
 
       <!-- LEFT COL: Info + Timeline + Map -->
-      <div class="col-lg-5">
+      <div class="contact-split-aside">
 
         <!-- Contact Info Cards -->
-        <div class="mb-4">
-          <div class="eyebrow mb-3">Contact Information</div>
-          <div class="d-flex flex-column gap-3">
+        <div>
+          <div class="eyebrow mb-2">Contact Information</div>
+          <div class="d-flex flex-column gap-2">
 
             <div class="contact-info-card">
               <div class="contact-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#148d8b" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.36 2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
-              <div>
+              <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Phone</div>
                 <a href="tel:+18005550192" class="contact-phone-link fw-700 text-decoration-none" style="font-size:1.05rem;">(800) 555-0192</a>
                 <div class="contact-sub" style="font-size:.8rem;">Mon–Fri 8 AM–6 PM EST</div>
@@ -345,7 +367,7 @@
               <div class="contact-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#148d8b" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               </div>
-              <div>
+              <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Email</div>
                 <a href="mailto:hello@aegispointadvocacy.com" class="contact-email-link fw-700 text-decoration-none" style="font-size:.95rem;">hello@aegispointadvocacy.com</a>
                 <div class="contact-sub" style="font-size:.8rem;">Response within 1 business day</div>
@@ -356,7 +378,7 @@
               <div class="contact-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#148d8b" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
-              <div>
+              <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Office Hours</div>
                 <div class="contact-detail fw-600">Mon–Fri: 8:00 AM – 6:00 PM EST</div>
                 <div class="contact-detail fw-600">Saturday: 10:00 AM – 2:00 PM</div>
@@ -367,7 +389,7 @@
               <div class="contact-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#148d8b" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
-              <div>
+              <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Address</div>
                 <div class="contact-detail fw-600">245 Advocacy Lane, Suite 300</div>
                 <div class="contact-sub" style="font-size:.9rem;">Boston, MA 02101</div>
@@ -378,8 +400,8 @@
         </div>
 
         <!-- How It Works Timeline with Image Header -->
-        <div class="card p-0 mb-4 overflow-hidden">
-          <div class="position-relative" style="height: 150px;">
+        <div class="card p-0 overflow-hidden contact-roadmap-card">
+          <div class="position-relative" style="height: 128px;">
             <img
               src="assets/images/Simple 3-Step Process.jpg"
               alt="Simple 3-step advocacy consultation process"
@@ -392,8 +414,8 @@
               <h3 class="font-bold text-base text-white mb-0">Your 3-Step Client Roadmap</h3>
             </div>
           </div>
-          <div class="p-4">
-            <div class="d-flex flex-column gap-4">
+          <div class="roadmap-body">
+            <div class="d-flex flex-column gap-3">
               <div class="timeline-step">
                 <div class="step-badge">1</div>
                 <div>
@@ -419,40 +441,11 @@
           </div>
         </div>
 
-        <!-- Map & Location Card -->
-        <div class="position-relative rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700" style="min-height: 220px;">
-          <img
-            src="assets/images/Boston Office and Meeting Facilities.jpg"
-            alt="AegisPoint Advocacy Boston Office and Meeting Facilities"
-            class="w-100 h-100 position-absolute inset-0 object-fit-cover"
-            loading="lazy"
-          />
-          <div class="position-absolute inset-0" style="background: linear-gradient(135deg, rgba(20,141,139,0.92) 0%, rgba(15,23,42,0.85) 100%);"></div>
-          <div class="position-relative p-4 text-white d-flex flex-column justify-content-between h-100" style="min-height: 220px;">
-            <div>
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="p-1.5 rounded-lg bg-white/20 backdrop-blur">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                </span>
-                <span class="text-xs uppercase tracking-wider font-bold text-teal-200">Main Office &amp; Regional Hub</span>
-              </div>
-              <h4 class="font-extrabold text-lg text-white mb-0">AegisPoint Advocacy</h4>
-              <p class="text-xs text-teal-100 mb-0">245 Advocacy Lane, Suite 300 • Boston, MA 02101</p>
-            </div>
-            <div class="pt-3 d-flex align-items-center justify-content-between border-t border-white/20">
-              <span class="text-xs text-white/80">In-Person &amp; Virtual Appointments</span>
-              <a href="https://maps.google.com" target="_blank" rel="noopener" class="text-xs font-bold text-white bg-white/20 hover:bg-white/30 backdrop-blur px-3 py-1.5 rounded-lg transition-colors text-decoration-none">
-                Open Maps →
-              </a>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!-- RIGHT COL: Contact Form -->
-      <div class="col-lg-7">
-        <div class="card p-4 p-md-5">
+      <div class="contact-split-main">
+        <div class="card contact-form-card">
           <div class="eyebrow mb-2">Send a Message</div>
           <h2 class="form-title fw-800 mb-1" style="font-size:1.5rem;">Let's start the conversation</h2>
           <p style="color:#64748b;font-size:.9rem;margin-bottom:2rem;">Fill out the form below and an advocate will reach out within one business day.</p>
@@ -547,7 +540,7 @@
 </section>
 
 <!-- ===== QUICK INFO CARDS ===== -->
-<section class="py-5" style="background:#f0fafa;">
+<section class="section" style="background:#f0fafa;">
   <div class="container-xl px-4">
     <div class="row g-4 justify-content-center">
       <!-- Card 1 -->
@@ -580,7 +573,7 @@
         <div class="quick-card card-hover h-100 d-flex flex-column">
           <div class="quick-card-img-wrap">
             <img
-              src="assets/images/100% Confidential.jpg"
+              src="assets/images/Confidential.jpg"
               alt="100% Confidential FERPA-compliant special education advocacy"
               class="quick-card-img"
               loading="lazy"
@@ -629,7 +622,7 @@
 </section>
 
 <!-- ===== CONSULTATION OPTIONS ===== -->
-<section class="py-5 bg-white dark:bg-slate-900 border-top border-slate-100 dark:border-slate-800">
+<section class="section bg-white dark:bg-slate-900 border-top border-slate-100 dark:border-slate-800">
   <div class="container-xl px-4">
     <div class="text-center mb-5">
       <div class="eyebrow mb-2">Flexible Advocacy Formats</div>
@@ -694,7 +687,7 @@
 </section>
 
 <!-- ===== FAQ ACCORDION ===== -->
-<section class="py-5">
+<section class="section">
   <div class="container-xl px-4" style="max-width:760px;">
     <div class="text-center mb-5">
       <div class="eyebrow mb-2">Got Questions?</div>
@@ -762,7 +755,7 @@
               <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
             </svg>
           </span>
-          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+          <span>Aegis<span class="text-brand-600 dark:text-brand-300">Point</span></span>
         </a>
         <p class="mt-4 text-sm leading-relaxed text-ink-500 dark:text-ink-400">Special education advocacy and IEP consulting that keeps families informed, empowered and heard.</p>
         <div class="flex gap-3 mt-4">
@@ -772,7 +765,7 @@
           <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="LinkedIn"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
       </div>
-      <div class="col-6 col-lg-3">
+      <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Navigation</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
           <li><a class="hover:text-brand-600" href="index.html" style="color:inherit;text-decoration:none;">Home 1 &mdash; Family Advocacy</a></li>
@@ -783,7 +776,7 @@
           <li><a class="hover:text-brand-600" href="blog.html" style="color:inherit;text-decoration:none;">Blog</a></li>
         </ul>
       </div>
-      <div class="col-6 col-lg-3">
+      <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Support</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
           <li><a class="hover:text-brand-600" href="contact.html" style="color:inherit;text-decoration:none;">Contact us</a></li>

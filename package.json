@@ -11,7 +11,9 @@
     "build": "npm run build:css && npm run build:static",
     "serve": "node server.js",
     "start": "node server.js",
-    "test": "node test/validation.test.js"
+    "test": "node test/validation.test.js",
+    "test:responsive": "node test/header-responsive.test.js",
+    "test:footer": "node test/footer-responsive.test.js"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",

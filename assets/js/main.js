@@ -51,11 +51,19 @@
     document.documentElement.setAttribute("dir", dir);
     document.documentElement.setAttribute("lang", dir === "rtl" ? "ar" : "en");
 
-    // Update labels
+    // Update labels & icons
     document.querySelectorAll("[data-dir-toggle]").forEach(function (btn) {
+      var isRtl = dir === "rtl";
       var label = btn.querySelector("[data-dir-label]");
-      if (label) label.textContent = dir === "rtl" ? "LTR" : "RTL";
-      btn.setAttribute("aria-pressed", String(dir === "rtl"));
+      if (label) label.textContent = isRtl ? "LTR" : "RTL";
+      btn.setAttribute("aria-pressed", String(isRtl));
+      btn.setAttribute("title", isRtl ? "Switch to Left-to-Right (LTR)" : "Switch to Right-to-Left (RTL)");
+      btn.setAttribute("aria-label", isRtl ? "Switch to Left-to-Right (LTR)" : "Switch to Right-to-Left (RTL)");
+
+      var iconRtl = btn.querySelector("[data-icon-rtl]");
+      var iconLtr = btn.querySelector("[data-icon-ltr]");
+      if (iconRtl) iconRtl.classList.toggle("hidden", isRtl);
+      if (iconLtr) iconLtr.classList.toggle("hidden", !isRtl);
     });
 
     // Fix timelines
@@ -193,6 +201,7 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fade-up");
+          entry.target.style.opacity = "";
           io.unobserve(entry.target);
         }
       });

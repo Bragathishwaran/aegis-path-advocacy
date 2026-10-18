@@ -210,8 +210,10 @@
     <span>Back to Website</span>
   </a>
   <div class="d-flex gap-2" style="pointer-events:auto;">
-    <button type="button" class="btn btn-sm text-white fw-bold" data-dir-toggle title="Toggle RTL/LTR" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
-      <span data-dir-label>RTL</span>
+    <button type="button" class="btn btn-sm text-white d-flex align-items-center justify-content-center" data-dir-toggle title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;width:34px;height:34px;padding:0;">
+      <svg data-icon-rtl width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M6 9l-3 3 3 3"/><path d="M21 18H3"/></svg>
+      <svg data-icon-ltr class="hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M3 6h18"/><path d="M3 12h12"/><path d="M18 9l3 3-3 3"/><path d="M3 18h18"/></svg>
+      <span data-dir-label class="visually-hidden">RTL</span>
     </button>
     <button type="button" class="btn btn-sm text-white" data-theme-toggle title="Toggle dark mode" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -235,8 +237,7 @@
         </svg>
       </div>
       <div>
-        <div class="logo-name">AegisPoint</div>
-        <div class="logo-sub">Advocacy</div>
+        <div class="logo-name">Aegis<span style="color:#148d8b;">Point</span></div>
       </div>
     </a>
 
@@ -351,14 +352,29 @@
   document.querySelectorAll('[data-year]').forEach(function(el) { el.textContent = new Date().getFullYear(); });
 
   // RTL / LTR toggle
+  function applyLoginDir(dir) {
+    var isRtl = dir === 'rtl';
+    document.documentElement.setAttribute('dir', dir);
+    document.documentElement.setAttribute('lang', isRtl ? 'ar' : 'en');
+    document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
+      var label = btn.querySelector('[data-dir-label]') || btn;
+      if (label) label.textContent = isRtl ? 'LTR' : 'RTL';
+      btn.setAttribute('title', isRtl ? 'Switch to Left-to-Right (LTR)' : 'Switch to Right-to-Left (RTL)');
+      var iconRtl = btn.querySelector('[data-icon-rtl]');
+      var iconLtr = btn.querySelector('[data-icon-ltr]');
+      if (iconRtl) iconRtl.style.display = isRtl ? 'none' : '';
+      if (iconLtr) iconLtr.style.display = isRtl ? '' : 'none';
+    });
+  }
+  var savedDir = null;
+  try { savedDir = localStorage.getItem('iep-dir'); } catch(e) {}
+  if (savedDir) applyLoginDir(savedDir);
+
   document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
       var next = isRtl ? 'ltr' : 'rtl';
-      document.documentElement.setAttribute('dir', next);
-      document.documentElement.setAttribute('lang', next === 'rtl' ? 'ar' : 'en');
-      var label = btn.querySelector('[data-dir-label]') || btn;
-      if (label) label.textContent = next === 'rtl' ? 'LTR' : 'RTL';
+      applyLoginDir(next);
       try { localStorage.setItem('iep-dir', next); } catch(e) {}
     });
   });

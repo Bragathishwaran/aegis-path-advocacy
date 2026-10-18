@@ -44,7 +44,7 @@
               <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
             </svg>
           </span>
-          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+          <span>Aegis<span class="text-brand-600 dark:text-brand-300">Point</span></span>
       </a>
 
       <!-- Desktop nav -->
@@ -77,8 +77,10 @@
 
       <!-- Header actions -->
       <div class="flex items-center gap-2">
-        <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Toggle RTL/LTR">
-          <span data-dir-label class="text-xs font-bold">RTL</span>
+        <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction">
+          <svg data-icon-rtl class="h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M6 9l-3 3 3 3"/><path d="M21 18H3"/></svg>
+          <svg data-icon-ltr class="hidden h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M3 12h12"/><path d="M18 9l3 3-3 3"/><path d="M3 18h18"/></svg>
+          <span data-dir-label class="sr-only">RTL</span>
         </button>
         <button type="button" data-theme-toggle class="icon-btn" aria-pressed="false" title="Toggle dark mode">
           <svg data-icon-moon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -131,9 +133,9 @@
   <div class="hero-blob" style="width:380px;height:380px;background:#ffd988;opacity:0.3;top:200px;left:-80px;"></div>
 
   <div class="container-wide relative py-12 sm:py-16 lg:py-20 w-100" style="z-index:1;">
-    <div class="row align-items-center g-5">
+    <div class="row align-items-stretch g-5 hero-row">
       <!-- Left: copy -->
-      <div class="col-lg-6" data-reveal>
+      <div class="col-lg-6 hero-content-col" data-reveal>
         <span class="chip-brand">
           <span class="h-1.5 w-1.5 rounded-full bg-brand-500 d-inline-block"></span>
           Trusted by 1,200+ families nationwide
@@ -150,30 +152,29 @@
         </div>
 
         <!-- Stats Cards (Evenly Spaced) -->
-        <div class="mt-8 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-4" style="max-width:500px;">
-          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center">
+        <div class="mt-8 sm:mt-10 grid grid-cols-3 gap-3 sm:gap-4 hero-stats-grid" style="max-width:500px;">
+          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center hero-stat-card">
             <div class="stat-value text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-300 leading-none" data-counter="1200" data-suffix="+">0</div>
-            <div class="text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">Families helped</div>
+            <div class="stat-label text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">Families helped</div>
           </div>
-          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center">
+          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center hero-stat-card">
             <div class="stat-value text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-300 leading-none" data-counter="96" data-suffix="%">0</div>
-            <div class="text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">IEP goals approved</div>
+            <div class="stat-label text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">IEP goals approved</div>
           </div>
-          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center">
-            <div class="stat-value text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-300 leading-none" data-counter="14" data-suffix=" yrs">0</div>
-            <div class="text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">Experience</div>
+          <div class="p-3.5 sm:p-4 rounded-xl text-center bg-white/90 dark:bg-slate-800/90 border border-ink-100 dark:border-ink-800 shadow-xs hover:shadow-soft transition-all h-100 flex flex-col justify-center hero-stat-card">
+            <div class="stat-value text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-300 leading-none" data-counter="14" data-suffix="years">0</div>
+            <div class="stat-label text-xs sm:text-sm text-ink-600 dark:text-ink-300 font-medium mt-1.5 leading-snug">Experience</div>
           </div>
         </div>
       </div>
 
       <!-- Right: hero image (unobstructed) -->
-      <div class="col-lg-6 position-relative mt-8 lg:mt-0" data-reveal>
-        <div class="rounded-2xl overflow-hidden shadow-soft" style="max-height:480px;">
+      <div class="col-lg-6 position-relative mt-8 lg:mt-0 hero-img-col" data-reveal>
+        <div class="rounded-2xl overflow-hidden shadow-soft hero-img-wrap">
           <img
             src="assets/images/Every child deserves the right support in school.jpg"
             alt="Parent and child working with school advocate at a meeting table"
-            class="w-100 object-fit-cover media-box"
-            style="--h-max:480px; height:480px; object-fit:cover;"
+            class="w-100 object-fit-cover hero-img"
             loading="eager"
           />
         </div>
@@ -394,50 +395,55 @@
 </section>
 
 <!-- ===================== HOW IT WORKS ===================== -->
-<section class="bg-white py-16 dark:bg-ink-950 sm:py-20">
+<section class="bg-white section dark:bg-ink-950">
   <div class="container-wide">
-    <div class="row align-items-center g-5">
+    <!-- Centered Section Header -->
+    <div class="mx-auto max-w-2xl text-center mb-10 sm:mb-14" data-reveal>
+      <p class="eyebrow">The process</p>
+      <h2 class="section-title mt-2">A clear path from confusion to confidence</h2>
+      <p class="section-sub mx-auto text-center">Most families feel lost in paperwork. We replace that with four simple, supported steps.</p>
+    </div>
+
+    <div class="row g-5 align-items-stretch justify-content-between process-row">
       <!-- Left: image -->
-      <div class="col-lg-5" data-reveal>
-        <div class="rounded-2xl overflow-hidden shadow-soft">
+      <div class="col-lg-6 process-img-col" data-reveal>
+        <div class="rounded-2xl overflow-hidden shadow-soft process-img-wrap">
           <img
             src="assets/images/A clear path from confusion to confidence.jpg"
             alt="Advocate guiding a parent through IEP documents"
-            class="w-100 media-box"
-            style="--h-max:420px; height:420px; object-fit:cover;"
+            class="w-100 object-fit-cover process-img"
             loading="lazy"
           />
         </div>
       </div>
       <!-- Right: steps -->
-      <div class="col-lg-7" data-reveal>
-        <p class="eyebrow">The process</p>
-        <h2 class="section-title mt-2">A clear path from confusion to confidence</h2>
-        <p class="section-sub">Most families feel lost in paperwork. We replace that with four simple, supported steps.</p>
-        <a href="contact.html" class="btn-primary mt-4 d-inline-flex">Start step one today</a>
-
-        <ol class="relative space-y-8 mt-6 ps-0" style="list-style:none;border-left:2px solid #eaeef4;" id="process-timeline">
-          <li class="relative" style="padding-left:2.25rem;">
+      <div class="col-lg-6 process-content-col mt-8 lg:mt-0" data-reveal>
+        <ol class="process-timeline relative ps-0 mb-0" id="process-timeline" data-timeline>
+          <li class="relative process-step">
             <span class="timeline-dot"></span>
             <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white"><span class="text-brand-600 dark:text-brand-400 font-extrabold me-1.5">1.</span>Free intake call</h3>
-            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400">We listen to your story, review your documents and identify urgent concerns before any commitment.</p>
+            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400 mb-0">We listen to your story, review your documents and identify urgent concerns before any commitment.</p>
           </li>
-          <li class="relative" style="padding-left:2.25rem;">
+          <li class="relative process-step">
             <span class="timeline-dot"></span>
             <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white"><span class="text-brand-600 dark:text-brand-400 font-extrabold me-1.5">2.</span>Records review</h3>
-            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400">We audit the IEP, evaluations and progress data against IDEA requirements and identify gaps.</p>
+            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400 mb-0">We audit the IEP, evaluations and progress data against IDEA requirements and identify gaps.</p>
           </li>
-          <li class="relative" style="padding-left:2.25rem;">
+          <li class="relative process-step">
             <span class="timeline-dot"></span>
             <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white"><span class="text-brand-600 dark:text-brand-400 font-extrabold me-1.5">3.</span>Strategy &amp; preparation</h3>
-            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400">You receive a meeting agenda, talking points and proposed goals in writing — before you walk in.</p>
+            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400 mb-0">You receive a meeting agenda, talking points and proposed goals in writing — before you walk in.</p>
           </li>
-          <li class="relative" style="padding-left:2.25rem;">
+          <li class="relative process-step">
             <span class="timeline-dot"></span>
             <h3 class="font-display text-lg font-bold text-ink-900 dark:text-white"><span class="text-brand-600 dark:text-brand-400 font-extrabold me-1.5">4.</span>Meeting &amp; follow-up</h3>
-            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400">We advocate with you, then confirm every agreement in a written summary you can rely on.</p>
+            <p class="mt-1 text-sm text-ink-500 dark:text-ink-400 mb-0">We advocate with you, then confirm every agreement in a written summary you can rely on.</p>
           </li>
         </ol>
+
+        <div class="process-cta-wrap mt-6 pt-1">
+          <a href="contact.html" class="btn-primary d-inline-flex">Start step one today</a>
+        </div>
       </div>
     </div>
   </div>
@@ -520,7 +526,7 @@
 </section>
 
 <!-- ===================== TESTIMONIALS ===================== -->
-<section class="bg-white py-16 dark:bg-ink-950 sm:py-20">
+<section class="bg-white section dark:bg-ink-950">
   <div class="container-wide">
     <div class="mx-auto max-w-2xl text-center" data-reveal>
       <p class="eyebrow">Families like yours</p>
@@ -541,7 +547,7 @@
           </div>
           <figcaption class="mt-4 flex items-center justify-between gap-3 pt-3 border-t border-ink-100 dark:border-ink-800">
             <div class="flex items-center gap-3">
-              <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-100 font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-200">SD</span>
+              <img src="assets/images/Sri Devi.jpg" alt="Sri Devi" width="40" height="40" loading="lazy" class="h-10 w-10 flex-shrink-0 rounded-full" style="object-fit:cover;" />
               <span><span class="block text-sm font-bold text-ink-900 dark:text-white">Sri Devi</span><span class="block text-xs text-ink-500">Parent · Grade 4</span></span>
             </div>
             <div class="testimonial-social-links">
@@ -572,7 +578,7 @@
           </div>
           <figcaption class="mt-4 flex items-center justify-between gap-3 pt-3 border-t border-ink-100 dark:border-ink-800">
             <div class="flex items-center gap-3">
-              <span class="grid h-10 w-10 place-items-center rounded-full bg-accent-100 font-bold text-accent-700 dark:bg-accent-950 dark:text-accent-200">RK</span>
+              <img src="assets/images/ranjith-kumar.jpg" alt="Ranjith Kumar" width="40" height="40" loading="lazy" class="h-10 w-10 flex-shrink-0 rounded-full" style="object-fit:cover;" />
               <span><span class="block text-sm font-bold text-ink-900 dark:text-white">Ranjith Kumar</span><span class="block text-xs text-ink-500">Parent · Grade 7</span></span>
             </div>
             <div class="testimonial-social-links">
@@ -603,7 +609,7 @@
           </div>
           <figcaption class="mt-4 flex items-center justify-between gap-3 pt-3 border-t border-ink-100 dark:border-ink-800">
             <div class="flex items-center gap-3">
-              <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-100 font-bold text-brand-700 dark:bg-brand-900 dark:text-brand-200">ML</span>
+              <img src="assets/images/meera lakshmi.jpg" alt="Meera Lakshmi" width="40" height="40" loading="lazy" class="h-10 w-10 flex-shrink-0 rounded-full" style="object-fit:cover;" />
               <span><span class="block text-sm font-bold text-ink-900 dark:text-white">Meera Lakshmi</span><span class="block text-xs text-ink-500">Parent · Grade 2</span></span>
             </div>
             <div class="testimonial-social-links">
@@ -702,7 +708,7 @@
               <circle cx="16" cy="18" r="1.6" fill="#ffffff"/>
             </svg>
           </span>
-          <span>AegisPoint<span class="text-brand-600 dark:text-brand-300">Advocacy</span></span>
+          <span>Aegis<span class="text-brand-600 dark:text-brand-300">Point</span></span>
         </a>
         <p class="mt-4 text-sm leading-relaxed text-ink-500 dark:text-ink-400">Special education advocacy and IEP consulting that keeps families informed, empowered and heard.</p>
         <div class="flex gap-3 mt-4">
@@ -712,7 +718,7 @@
           <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="icon-btn text-ink-500 hover:text-brand-600 dark:text-ink-400 dark:hover:text-white" aria-label="LinkedIn"><svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
         </div>
       </div>
-      <div class="col-6 col-lg-3">
+      <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Navigation</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
           <li><a class="hover:text-brand-600" href="index.html" style="color:inherit;text-decoration:none;">Home 1 &mdash; Family Advocacy</a></li>
@@ -723,7 +729,7 @@
           <li><a class="hover:text-brand-600" href="blog.html" style="color:inherit;text-decoration:none;">Blog</a></li>
         </ul>
       </div>
-      <div class="col-6 col-lg-3">
+      <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Support</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
           <li><a class="hover:text-brand-600" href="contact.html" style="color:inherit;text-decoration:none;">Contact us</a></li>

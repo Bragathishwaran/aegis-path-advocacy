@@ -4,6 +4,11 @@
 =================================================================== */
 
 /* ── Base overrides for Bootstrap ────────────────────────────────── */
+html, body {
+  overflow-x: clip !important;
+  max-width: 100vw;
+}
+
 :root {
   --bs-primary: #148d8b;
   --bs-primary-rgb: 20, 141, 139;
@@ -1764,33 +1769,65 @@ body[data-theme="dark"] {
 
 /* --- 4. Target viewports -------------------------------------------- */
 
+/* Ensure RTL/LTR direction toggle is ALWAYS visible in the navbar across all device sizes */
+.site-header [data-dir-toggle] {
+  display: inline-flex !important;
+}
+
 /* 425px and below - large / standard phones -------------------------- */
 @media (max-width: 424.98px) {
   .site-header .container-wide > .flex {
-    gap: 0.5rem;
+    gap: 0.375rem !important;
   }
   .site-header .icon-btn {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
   }
   .site-header .icon-btn svg {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1.125rem !important;
+    height: 1.125rem !important;
   }
   .site-header .container-wide > .flex > a.font-display > span:last-child {
     font-size: 0.9375rem;
     letter-spacing: -0.01em;
   }
-  .site-header [data-dir-toggle] {
-    display: none;
-  }
 }
 
 /* 320px - smallest supported phones ---------------------------------- */
 @media (max-width: 359.98px) {
+  .site-header .container-wide {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .site-header .container-wide > .flex {
+    gap: 0.25rem !important;
+  }
+  .site-header .icon-btn {
+    width: 1.875rem !important;
+    height: 1.875rem !important;
+    padding: 0 !important;
+  }
+  .site-header .icon-btn svg {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+  .site-header a.font-display {
+    font-size: 0.8125rem !important;
+    gap: 0.375rem !important;
+  }
+  .site-header a.font-display > span:first-child {
+    width: 1.875rem !important;
+    height: 1.875rem !important;
+  }
+  .site-header a.font-display > span:first-child svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
   .container-wide.container-wide {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
   .row.g-3.g-3,
   .row.g-4.g-4,
@@ -1839,8 +1876,8 @@ body[data-theme="dark"] {
 /* 375px - standard mobile ------------------------------------------- */
 @media (min-width: 375px) {
   .container-wide.container-wide {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -1857,8 +1894,8 @@ body[data-theme="dark"] {
 /* 768px - tablets / portrait ---------------------------------------- */
 @media (min-width: 768px) {
   .container-wide.container-wide {
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
+    padding-left: 1.75rem !important;
+    padding-right: 1.75rem !important;
   }
   .row.g-4.g-4 {
     --bs-gutter-x: 1.75rem;
@@ -1869,8 +1906,8 @@ body[data-theme="dark"] {
 /* 1024px - small laptops / landscape tablets ------------------------- */
 @media (min-width: 1024px) {
   .container-wide.container-wide {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
   }
   .service-card-img-wrap.service-card-img-wrap {
     height: 210px;
@@ -1883,16 +1920,16 @@ body[data-theme="dark"] {
 /* 1440px and up - desktop / large screens --------------------------- */
 @media (min-width: 1440px) {
   .container-wide.container-wide {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
   }
   .row.g-4.g-4 {
     --bs-gutter-x: 2rem;
     --bs-gutter-y: 2rem;
   }
   .section.section {
-    padding-top: 6.5rem;
-    padding-bottom: 6.5rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
   .section-title.section-title {
     font-size: 2.5rem;
@@ -2124,18 +2161,538 @@ html.dark .hero-blob,
   text-align: center;
 }
 
-/* --- 7. Dashboard responsive header ------------------------------- */
-/* On phones the header actions (RTL, theme, Menu) plus the full wordmark
-   are wider than the viewport, which forces a horizontal scroll and knocks
-   every card out of alignment. Drop the wordmark and tighten the gap below
-   the sm breakpoint so the bar (and all section cards) stay in-viewport. */
-@media (max-width: 639.98px) {
-  .dash-header .container-wide > .flex {
-    gap: 0.5rem;
+/* --- 7. Dashboard responsive header (320px, 375px, 425px breakpoints) --- */
+.dash-header {
+  width: 100%;
+  overflow-x: clip;
+}
+
+.dash-header .container-wide > .flex {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+/* Ensure RTL/LTR direction toggle is ALWAYS visible in the dashboard */
+.dash-header [data-dir-toggle] {
+  display: inline-flex !important;
+}
+
+/* Logo & Brand text */
+.dash-header .dash-brand-link {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  flex-shrink: 1 !important;
+  text-decoration: none !important;
+}
+
+.dash-header .dash-logo-icon {
+  flex-shrink: 0 !important;
+}
+
+.dash-header .dash-brand-text {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  letter-spacing: -0.01em;
+}
+
+/* Actions container: robust flexbox, nowrap, pinned to inline end */
+.dash-header .dash-header-actions {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  flex-wrap: nowrap !important;
+  margin-inline-start: auto !important;
+}
+
+/* RTL / LTR layout support */
+[dir="rtl"] .dash-header .dash-header-actions {
+  margin-inline-start: auto !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+[dir="ltr"] .dash-header .dash-header-actions {
+  margin-inline-start: auto !important;
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Breakpoint 1: Ultra-small mobile (<= 359.98px, specifically 320px) */
+@media (max-width: 359.98px) {
+  .dash-header .container-wide {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
   }
-  .dash-header .container-wide > .flex > a.font-display > span:last-child {
-    display: none;
+  .dash-header .container-wide > .flex {
+    gap: 0.375rem !important;
+  }
+  /* Full brand name 'AegisPoint' fits cleanly on ultra-small screens */
+  .dash-header .dash-brand-secondary {
+    display: inline !important;
+  }
+  .dash-header .dash-brand-text {
+    font-size: 0.8125rem !important; /* 13px */
+  }
+  .dash-header .dash-logo-icon {
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  .dash-header .dash-logo-icon svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
+  .dash-header .dash-header-actions {
+    gap: 0.25rem !important; /* 4px gap */
+  }
+  .dash-header .dash-btn {
+    width: 2rem !important;
+    height: 2rem !important;
+    padding: 0 !important;
+  }
+  .dash-header .dash-btn svg {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+  .dash-header [data-dir-label] {
+    font-size: 0.625rem !important; /* 10px */
+    display: inline !important;
+  }
+  .dash-header .dash-profile-btn {
+    width: 2rem !important;
+    height: 2rem !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  .dash-header .dash-profile-btn > span:first-child {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    font-size: 0.6875rem !important;
+  }
+  .dash-header .dash-menu-btn {
+    width: 2rem !important;
+    height: 2rem !important;
+    padding: 0 !important;
+  }
+  .dash-header .dash-menu-btn svg {
+    width: 1rem !important;
+    height: 1rem !important;
   }
 }
 
+/* Breakpoint 2: Standard mobile (360px - 424.98px, specifically 375px) */
+@media (min-width: 360px) and (max-width: 424.98px) {
+  .dash-header .container-wide {
+    padding-left: 0.875rem !important;
+    padding-right: 0.875rem !important;
+  }
+  .dash-header .container-wide > .flex {
+    gap: 0.5rem !important;
+  }
+  .dash-header .dash-brand-secondary {
+    display: inline !important;
+  }
+  .dash-header .dash-brand-text {
+    font-size: 0.875rem !important; /* 14px */
+  }
+  .dash-header .dash-logo-icon {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+  }
+  .dash-header .dash-logo-icon svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+  .dash-header .dash-header-actions {
+    gap: 0.375rem !important; /* 6px gap */
+  }
+  .dash-header .dash-btn {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+    padding: 0 !important;
+  }
+  .dash-header .dash-btn svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
+  .dash-header [data-dir-label] {
+    font-size: 0.6875rem !important; /* 11px */
+    display: inline !important;
+  }
+  .dash-header .dash-profile-btn {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  .dash-header .dash-profile-btn > span:first-child {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    font-size: 0.75rem !important;
+  }
+  .dash-header .dash-menu-btn {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+    padding: 0 !important;
+  }
+  .dash-header .dash-menu-btn svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
+}
 
+/* Breakpoint 3: Large mobile (425px - 639.98px, specifically 425px) */
+@media (min-width: 425px) and (max-width: 639.98px) {
+  .dash-header .container-wide {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .dash-header .container-wide > .flex {
+    gap: 0.5rem !important;
+  }
+  .dash-header .dash-brand-secondary {
+    display: inline !important;
+  }
+  .dash-header .dash-brand-text {
+    font-size: 0.9375rem !important; /* 15px */
+  }
+  .dash-header .dash-logo-icon {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+  .dash-header .dash-logo-icon svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+  .dash-header .dash-header-actions {
+    gap: 0.5rem !important; /* 8px gap */
+  }
+  .dash-header .dash-btn {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    padding: 0 !important;
+  }
+  .dash-header .dash-btn svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
+  .dash-header [data-dir-label] {
+    font-size: 0.75rem !important; /* 12px */
+    display: inline !important;
+  }
+  .dash-header .dash-profile-btn {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  .dash-header .dash-profile-btn > span:first-child {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    font-size: 0.75rem !important;
+  }
+  .dash-header .dash-menu-btn {
+    height: 2.25rem !important;
+    padding: 0 0.625rem !important;
+  }
+  .dash-header .dash-menu-btn svg {
+    width: 1.125rem !important;
+    height: 1.125rem !important;
+  }
+}
+
+/* ─── Hero Section: Align Image Evenly With Content Height ──────── */
+@media (min-width: 992px) {
+  .hero-row {
+    display: flex !important;
+    align-items: stretch !important;
+    margin-top: 0 !important;
+  }
+  .hero-row > .col-lg-6 {
+    margin-top: 0 !important;
+  }
+  .hero-content-col {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  .hero-img-col {
+    display: flex !important;
+    flex-direction: column !important;
+    margin-top: 0 !important;
+  }
+  .hero-img-wrap {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    display: flex !important;
+    width: 100% !important;
+  }
+  .hero-img-wrap .hero-img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+}
+@media (max-width: 991.98px) {
+  .hero-img-wrap {
+    height: clamp(280px, 48vw, 440px);
+    width: 100%;
+    display: block;
+    max-height: 440px;
+  }
+  .hero-img-wrap .hero-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+/* ─── Hero Stats Cards Responsive Sizing ────────────────────────── */
+@media (max-width: 424.98px) {
+  .hero-stats-grid {
+    gap: 0.5rem !important;
+  }
+  .hero-stat-card {
+    padding: 0.75rem 0.5rem !important;
+  }
+  .stat-value {
+    font-size: 1.25rem !important;
+    white-space: nowrap !important;
+  }
+}
+@media (max-width: 359.98px) {
+  .hero-stats-grid {
+    gap: 0.375rem !important;
+  }
+  .hero-stat-card {
+    padding: 0.625rem 0.25rem !important;
+  }
+  .stat-value {
+    font-size: 1.05rem !important;
+    white-space: nowrap !important;
+  }
+  .hero-stat-card .stat-label {
+    font-size: 0.6875rem !important;
+    line-height: 1.25 !important;
+    word-break: normal !important;
+    hyphens: none !important;
+  }
+}
+
+/* ─── Process Section: Centered Header, Equal Height & Even Spacing ─ */
+.process-timeline {
+  list-style: none;
+  border-inline-start: 2px solid #eaeef4;
+}
+.dark .process-timeline {
+  border-inline-start-color: #1e293b;
+}
+.process-step {
+  padding-inline-start: 2.25rem;
+}
+.process-cta-wrap {
+  padding-inline-start: 2.25rem;
+}
+
+[dir="rtl"] .process-timeline {
+  border-left: 0 !important;
+  border-right: 2px solid #eaeef4 !important;
+}
+[dir="rtl"].dark .process-timeline,
+[dir="rtl"] .dark .process-timeline {
+  border-right-color: #1e293b !important;
+}
+[dir="rtl"] .process-timeline .timeline-dot,
+[dir="rtl"] .timeline-dot {
+  left: auto !important;
+  right: -7px !important;
+}
+
+@media (min-width: 992px) {
+  .process-row {
+    display: flex !important;
+    align-items: stretch !important;
+    margin-top: 0 !important;
+  }
+  .process-row > .col-lg-6 {
+    margin-top: 0 !important;
+  }
+  .process-img-col {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .process-img-wrap {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    display: flex !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+  }
+  .process-img-wrap .process-img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+  .process-content-col {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  .process-timeline {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .process-step {
+    padding-bottom: 1.25rem !important;
+  }
+  .process-step:last-child {
+    padding-bottom: 0 !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .process-img-wrap {
+    height: clamp(280px, 48vw, 420px);
+    width: 100%;
+    display: block;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .process-img-wrap .process-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .process-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+}
+
+@media (max-width: 424.98px) {
+  .process-step {
+    padding-inline-start: 1.75rem !important;
+  }
+  .process-cta-wrap {
+    padding-inline-start: 1.75rem !important;
+  }
+}
+
+/* ===================================================================
+   TAILWIND SPACING PARITY
+   Bootstrap 5.3.3 (loaded before style.min.css) ships !important
+   spacing utilities that silently win over Tailwind's same-named
+   utilities: mt-4 renders 24px instead of 1rem, py-5 renders 3rem
+   instead of 1.25rem, gap-5 renders 3rem instead of 1.25rem, etc.
+   These selectors add the specificity needed to restore the Tailwind
+   spacing scale (3 = 0.75rem, 4 = 1rem, 5 = 1.25rem) for every
+   direction that both frameworks define. Bootstrap has no .pl-* /
+   .pr-* / .gap-* utilities, so those need no restore. Placed at the
+   very end so it wins over every earlier layer.
+   Values 1 and 2 are identical between the two frameworks and are
+   intentionally omitted.
+=================================================================== */
+
+html .m-3 { margin: 0.75rem !important; }
+html .m-4 { margin: 1rem !important; }
+html .m-5 { margin: 1.25rem !important; }
+html .mx-3 { margin-left: 0.75rem !important; margin-right: 0.75rem !important; }
+html .mx-4 { margin-left: 1rem !important; margin-right: 1rem !important; }
+html .mx-5 { margin-left: 1.25rem !important; margin-right: 1.25rem !important; }
+html .my-3 { margin-top: 0.75rem !important; margin-bottom: 0.75rem !important; }
+html .my-4 { margin-top: 1rem !important; margin-bottom: 1rem !important; }
+html .my-5 { margin-top: 1.25rem !important; margin-bottom: 1.25rem !important; }
+html .ms-3 { margin-inline-start: 0.75rem !important; }
+html .ms-4 { margin-inline-start: 1rem !important; }
+html .ms-5 { margin-inline-start: 1.25rem !important; }
+html .me-3 { margin-inline-end: 0.75rem !important; }
+html .me-4 { margin-inline-end: 1rem !important; }
+html .me-5 { margin-inline-end: 1.25rem !important; }
+html .mt-3 { margin-top: 0.75rem !important; }
+html .mt-4 { margin-top: 1rem !important; }
+html .mt-5 { margin-top: 1.25rem !important; }
+html .mb-3 { margin-bottom: 0.75rem !important; }
+html .mb-4 { margin-bottom: 1rem !important; }
+html .mb-5 { margin-bottom: 1.25rem !important; }
+
+html .p-3 { padding: 0.75rem !important; }
+html .p-4 { padding: 1rem !important; }
+html .p-5 { padding: 1.25rem !important; }
+html .px-3 { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+html .px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+html .px-5 { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+html .py-3 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+html .py-4 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+html .py-5 { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+html .ps-3 { padding-inline-start: 0.75rem !important; }
+html .ps-4 { padding-inline-start: 1rem !important; }
+html .ps-5 { padding-inline-start: 1.25rem !important; }
+html .pe-3 { padding-inline-end: 0.75rem !important; }
+html .pe-4 { padding-inline-end: 1rem !important; }
+html .pe-5 { padding-inline-end: 1.25rem !important; }
+html .pt-3 { padding-top: 0.75rem !important; }
+html .pt-4 { padding-top: 1rem !important; }
+html .pt-5 { padding-top: 1.25rem !important; }
+html .pb-3 { padding-bottom: 0.75rem !important; }
+html .pb-4 { padding-bottom: 1rem !important; }
+html .pb-5 { padding-bottom: 1.25rem !important; }
+
+/* Flex/grid gaps: Tailwind gap-3/4/5 = 12/16/20px. */
+html .gap-3 { gap: 0.75rem !important; }
+html .gap-4 { gap: 1rem !important; }
+html .gap-5 { gap: 1.25rem !important; }
+
+/* ===================================================================
+   FOOTER RHYTHM (320 / 375 / 425 / 768)
+   The public pages share one copy-pasted footer:
+   - .container-wide.py-14 (56px block padding everywhere) is too much
+     air on phones; scale it 40px mobile / 56px from sm up.
+   - The link columns were col-6 (2 cramped columns on phones); HTML
+     now uses col-12 col-sm-6 col-lg-3, so below sm the row only needs
+     a modest vertical gutter between the stacked blocks.
+=================================================================== */
+
+footer .container-wide.py-14 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+@media (min-width: 640px) {
+  footer .container-wide.py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+footer .row.g-4 {
+  --bs-gutter-y: 1.25rem;
+}
+@media (min-width: 640px) and (max-width: 767.98px) {
+  footer .row.g-4 {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+  }
+}

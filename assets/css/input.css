@@ -124,7 +124,7 @@
     @apply text-xs font-bold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-300;
   }
   .section {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-12 sm:py-16 lg:py-20;
   }
   .section-title {
     @apply font-display text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl dark:text-white;
@@ -203,6 +203,16 @@
   .dash-side-link.active {
     @apply bg-brand-600 text-white shadow-soft hover:bg-brand-600 hover:text-white;
   }
+  .dash-nav-icons {
+    @apply flex flex-col items-center gap-2;
+  }
+  .dash-side-icon {
+    @apply grid h-11 w-11 place-items-center rounded-xl text-ink-500 transition
+      hover:bg-brand-50 hover:text-brand-700 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-white;
+  }
+  .dash-side-icon.active {
+    @apply bg-brand-600 text-white shadow-soft hover:bg-brand-600 hover:text-white;
+  }
   .dash-card {
     @apply rounded-2xl border border-ink-100 bg-white p-5 shadow-card dark:border-ink-800 dark:bg-ink-900;
   }
@@ -225,6 +235,40 @@
     @apply transition hover:bg-brand-50/50 dark:hover:bg-ink-800/50;
   }
 
+  /* ---------- Dashboard Header ---------- */
+  .dash-header {
+    @apply w-full overflow-x-clip;
+  }
+  .dash-brand-link {
+    @apply flex items-center gap-1.5 xs:gap-2 font-display font-extrabold text-ink-900 dark:text-white flex-shrink min-w-0;
+  }
+  .dash-logo-icon {
+    @apply grid h-8 w-8 xs:h-9 xs:w-9 sm:h-10 sm:w-10 place-items-center rounded-xl overflow-hidden shadow-md flex-shrink-0 ring-1 ring-black/5 dark:ring-white/20;
+  }
+  .dash-brand-text {
+    @apply truncate text-xs xs:text-sm sm:text-base leading-tight font-extrabold;
+  }
+  .dash-brand-primary {
+    @apply inline;
+  }
+  .dash-brand-secondary {
+    @apply inline text-brand-600 dark:text-brand-300;
+  }
+  .dash-header-actions {
+    @apply flex items-center gap-1 xs:gap-1.5 sm:gap-2 flex-shrink-0 flex-nowrap ms-auto;
+  }
+  .dash-btn {
+    @apply inline-flex h-8 w-8 xs:h-9 xs:w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-ink-200 bg-white
+      text-ink-600 transition hover:border-brand-400 hover:text-brand-700 dark:border-ink-700 dark:bg-ink-900
+      dark:text-ink-200 dark:hover:border-brand-500 flex-shrink-0 p-0;
+  }
+  .dash-profile-btn {
+    @apply inline-flex h-8 w-8 xs:h-9 xs:w-9 sm:h-auto sm:w-auto items-center justify-center sm:justify-start gap-1.5 rounded-full border border-ink-200 bg-white p-0 sm:py-0.5 sm:ps-0.5 sm:pe-3 text-xs font-bold text-ink-700 shadow-sm transition hover:border-brand-400 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-200 flex-shrink-0;
+  }
+  .dash-menu-btn {
+    @apply inline-flex h-8 w-8 xs:h-9 xs:w-9 sm:h-auto sm:w-auto items-center justify-center gap-1 rounded-full p-0 sm:px-3 sm:py-1.5 flex-shrink-0;
+  }
+
   /* ---------- Misc ---------- */
   .timeline-dot {
     @apply absolute -left-[7px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-brand-600
@@ -239,6 +283,9 @@
    RTL support additions
    ========================================================================== */
 @layer utilities {
+  .xxs\:inline { @media (min-width: 320px) { display: inline; } }
+  .xxs\:hidden { @media (min-width: 320px) { display: none; } }
+
   [dir="rtl"] .rtl\:flip {
     transform: scaleX(-1);
   }
