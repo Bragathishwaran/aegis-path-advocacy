@@ -121,9 +121,11 @@
     .input.invalid { border-color: #ef4444; }
     .input-pw { padding-right: 3rem; }
     .pw-toggle {
-      position: absolute; right: .875rem; top: 50%; transform: translateY(-50%);
+      position: absolute; right: .5rem; top: 50%; transform: translateY(-50%);
       background: none; border: none; cursor: pointer; color: #94a3b8; padding: 0; display: flex;
+      align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: .375rem;
     }
+    .pw-toggle:hover { background: rgba(255,255,255,.08); }
     [dir="rtl"] .pw-toggle { right: auto; left: .875rem; }
     .pw-toggle:hover { color: #148d8b; }
     .error-msg { display: none; font-size: .8rem; color: #ef4444; margin-top: .25rem; }
@@ -172,9 +174,11 @@
     [data-theme="dark"] .login-intimation .intimation-title { color: #6ee7b7; }
     [data-theme="dark"] .login-intimation .intimation-sub { color: #a7f3d0; }
     .cta-below { text-align: center; margin-top: 1.75rem; color: rgba(255,255,255,.75); font-size: .9rem; }
-    .cta-below a { color: #fff; font-weight: 700; text-decoration: underline; }
+    .cta-below a { color: #fff; font-weight: 700; text-decoration: underline; display: inline-flex; align-items: center; min-height: 24px; }
     .cta-below a:hover { color: #a2e1e0; }
     .copyright-line { position: relative; z-index: 10; text-align: center; color: rgba(255,255,255,.35); font-size: .75rem; margin-top: .75rem; padding-bottom: 1.5rem; }
+    .copyright-line a { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s ease; display: inline-flex; align-items: center; min-height: 24px; }
+    .copyright-line a:hover { color: #fff; text-decoration: underline; }
     .theme-btn { position: fixed; top: 1rem; right: 1rem; z-index: 100; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: .5rem; padding: .5rem; cursor: pointer; color: #fff; backdrop-filter: blur(8px); display: flex; }
     .theme-btn:hover { background: rgba(255,255,255,.25); }
     .form-field { margin-bottom: 1.25rem; }
@@ -337,7 +341,12 @@
 
   <!-- Copyright -->
   <div class="copyright-line">
-    © <span data-year></span> AegisPoint Advocacy. All rights reserved.
+    <p class="mb-1">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</p>
+    <p class="mb-0 flex items-center justify-center gap-4">
+      <a class="copyright-link" href="#">Privacy</a>
+      <a class="copyright-link" href="#">Terms</a>
+      <a class="copyright-link" href="404.html">Sitemap</a>
+    </p>
   </div>
 </main>
 

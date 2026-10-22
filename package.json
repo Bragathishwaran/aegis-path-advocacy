@@ -13,7 +13,8 @@
     "start": "node server.js",
     "test": "node test/validation.test.js",
     "test:responsive": "node test/header-responsive.test.js",
-    "test:footer": "node test/footer-responsive.test.js"
+    "test:footer": "node test/footer-responsive.test.js",
+    "test:audit": "node test/responsive-audit.js"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.10",

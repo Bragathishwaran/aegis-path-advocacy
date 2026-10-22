@@ -101,7 +101,7 @@
 
           <!-- User profile indicator -->
           <a href="/dashboard/profile.html" class="dash-profile-btn flex-shrink-0 inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white p-0 sm:py-0.5 sm:ps-0.5 sm:pe-3 text-xs font-bold text-ink-700 shadow-sm transition hover:border-brand-400 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-200" title="User Profile" aria-label="User Profile" style="text-decoration:none;">
-            <span class="grid h-7 w-7 sm:h-7 sm:w-7 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white flex-shrink-0">P</span>
+            <span class="grid h-7 w-7 sm:h-7 sm:w-7 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white flex-shrink-0 overflow-hidden" data-avatar>P</span>
             <span class="hidden sm:inline">Priya</span>
           </a>
 
@@ -122,7 +122,7 @@
       <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
         <div class="dash-card sticky top-24 p-4">
           <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
-            <span class="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0">PT</span>
+            <span class="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0 overflow-hidden" data-avatar>PT</span>
             <div class="min-w-0">
               <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya</p>
               <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava &amp; Noah's Parent</p>
@@ -200,14 +200,16 @@
               <form data-validate>
                 <!-- Avatar row -->
                 <div class="flex items-center gap-4 mb-6">
-                  <span class="grid h-20 w-20 place-items-center rounded-full bg-brand-600 font-bold text-white text-2xl flex-shrink-0">PT</span>
+                  <span class="grid h-20 w-20 place-items-center rounded-full bg-brand-600 font-bold text-white text-2xl flex-shrink-0 overflow-hidden" data-avatar>PT</span>
                   <div class="min-w-0">
                     <h4 class="font-display font-bold text-ink-900 dark:text-white text-base">Priya</h4>
-                    <p class="text-xs text-ink-500 dark:text-ink-400 mb-2">JPG, PNG or GIF up to 5MB</p>
+                    <p class="text-xs text-ink-500 dark:text-ink-400 mb-2" data-avatar-hint>JPG, PNG, GIF or WebP up to 5MB</p>
                     <div class="flex flex-wrap gap-2">
-                      <button type="button" class="btn btn-outline btn-sm">Change Photo</button>
-                      <button type="button" class="btn btn-ghost btn-sm text-rose-500">Remove</button>
+                      <label for="profile-avatar-input" class="btn btn-outline btn-sm" data-avatar-change>Change Photo</label>
+                      <button type="button" class="btn btn-ghost btn-sm text-rose-500" data-avatar-remove>Remove</button>
+                      <input type="file" id="profile-avatar-input" class="sr-only" data-avatar-input accept="image/jpeg,image/png,image/gif,image/webp" aria-label="Upload profile photo" />
                     </div>
+                    <p class="error-msg mt-2" data-avatar-error></p>
                   </div>
                 </div>
 
@@ -280,7 +282,7 @@
                         <span class="text-xs text-ink-500">Age 9 · Grade 4 · Riverside Elementary</span>
                       </div>
                     </div>
-                    <span class="chip-ok">Active IEP</span>
+                    <span class="status-badge status-badge--success">Active IEP</span>
                   </div>
 
                   <div class="grid gap-2 sm:grid-cols-2 text-sm text-ink-600 dark:text-ink-300 rounded-lg bg-ink-50 dark:bg-ink-900 p-3 mb-3">
@@ -306,7 +308,7 @@
                         <span class="text-xs text-ink-500">Age 7 · Grade 2 · Riverside Elementary</span>
                       </div>
                     </div>
-                    <span class="chip-brand">Active 504 Plan</span>
+                    <span class="status-badge status-badge--info">Active 504 Plan</span>
                   </div>
 
                   <div class="grid gap-2 sm:grid-cols-2 text-sm text-ink-600 dark:text-ink-300 rounded-lg bg-ink-50 dark:bg-ink-900 p-3 mb-3">
@@ -408,7 +410,7 @@
                   <h5 class="text-sm font-bold text-ink-900 dark:text-white mb-0">Two-Factor Authentication (2FA)</h5>
                   <p class="text-xs text-ink-500 dark:text-ink-400 mb-0">Secure sensitive IEP and medical evaluation records with SMS/Authenticator codes.</p>
                 </div>
-                <span class="chip-ok">Enabled</span>
+                <span class="status-badge status-badge--success">Enabled</span>
               </div>
 
               <div class="p-3 rounded-xl bg-ink-50 dark:bg-ink-900 text-xs text-ink-500 space-y-1">

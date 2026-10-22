@@ -285,17 +285,6 @@ html, body {
   display: block;
 }
 
-/* ── Map embed rounded ───────────────────────────────────────────── */
-.map-embed {
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 1px solid #eaeef4;
-}
-.dark .map-embed {
-  border-color: #37455b;
-  filter: invert(0.9) hue-rotate(180deg);
-}
-
 /* ── Coming soon countdown ───────────────────────────────────────── */
 .countdown-unit {
   min-width: 70px;
@@ -926,12 +915,13 @@ html, body {
   transform: scale(1.06);
 }
 
+/* Decorative gradient overlays stay hidden - they are purely cosmetic
+   and were stacking on top of the card artwork. The badge classes were
+   removed from this rule on purpose: a blanket `display:none !important`
+   silently swallows any badge a page adds later. */
 .service-card-overlay,
 .pillar-card-overlay,
-.pricing-img-overlay,
-.service-card-badges,
-.pillar-card-badges,
-.quick-card-badge {
+.pricing-img-overlay {
   display: none !important;
 }
 
@@ -1970,8 +1960,6 @@ img {
 .hero-visual-card > div,
 [class*="overflow-hidden"][class*="rounded"] {
   overflow: hidden;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  mask-image: radial-gradient(white, black);
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
@@ -2409,6 +2397,31 @@ html.dark .hero-blob,
 }
 
 /* ─── Hero Section: Align Image Evenly With Content Height ──────── */
+.hero-img-wrap {
+  background-image: var(--hero-image, none);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--hero-pos, 50% 50%);
+  background-color: var(--bg-subtle);
+}
+/* The home hero photo is portrait on desktop (the card stretches to the
+   copy column) and landscape on a phone, so the focal point flips axis
+   the same way the interior hero band does. */
+@media (min-width: 992px) {
+  .hero-img-wrap {
+    background-position: var(--hero-pos, 50% 50%);
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .hero-img-wrap {
+    background-position: var(--hero-pos-md, 50% 50%);
+  }
+}
+@media (max-width: 767.98px) {
+  .hero-img-wrap {
+    background-position: var(--hero-pos-sm, 50% 50%);
+  }
+}
 @media (min-width: 992px) {
   .hero-row {
     display: flex !important;
@@ -2447,10 +2460,10 @@ html.dark .hero-blob,
 }
 @media (max-width: 991.98px) {
   .hero-img-wrap {
-    height: clamp(280px, 48vw, 440px);
+    height: clamp(250px, 50vw, 420px);
     width: 100%;
     display: block;
-    max-height: 440px;
+    max-height: 420px;
   }
   .hero-img-wrap .hero-img {
     height: 100%;
@@ -2696,3 +2709,971 @@ footer .row.g-4 {
     --bs-gutter-y: 1.5rem;
   }
 }
+
+/* ===================================================================
+   COMPONENT REFINEMENTS · SHARED SURFACES
+   -------------------------------------------------------------------
+   Reusable pieces used by more than one page. Kept here (rather than
+   in input.css) because this file loads last and therefore wins over
+   the Tailwind utilities, the Bootstrap !important utilities and the
+   per-page <style> blocks without needing !important on every rule.
+
+   All colours come from the theme tokens (--brand-*, --text-*,
+   --bg-*) so every surface follows the Light / Dark palettes.
+   =================================================================== */
+
+/* ── 0. Touch targets ─────────────────────────────────────────────────
+   WCAG 2.2 "Target Size (Minimum)" asks for a 24x24 CSS px hit area.
+   Link-styled buttons, footer links and the footer phone / e-mail
+   links were 16-20px tall, which made them hard to hit on a phone. */
+button.link,
+a.link,
+button.link-action,
+a.link-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+button.link,
+button.link-action {
+  padding: 0.15rem 0.25rem;
+}
+.footer-contact-item a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+.contact-phone-link,
+.contact-email-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+nav[aria-label="Breadcrumb"] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+.blog-read-more {
+  min-height: 24px;
+}
+.toc-link,
+.related-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
+.inline-quote-link,
+.consent-privacy-link {
+  padding-block: 0.25rem;
+}
+
+/* ── 1. Card media frame ─────────────────────────────────────────────
+   A fixed-height media frame with a definite height. The image fills
+   the frame with object-fit:cover, so it can never distort or leak
+   outside the card, and no inline sizing is required in the markup. */
+.card-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: var(--bg-subtle);
+  border-radius: inherit;
+}
+.card-media--short { height: 160px; }
+.card-media--tall { height: 240px; }
+.card-media--hero { height: 260px; }
+@media (min-width: 768px) {
+  .card-media--hero { height: 340px; }
+}
+.card-media-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  border: 0;
+}
+.service-persona-grid .card-media {
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+.service-persona-grid .card-media-img {
+  position: absolute;
+  inset: 0;
+  object-position: center 38%;
+}
+.blueprint-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+.blueprint-media-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(11, 15, 25, 0.28), rgba(11, 15, 25, 0) 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card:hover > .card-media::after,
+.card-media:hover::after { opacity: 1; }
+
+/* ── 2. Footer ────────────────────────────────────────────────────────
+   The footer links used to carry style="color:inherit", which beat the
+   hover:text-brand-600 utility and killed every hover state. .footer-link
+   restores a real hover / focus treatment. */
+.footer-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    transition: color 0.18s ease, text-decoration-color 0.18s ease;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    }
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #148d8b;
+  text-decoration: underline;
+}
+html.dark .footer-link:hover,
+html.dark .footer-link:focus-visible,
+[data-theme="dark"] .footer-link:hover,
+[data-theme="dark"] .footer-link:focus-visible {
+  color: #37cdc4;
+}
+
+/* Contact block (address / phone / email) in the last footer column */
+.footer-contact {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+/* The block sits under the "Get updates" column now, so a hairline rule
+   separates it from the newsletter form above it. */
+.footer-contact--stacked {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+.footer-contact-item:first-child { margin-top: 0; }
+.footer-contact-icon {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
+  color: #148d8b;
+}
+html.dark .footer-contact-icon,
+[data-theme="dark"] .footer-contact-icon { color: #37cdc4; }
+.footer-contact-item a {
+  color: inherit;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.18s ease;
+}
+.footer-contact-item a:hover,
+.footer-contact-item a:focus-visible {
+  color: #148d8b;
+  text-decoration: underline;
+}
+html.dark .footer-contact-item a:hover,
+html.dark .footer-contact-item a:focus-visible,
+[data-theme="dark"] .footer-contact-item a:hover,
+[data-theme="dark"] .footer-contact-item a:focus-visible {
+  color: #37cdc4;
+}
+
+/* Bottom bar links (Privacy / Terms / Sitemap) */
+.footer-bottom-link {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    transition: color 0.18s ease;
+    }
+.footer-bottom-link:hover,
+.footer-bottom-link:focus-visible {
+  color: #148d8b;
+  text-decoration: underline;
+}
+html.dark .footer-bottom-link:hover,
+html.dark .footer-bottom-link:focus-visible,
+[data-theme="dark"] .footer-bottom-link:hover,
+[data-theme="dark"] .footer-bottom-link:focus-visible {
+  color: #37cdc4;
+}
+
+/* ── 3. Status badges (dashboard tables) ─────────────────────────────
+   One chip component for every state, instead of a mix of Bootstrap
+   badges and ad-hoc Tailwind overrides. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.status-badge::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+  flex: 0 0 auto;
+}
+.status-badge--neutral {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+.status-badge--success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border-color: rgba(16, 185, 129, 0.28);
+}
+.status-badge--info {
+  background: rgba(20, 141, 139, 0.12);
+  color: #0f766e;
+  border-color: rgba(20, 141, 139, 0.28);
+}
+.status-badge--warning {
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+  border-color: rgba(245, 158, 11, 0.32);
+}
+.status-badge--danger {
+  background: rgba(244, 63, 94, 0.12);
+  color: #be123c;
+  border-color: rgba(244, 63, 94, 0.28);
+}
+html.dark .status-badge--success { color: #6ee7b7; }
+html.dark .status-badge--info { color: #5eead4; }
+html.dark .status-badge--warning { color: #fcd34d; }
+html.dark .status-badge--danger { color: #fda4af; }
+html.dark .status-badge--neutral { color: var(--text-muted); }
+
+/* ── 4. Dashboard table action cell ────────────────────────────────── */
+.table-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+.table-action:hover,
+.table-action:focus-visible {
+  color: #148d8b;
+  border-color: #37cdc4;
+  background: rgba(20, 141, 139, 0.08);
+}
+html.dark .table-action:hover,
+html.dark .table-action:focus-visible,
+[data-theme="dark"] .table-action:hover,
+[data-theme="dark"] .table-action:focus-visible {
+  color: #5eead4;
+  border-color: #0d9488;
+  background: rgba(13, 148, 136, 0.14);
+}
+.table-action--primary {
+  color: #ffffff;
+  background: #148d8b;
+  border-color: #148d8b;
+}
+.table-action--primary:hover,
+.table-action--primary:focus-visible {
+  color: #ffffff;
+  background: #0f766e;
+  border-color: #0f766e;
+}
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+.dashboard-overview-table th:last-child,
+.dashboard-overview-table td:last-child {
+  min-width: 9rem;
+  text-align: center;
+}
+.dashboard-overview-table td:last-child .table-actions {
+  justify-content: center;
+}
+.dashboard-overview-table .table-action {
+  min-width: 7rem;
+  min-height: 2.25rem;
+  white-space: normal;
+  text-align: center;
+}
+.dashboard-overview-table th:nth-child(5),
+.dashboard-overview-table td:nth-child(5) {
+  min-width: 10rem;
+  text-align: center;
+}
+.dashboard-overview-table td:nth-child(5) .status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.5rem;
+  min-height: 2.25rem;
+  white-space: nowrap;
+}
+
+/* ── 5. Goal / progress cards (dashboard) ────────────────────────────
+   The card is a column flexbox with three slices: the header row, the
+   baseline metrics and the progress bar. The bar is pinned to the card
+   floor with `margin-top: auto`, so a title that wraps to a second line
+   can never drag the bar upward and leave the row of cards looking
+   ragged. `justify-content: space-between` is the belt to that
+   braces: whatever height the row ends up with, the bar sits on it. */
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.875rem;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  height: 100%;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.goal-card:hover {
+  border-color: #37cdc4;
+  box-shadow: var(--shadow-subtle);
+  transform: translateY(-2px);
+}
+/* Header row: title on the left, status badge on the right. Both are
+   pinned to the top edge (`flex-start`) — with the default `center` a
+   two-line title leaves the badge floating in the middle of the row,
+   and the badge drops onto its own line as soon as the card narrows.
+   `flex-wrap: nowrap` keeps the pair on one line; the title absorbs
+   the squeeze instead (it is clamped to two lines further down). */
+.goal-card-head,
+.goal-header {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+/* Two lines, always. The title clamps at two lines and reserves both
+   of them, so a one-line title and a two-line title produce the same
+   header height and the cards below them stay in lockstep. */
+.goal-card-title,
+.goal-title {
+  flex: 1 1 12rem;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+  min-height: 2.7em;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+.goal-card-head .status-badge,
+.goal-header .status-badge {
+  flex: 0 0 auto;
+  max-width: 100%;
+  white-space: nowrap;
+}
+.goal-card-value {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #148d8b;
+  white-space: nowrap;
+}
+html.dark .goal-card-value,
+[data-theme="dark"] .goal-card-value { color: #5eead4; }
+.goal-card-track {
+  height: 0.5rem;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+.goal-card-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #148d8b, #1cb1ab);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.goal-card--success { border-color: rgba(16, 185, 129, 0.35); }
+.goal-card--warning { border-color: rgba(245, 158, 11, 0.42); }
+.goal-card-bar--success {
+  background: linear-gradient(90deg, #059669, #10b981);
+}
+.goal-card-bar--accent {
+  background: linear-gradient(90deg, #d97706, #f98307);
+}
+.goal-card-bar--danger {
+  background: linear-gradient(90deg, #be123c, #f43f5e);
+}
+.goal-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── 6. Canonical page hero ──────────────────────────────────────────
+   One hero recipe for every interior page: the eyebrow / title /
+   subtitle rhythm is identical from pricing to blog to contact, and
+   the band is always the same height on every page.
+
+   Pages that carry a photo add the `page-hero--media` modifier and
+   point `--hero-image` at the asset. The teal overlay keeps the white
+   type legible whatever the photo underneath happens to be, so the
+   photo reads as texture instead of competing with the copy. */
+.goal-progress-section {
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(1rem, 2vw, 1.5rem) !important;
+}
+.goal-student-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0 1rem;
+}
+.goal-student-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.85rem;
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.goal-student-tab:hover {
+  border-color: #35aeac;
+  color: #107472;
+}
+.goal-student-tab.is-active {
+  border-color: #148d8b;
+  background: #148d8b;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(20, 141, 139, 0.2);
+}
+.goal-student-tab:focus-visible {
+  outline: 3px solid rgba(53, 174, 172, 0.45);
+  outline-offset: 2px;
+}
+.goal-progress-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+.goal-progress-panel.hidden { display: none !important; }
+.goal-progress-panel[hidden] { display: none !important; }
+.goal-progress-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(13rem, 0.65fr);
+  align-items: center;
+  gap: 0.75rem 1rem;
+  min-width: 0;
+  padding: 1rem 1.125rem;
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  background: var(--bg-subtle);
+}
+.goal-progress-summary > div:first-child {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  min-width: 0;
+}
+.goal-progress-summary > div:first-child > span:first-child {
+  color: var(--text-main);
+  font-weight: 700;
+}
+.goal-progress-summary > span:last-child {
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.goal-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(9.5rem, 1fr);
+  align-items: stretch;
+  gap: 1rem;
+  min-width: 0;
+}
+.goal-progress-section .goal-card {
+  min-width: 0;
+  min-height: 9.5rem;
+  height: auto;
+  padding: 1.125rem;
+  gap: 0;                    /* the margins below own the vertical rhythm */
+  justify-content: space-between;
+}
+.goal-progress-section .goal-card-head,
+.goal-progress-section .goal-header {
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;   /* header row → baseline metrics */
+}
+.goal-progress-section .goal-card-title,
+.goal-progress-section .goal-title {
+  flex: 1 1 10rem;
+  min-width: 0;
+}
+.goal-progress-section .goal-card-head .status-badge,
+.goal-progress-section .goal-header .status-badge {
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+.goal-progress-section .goal-card > p {
+  margin: 0 0 0.875rem;     /* metrics row → progress bar */
+  min-height: 3.1em;        /* two lines of metrics reserved for every card */
+  line-height: 1.55;
+}
+/* Cards without a bar have nothing below the metrics row, so they keep
+   their text flush with the bottom of the card. */
+.goal-progress-section .goal-card > p:last-child {
+  margin-bottom: 0;
+}
+.goal-progress-section .goal-card-track {
+  height: 0.625rem;
+  margin-top: auto;         /* the bar is anchored to the card floor */
+}
+/* Narrow cards: below ~420px the pair is stacked, so the badge gets a
+   line of its own and the title keeps the full width of the card.
+   Side by side at this size the title would be squeezed into an
+   ellipsis. This block sits after the section rules so it wins over
+   the `flex: 1 1 10rem` basis set above. */
+@media (max-width: 420px) {
+  .goal-card-head,
+  .goal-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .goal-card-head .status-badge,
+  .goal-header .status-badge {
+    align-self: flex-start;
+  }
+  /* In a column the flex basis is read as a height, which would stretch
+     the title to 10rem tall, so the basis is dropped. */
+  .goal-card-title,
+  .goal-title,
+  .goal-progress-section .goal-card-title,
+  .goal-progress-section .goal-title {
+    flex: 0 0 auto;
+  }
+}
+@media (max-width: 767.98px) {
+  .goal-progress-grid,
+  .goal-progress-summary { grid-template-columns: minmax(0, 1fr); }
+  .goal-progress-summary > span:last-child {
+    padding-inline-start: 0;
+    padding-top: 0.65rem;
+    border-inline-start: 0;
+    border-top: 1px solid var(--border-color);
+  }
+}
+@media (max-width: 479.98px) {
+  .goal-student-tabs { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  .goal-student-tab { justify-content: flex-start; text-align: start; }
+  .goal-progress-section .goal-card { padding: 1rem; }
+}
+
+.page-hero {
+  --hero-min-h: 400px;
+  --hero-image: none;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--hero-min-h);
+  padding: 3rem 0 3.25rem;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-primary) 100%);
+  border-bottom: 1px solid var(--border-color);
+}
+@media (min-width: 768px) {
+  .page-hero {
+    --hero-min-h: 520px;
+    padding: 3rem 0;
+  }
+}
+.page-hero > * {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+.page-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 46rem;
+}
+.page-hero-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 2.125rem;
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+@media (min-width: 768px) {
+  .page-hero-title { font-size: 3rem; }
+}
+.page-hero-sub {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+@media (min-width: 768px) {
+  .page-hero-sub { font-size: 1.0625rem; }
+}
+.page-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #148d8b;
+}
+html.dark .page-hero-eyebrow,
+[data-theme="dark"] .page-hero-eyebrow { color: #5eead4; }
+.page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+/* ── 6a. Hero with a background photo ───────────────────────────────── */
+/* The photo path has to live in this stylesheet, next to the rule that
+   paints it. A `url()` injected into a custom property from the markup
+   resolves against *this* file (assets/css/), not against the document,
+   and 404s on /assets/css/assets/images/... — so each page opts into a
+   photo with `data-hero="…"` instead of passing a url() inline. */
+.page-hero--media[data-hero="about"] { --hero-image: url("../images/about-bg.jpg"); }
+.page-hero--media[data-hero="blog"] { --hero-image: url("../images/blog-bg.jpg"); }
+.page-hero--media[data-hero="contact"] { --hero-image: url("../images/contact-bg.jpg"); }
+.page-hero--media[data-hero="pricing"] { --hero-image: url("../images/pricing-bg.jpg"); }
+.page-hero--media[data-hero="services"] { --hero-image: url("../images/services-bg.jpg"); }
+.page-hero--media[data-hero="service-details"] { --hero-image: url("../images/How to Write Measurable IEP Goals That Actually Track Progress.jpg"); }
+.hero-img-wrap[data-hero="home1"] { --hero-image: url("../images/home1-bg.jpg"); }
+.page-hero--media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--hero-image);
+  background-size: cover;
+  background-position: var(--hero-pos, 50% 50%);
+  background-repeat: no-repeat;
+}
+/* A wide band crops the photo top/bottom, a narrow phone crops it
+   left/right, so the focal point moves between axes as the viewport
+   changes. Each page ships three focal points and the breakpoint that
+   matches the crop direction wins:
+     --hero-pos     >= 992px  (wide band, vertical crop)
+     --hero-pos-md  768-991px (tablet band, horizontal crop)
+     --hero-pos-sm  < 768px   (phone band, horizontal crop) */
+@media (min-width: 992px) {
+  .page-hero--media::before {
+    background-position: var(--hero-pos, 50% 50%);
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .page-hero--media::before {
+    background-position: var(--hero-pos-md, 50% 50%);
+  }
+}
+@media (max-width: 767.98px) {
+  .page-hero--media::before {
+    background-position: var(--hero-pos-sm, 50% 50%);
+  }
+}
+.page-hero--media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(11, 94, 92, 0.86) 0%, rgba(8, 47, 66, 0.8) 100%);
+}
+/* Type inside a photo hero is always light, in both themes. The dark
+   theme ships `.dark .eyebrow` / `.dark .section-sub` overrides with
+   `!important`, so the hero has to answer with `!important` too or the
+   copy turns teal-on-teal and loses contrast. */
+.page-hero--media .eyebrow { color: rgba(255, 255, 255, 0.78) !important; }
+.page-hero--media .section-title,
+.page-hero--media .page-hero-title { color: #ffffff !important; }
+.page-hero--media .section-sub,
+.page-hero--media .page-hero-sub { color: rgba(255, 255, 255, 0.86) !important; }
+.page-hero--media .page-hero-eyebrow { color: rgba(255, 255, 255, 0.78) !important; }
+
+/* Below the desktop breakpoint the decorative photo card is redundant:
+   the band already carries a full-bleed background image, and stacking
+   the card under the copy pushed the hero to 800px+ on tablets. */
+@media (max-width: 991.98px) {
+  .page-hero .hero-visual { display: none; }
+}
+
+/* Controls sitting on the dark band are re-tuned to match. */
+.page-hero--media #billingToggle .btn.active {
+  background: #ffffff !important;
+  color: #0e7170 !important;
+  border-color: #ffffff !important;
+}
+.page-hero--media #billingToggle .btn:not(.active) {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+}
+.page-hero--media #billingNote { color: rgba(255, 255, 255, 0.85) !important; }
+/* The global input rule is `input:not(...)...{background:var(--bg-surface)
+   !important}` with eight `:not()` hops, so no class selector can out-rank
+   it. Re-point the theme variables on the field instead and the field
+   paints itself white in both themes. */
+.page-hero--media [data-blog-search],
+.blog-search-strip [data-blog-search] {
+  --bg-surface: #ffffff;
+  --text-main: #0f172a;
+  --text-subtle: #64748b;
+  --border-color: #e2e8f0;
+}
+
+/* ── 6b. Hero media band (article / post headers) ─────────────────────
+   A full-bleed photo band that matches the page hero height exactly. */
+.page-hero-media {
+  --hero-min-h: 400px;
+  position: relative;
+  height: var(--hero-min-h);
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--bg-subtle);
+}
+@media (min-width: 768px) {
+  .page-hero-media { --hero-min-h: 520px; }
+}
+.page-hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── 7. Map embed frame ──────────────────────────────────────────────
+   The map is a third-party iframe, so it is sandboxed into a frame with
+   a fixed aspect ratio and never allowed to push the page wider. */
+.map-embed-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  min-height: 260px;
+  overflow: hidden;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+}
+.map-embed-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Office map toolbar: location label above the live Google Maps frame,
+   plus the address block underneath it. */
+.map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-surface);
+}
+.map-toolbar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.map-toolbar-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-secondary);
+}
+.map-toolbar-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.map-location-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 32px;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-subtle);
+  color: var(--brand-secondary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.map-location-chip svg {
+  flex-shrink: 0;
+}
+.map-address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.map-address-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.map-address-sub {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+.map-address-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+/* ── 8. Inert-element fix ────────────────────────────────────────────
+   Elements that used to be plain <span class="service-card-btn"> were
+   not focusable and had no link semantics. Anchors keep the exact same
+   look while becoming real, keyboard-operable links. */
+.service-card-btn,
+.btn-card-action {
+  text-decoration: none;
+  cursor: pointer;
+}
+a.service-card-btn:hover,
+a.btn-card-action:hover,
+a.service-card-btn:focus-visible,
+a.btn-card-action:focus-visible {
+  text-decoration: none;
+}
+
+/* ── 8c. The HTML `hidden` attribute must beat Bootstrap ────────────
+   Bootstrap's .d-* display helpers are `!important`, so `hidden` on a
+   .d-flex / .d-block element does nothing without this rule. */
+html [hidden] { display: none !important; }
+
+/* ── 8b. Ghost button for dark heroes ───────────────────────────────
+   Replaces the copy-pasted inline `style="background:rgba(255,255,255,.15)"`
+   treatment so every dark hero CTA has the same hover / focus state. */
+.btn-hero-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.btn-hero-ghost:hover,
+.btn-hero-ghost:focus-visible {
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  text-decoration: none;
+}
+.btn-hero-ghost:active { transform: scale(0.98); }
+
+/* ── 9. Empty-state (search results) ───────────────────────────────── */.empty-state {
+  display: none;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  border-radius: 1rem;
+  color: var(--text-muted);
+}
+.empty-state.is-visible { display: block; }
+.empty-state-title {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.empty-state.is-visible .empty-state-title { display: block; }
+.empty-state p { margin: 0.5rem 0 0; font-size: 0.875rem; }
+

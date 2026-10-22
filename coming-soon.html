@@ -145,11 +145,13 @@
 
     .back-home {
       display: inline-flex; align-items: center; gap: .5rem; color: #64748b; text-decoration: none;
-      font-size: .875rem; font-weight: 600; transition: color .2s;
+      font-size: .875rem; font-weight: 600; transition: color .2s; min-height: 24px;
     }
     .back-home:hover { color: #35aeac; }
 
     .cs-footer { position: relative; z-index: 10; margin-top: 2rem; color: rgba(255,255,255,.25); font-size: .75rem; text-align: center; }
+    .cs-footer a:not(.font-extrabold) { color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s ease; display: inline-flex; align-items: center; min-height: 24px; }
+    .cs-footer a:not(.font-extrabold):hover { color: #fff; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -176,7 +178,7 @@
 <div class="position-fixed top-0 start-0 w-100 p-3 d-flex justify-content-between align-items-center" style="z-index:100;pointer-events:none;">
   <a href="index.html" class="btn btn-sm text-white text-decoration-none d-flex align-items-center gap-1" style="pointer-events:auto;background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:8px;">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-flip"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-    <span>Home</span>
+    <span>Family Advocacy</span>
   </a>
   <div class="d-flex gap-2" style="pointer-events:auto;">
     <button type="button" class="btn btn-sm text-white d-flex align-items-center justify-content-center" data-dir-toggle title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction" style="background:rgba(255,255,255,0.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);border-radius:8px;width:34px;height:34px;padding:0;">
@@ -301,6 +303,14 @@
   </a>
   <span style="opacity:0.4;">·</span>
   <span>© <span data-year></span> AegisPoint Advocacy. All rights reserved.</span>
+  <span style="opacity:0.4;">·</span>
+  <a href="tel:+18005550192">(800) 555-0192</a>
+  <span style="opacity:0.4;">·</span>
+  <a href="mailto:hello@aegispointadvocacy.com">hello@aegispointadvocacy.com</a>
+  <span style="opacity:0.4;">·</span>
+  <a href="#">Privacy</a>
+  <a href="#">Terms</a>
+  <a href="404.html">Sitemap</a>
 </footer>
 
 <!-- Bootstrap 5 JS -->

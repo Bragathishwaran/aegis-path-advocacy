@@ -286,6 +286,11 @@
   .xxs\:inline { @media (min-width: 320px) { display: inline; } }
   .xxs\:hidden { @media (min-width: 320px) { display: none; } }
 
+  /* Image fit helpers - shared by every page. These used to live only in
+     contact.html's <style>, so photos were stretched (never cropped) on
+     every other page. */
+  .object-fit-cover { object-fit: cover; }
+
   [dir="rtl"] .rtl\:flip {
     transform: scaleX(-1);
   }

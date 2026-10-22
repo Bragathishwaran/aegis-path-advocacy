@@ -38,6 +38,15 @@
   <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
 
   <style>
+    .contact-page .contact-site-header {
+      background-color: rgba(230, 247, 246, 0.97) !important;
+      border-bottom-color: rgba(20, 141, 139, 0.2) !important;
+    }
+    html.dark .contact-page .contact-site-header,
+    [data-theme="dark"] .contact-page .contact-site-header {
+      background-color: rgba(19, 45, 49, 0.97) !important;
+      border-bottom-color: rgba(55, 205, 196, 0.22) !important;
+    }
     :root {
       --brand-600: #148d8b;
       --accent-500: #f98307;
@@ -79,7 +88,6 @@
     .error-msg.show { display: block; }
     .input.invalid, .textarea.invalid, .select.invalid { border-color: #ef4444; }
     .req { color: #ef4444; }
-    .map-embed { background: linear-gradient(135deg, #148d8b 0%, #107472 100%); border-radius: 1rem; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; font-weight: 600; gap: 0.75rem; }
     .timeline-step { display: flex; align-items: flex-start; gap: 1rem; }
     .step-badge { flex-shrink: 0; width: 36px; height: 36px; background: #148d8b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
     .contact-info-card { background: #f8fafc; border-radius: 0.875rem; padding: 1.25rem; display: flex; align-items: flex-start; gap: 1rem; border: 1px solid #e2e8f0; transition: background 0.3s, border-color 0.3s; }
@@ -140,8 +148,6 @@
     .breadcrumb-custom { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #64748b; flex-wrap: wrap; }
     .breadcrumb-custom a { color: #148d8b; text-decoration: none; font-weight: 500; }
     .breadcrumb-custom a:hover { text-decoration: underline; }
-    .page-hero { background: linear-gradient(135deg, #f0fafa 0%, #fff 60%); border-bottom: 1px solid #e2e8f0; padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(1.5rem, 4vw, 2.5rem); }
-    [data-theme="dark"] .page-hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-color: #334155; }
     .success-msg { display: none; background: #f0fafa; border: 1px solid #35aeac; border-radius: 0.75rem; padding: 1.25rem; color: #148d8b; font-weight: 600; text-align: center; }
     .success-msg.show { display: block; }
     /* ===== Contact layout: sidebar + message form (CSS Grid) ===== */
@@ -164,10 +170,9 @@
     .contact-info-card .contact-info-body { min-width: 0; }
     .contact-info-card a { overflow-wrap: anywhere; }   /* long email/phone never clips */
     .roadmap-body { padding: var(--contact-card-pad); }
-    .object-fit-cover { object-fit: cover; }   /* keep photos cropped, never stretched */
   </style>
 </head>
-<body>
+<body class="contact-page">
 
 <!-- Scroll Progress -->
 <div id="scroll-progress" style="width:0"></div>
@@ -181,7 +186,7 @@
 </script>
 
 <!-- ===== SITE HEADER ===== -->
-<header class="site-header">
+<header class="site-header contact-site-header">
   <div class="container-wide">
     <div class="flex h-16 items-center justify-between gap-4">
 
@@ -211,7 +216,7 @@
           </button>
           <div class="nav-dropdown-menu hidden" data-dropdown-menu>
             <a href="index.html" class="nav-dropdown-link">
-              <span>Home</span>
+              <span>Family Advocacy</span>
             </a>
             <a href="home-2.html" class="nav-dropdown-link">
               <span>Strategic Solutions</span>
@@ -258,7 +263,7 @@
         <!-- Mobile Home Dropdown Group -->
         <div class="mobile-nav-group">
           <a class="nav-link flex items-center justify-between py-2" href="index.html">
-            <span>Home</span>
+            <span>Family Advocacy</span>
           </a>
           <a class="nav-link flex items-center justify-between py-2" href="home-2.html">
             <span>Strategic Solutions</span>
@@ -280,7 +285,7 @@
 </header>
 
 <!-- ===== PAGE HERO ===== -->
-<section class="page-hero">
+    <section class="page-hero page-hero--media" data-hero="contact" style="--hero-pos:50% 51%; --hero-pos-md:50% 50%; --hero-pos-sm:60% 50%;">
   <div class="container-xl px-4">
     <div class="row align-items-center g-4 g-lg-5">
       <!-- Left: Heading & Intro -->
@@ -307,9 +312,9 @@
       </div>
 
       <!-- Right: Responsive Hero Image Card -->
-      <div class="col-lg-5">
+      <div class="col-lg-5 hero-visual">
         <div class="hero-contact-frame position-relative mx-auto" style="max-width: 480px;">
-          <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700" style="aspect-ratio: 16/10; max-height: 340px;">
+          <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-200 dark:border-slate-700" style="aspect-ratio: 16/10; max-height: 300px;">
             <img
               src="assets/images/Get in touch with our Advocacy team.jpg"
               alt="AegisPoint special education advocacy team consulting with parents"
@@ -318,21 +323,8 @@
             />
             <div class="position-absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.65) 100%);"></div>
           </div>
-          <!-- Floating Badge Top -->
-          <div class="position-absolute top-3 end-3 px-3 py-1.5 rounded-full bg-white/95 dark:bg-slate-900/95 backdrop-blur text-xs font-bold text-slate-800 dark:text-slate-100 shadow-md border border-slate-200/60 dark:border-slate-700/60 d-flex align-items-center gap-1.5">
-            <span class="text-amber-500">★★★★★</span>
-            <span>Parent-Approved</span>
-          </div>
-          <!-- Floating Badge Bottom -->
-          <div class="position-absolute bottom-3 start-3 px-3.5 py-2.5 rounded-xl bg-slate-900/90 backdrop-blur text-white shadow-lg border border-white/10 d-flex align-items-center gap-2.5">
-            <div class="grid h-9 w-9 place-items-center rounded-lg bg-teal-500/20 text-teal-300">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.36 2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l.98-.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </div>
-            <div>
-              <div class="text-xs text-slate-300 leading-tight">Direct Access</div>
-              <div class="font-bold text-xs text-white">Dedicated Case Advocates</div>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
     </div>
@@ -380,8 +372,8 @@
               </div>
               <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Office Hours</div>
-                <div class="contact-detail fw-600">Mon–Fri: 8:00 AM – 6:00 PM EST</div>
-                <div class="contact-detail fw-600">Saturday: 10:00 AM – 2:00 PM</div>
+                <div class="contact-detail fw-600">Mumbai (IST): Mon&ndash;Sat, 10:00 AM &ndash; 6:00 PM</div>
+                <div class="contact-sub" style="font-size:.8rem;">Visits by appointment</div>
               </div>
             </div>
 
@@ -391,8 +383,8 @@
               </div>
               <div class="contact-info-body">
                 <div class="contact-label fw-600 mb-1" style="font-size:.85rem;font-weight:600;">Address</div>
-                <div class="contact-detail fw-600">245 Advocacy Lane, Suite 300</div>
-                <div class="contact-sub" style="font-size:.9rem;">Boston, MA 02101</div>
+                <div class="contact-detail fw-600">Mumbai Office</div>
+                <div class="contact-sub" style="font-size:.9rem;">2nd Floor, Palladium, Linking Road, Bandra West<br />Mumbai, Maharashtra 400050, India</div>
               </div>
             </div>
 
@@ -437,6 +429,54 @@
                   <div class="timeline-sub" style="font-size:.875rem;margin-top:.25rem;">Receive a personalized advocacy plan and ongoing support for every step ahead.</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Office location + live map -->
+        <div class="card p-0 overflow-hidden">
+          <div class="map-toolbar">
+            <div class="map-toolbar-text">
+              <span class="map-toolbar-eyebrow">Our Office</span>
+              <span class="map-toolbar-title">Find us on the map</span>
+            </div>
+            <span class="map-location-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Palladium, Bandra West
+            </span>
+          </div>
+
+          <div class="map-embed-frame">
+            <iframe
+              title="Map showing the AegisPoint Advocacy office at 2nd Floor, Palladium, Linking Road, Bandra West, Mumbai"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+              src="https://maps.google.com/maps?q=Palladium%2C%20Bandra%20West%2C%20Mumbai%2C%20Maharashtra%20400050%2C%20India&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            ></iframe>
+          </div>
+
+          <div class="p-4 d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="map-address">
+              <span class="map-address-title">Mumbai Office</span>
+              <span class="map-address-sub">2nd Floor, Palladium, Linking Road, Bandra West &middot; Mumbai, Maharashtra 400050, India</span>
+              <span class="map-address-note">Visits by appointment &middot; Mon&ndash;Sat 10 AM&ndash;6 PM IST</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <a
+                class="btn-outline btn-sm"
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=Palladium%2C+Bandra+West%2C+Mumbai%2C+Maharashtra+400050%2C+India&amp;travelmode=driving"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="text-decoration:none;"
+              >Get directions</a>
+              <a
+                class="btn-primary btn-sm"
+                href="https://www.google.com/maps/search/?api=1&amp;query=Palladium%2C+Bandra+West%2C+Mumbai%2C+Maharashtra+400050%2C+India"
+                target="_blank"
+                rel="noopener noreferrer"
+                style="text-decoration:none;"
+              >Open in Maps</a>
             </div>
           </div>
         </div>
@@ -517,7 +557,7 @@
               <div class="col-12">
                 <div class="form-field d-flex align-items-start gap-2">
                   <input type="checkbox" id="consent" name="consent" style="margin-top:3px;accent-color:#148d8b;width:16px;height:16px;" required />
-                  <label for="consent" style="font-size:.875rem;color:#475569;line-height:1.5;cursor:pointer;">I consent to AegisPoint Advocacy storing my submitted information to respond to my inquiry. I understand my data will be handled in accordance with the <a href="#" style="color:#148d8b;">Privacy Policy</a>.</label>
+                  <label for="consent" style="font-size:.875rem;color:#475569;line-height:1.5;cursor:pointer;">I consent to AegisPoint Advocacy storing my submitted information to respond to my inquiry. I understand my data will be handled in accordance with the <a href="#" class="consent-privacy-link" style="color:#148d8b;">Privacy Policy</a>.</label>
                 </div>
                 <div class="error-msg" id="consent-error">You must consent to proceed.</div>
               </div>
@@ -712,7 +752,7 @@
           <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
         <div class="faq-answer">
-          Yes! While our physical office is based in Boston, MA, we work with families across the United States via virtual consultations. Our advocates are knowledgeable about federal special education law (IDEA) and can support families in any state.
+          Yes! We work with families across the United States via virtual consultations, and we now have a second office in Mumbai, India for families who prefer in-person meetings in India. Our Boston (MA) and Mumbai (Maharashtra) offices are both available by appointment. Our advocates are knowledgeable about federal special education law (IDEA) and can support families in any state.
         </div>
       </div>
 
@@ -768,22 +808,22 @@
       <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Navigation</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
-          <li><a class="hover:text-brand-600" href="index.html" style="color:inherit;text-decoration:none;">Home 1 &mdash; Family Advocacy</a></li>
-          <li><a class="hover:text-brand-600" href="home-2.html" style="color:inherit;text-decoration:none;">Home 2 &mdash; Strategic Solutions</a></li>
-          <li><a class="hover:text-brand-600" href="about.html" style="color:inherit;text-decoration:none;">About us</a></li>
-          <li><a class="hover:text-brand-600" href="services.html" style="color:inherit;text-decoration:none;">Services</a></li>
-          <li><a class="hover:text-brand-600" href="pricing.html" style="color:inherit;text-decoration:none;">Pricing</a></li>
-          <li><a class="hover:text-brand-600" href="blog.html" style="color:inherit;text-decoration:none;">Blog</a></li>
+          <li><a class="footer-link" href="index.html">Home 1 &mdash; Family Advocacy</a></li>
+          <li><a class="footer-link" href="home-2.html">Home 2 &mdash; Strategic Solutions</a></li>
+          <li><a class="footer-link" href="about.html">About us</a></li>
+          <li><a class="footer-link" href="services.html">Services</a></li>
+          <li><a class="footer-link" href="pricing.html">Pricing</a></li>
+          <li><a class="footer-link" href="blog.html">Blog</a></li>
         </ul>
       </div>
       <div class="col-12 col-sm-6 col-lg-3">
         <h3 class="text-sm font-bold uppercase tracking-wide text-ink-900 dark:text-white">Support</h3>
         <ul class="mt-4 space-y-2 text-sm text-ink-500 dark:text-ink-400 list-unstyled">
-          <li><a class="hover:text-brand-600" href="contact.html" style="color:inherit;text-decoration:none;">Contact us</a></li>
-          <li><a class="hover:text-brand-600" href="login.html" style="color:inherit;text-decoration:none;">Parent portal</a></li>
-          <li><a class="hover:text-brand-600" href="dashboard/index.html" style="color:inherit;text-decoration:none;">Parent dashboard</a></li>
-          <li><a class="hover:text-brand-600" href="service-details.html" style="color:inherit;text-decoration:none;">FAQ</a></li>
-          <li><a class="hover:text-brand-600" href="coming-soon.html" style="color:inherit;text-decoration:none;">Coming soon</a></li>
+          <li><a class="footer-link" href="contact.html">Contact us</a></li>
+          <li><a class="footer-link" href="login.html">Parent portal</a></li>
+          <li><a class="footer-link" href="dashboard/index.html">Parent dashboard</a></li>
+          <li><a class="footer-link" href="service-details.html">FAQ</a></li>
+          <li><a class="footer-link" href="coming-soon.html">Coming soon</a></li>
         </ul>
       </div>
       <div class="col-12 col-md-6 col-lg-3">
@@ -800,6 +840,20 @@
             <p data-form-success class="mt-2 hidden text-xs font-medium text-emerald-600 dark:text-emerald-400">Subscribed. Thank you!</p>
           </div>
         </form>
+        <ul class="footer-contact footer-contact--stacked">
+  <li class="footer-contact-item">
+  <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+  <span>245 Advocacy Lane, Suite 300<br />Boston, MA 02101, USA<br />2nd Floor, Palladium, Linking Road, Bandra West &middot; Mumbai, Maharashtra 400050, India</span>
+  </li>
+  <li class="footer-contact-item">
+  <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+  <a href="tel:+18005550192">(800) 555-0192</a>
+  </li>
+  <li class="footer-contact-item">
+  <svg class="footer-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+  <a href="mailto:hello@aegispointadvocacy.com">hello@aegispointadvocacy.com</a>
+  </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -807,9 +861,9 @@
     <div class="container-wide flex flex-col items-center justify-between gap-3 py-5 text-xs text-ink-400 sm:flex-row">
       <p class="mb-0">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</p>
       <div class="flex gap-5">
-        <a class="hover:text-brand-600" href="#" style="color:inherit;text-decoration:none;">Privacy</a>
-        <a class="hover:text-brand-600" href="#" style="color:inherit;text-decoration:none;">Terms</a>
-        <a class="hover:text-brand-600" href="404.html" style="color:inherit;text-decoration:none;">Sitemap</a>
+        <a class="footer-bottom-link" href="#">Privacy</a>
+        <a class="footer-bottom-link" href="#">Terms</a>
+        <a class="footer-bottom-link" href="404.html">Sitemap</a>
       </div>
     </div>
   </div>

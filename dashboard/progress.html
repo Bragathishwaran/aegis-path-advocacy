@@ -112,7 +112,7 @@
 
           <!-- User profile indicator -->
           <a href="/dashboard/profile.html" class="dash-profile-btn flex-shrink-0 inline-flex items-center gap-1.5 rounded-full border border-ink-200 bg-white p-0 sm:py-0.5 sm:ps-0.5 sm:pe-3 text-xs font-bold text-ink-700 shadow-sm transition hover:border-brand-400 dark:border-ink-800 dark:bg-ink-900 dark:text-ink-200" title="User Profile" aria-label="User Profile" style="text-decoration:none;">
-            <span class="grid h-7 w-7 sm:h-7 sm:w-7 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white flex-shrink-0">P</span>
+            <span class="grid h-7 w-7 sm:h-7 sm:w-7 place-items-center rounded-full bg-brand-600 text-xs font-bold text-white flex-shrink-0 overflow-hidden" data-avatar>P</span>
             <span class="hidden sm:inline">Priya</span>
           </a>
 
@@ -133,7 +133,7 @@
       <aside class="col-lg-3 d-none d-lg-block dash-sidebar-col">
         <div class="dash-card sticky top-24 p-4">
           <div class="mb-4 flex items-center gap-3 rounded-xl bg-brand-50 p-3 dark:bg-brand-950">
-            <span class="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0">PT</span>
+            <span class="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-full bg-brand-600 text-sm font-bold text-white flex-shrink-0 overflow-hidden" data-avatar>PT</span>
             <div class="min-w-0">
               <p class="truncate text-sm font-bold text-ink-900 dark:text-white mb-0">Priya</p>
               <p class="truncate text-xs text-ink-500 dark:text-ink-400 mb-0">Ava &amp; Noah's Parent</p>
@@ -199,17 +199,17 @@
           <div class="dash-card p-4">
             <span class="text-xs font-bold text-emerald-600 uppercase">On Track</span>
             <p class="stat-value mt-2 text-emerald-600">8</p>
-            <span class="chip-ok mt-1">80% Adequate Progress</span>
+            <span class="status-badge status-badge--success">80% Adequate Progress</span>
           </div>
           <div class="dash-card p-4">
             <span class="text-xs font-bold text-amber-600 uppercase">Needs Attention</span>
             <p class="stat-value mt-2 text-amber-600">1</p>
-            <span class="chip-warn mt-1">Speech Pragmatics</span>
+            <span class="status-badge status-badge--warning">Speech Pragmatics</span>
           </div>
           <div class="dash-card p-4">
             <span class="text-xs font-bold text-brand-600 uppercase">Mastered</span>
             <p class="stat-value mt-2 text-brand-600">1</p>
-            <span class="chip-brand mt-1">Math Calculation</span>
+            <span class="status-badge status-badge--info">Math Calculation</span>
           </div>
         </div>
 
@@ -264,7 +264,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #1 · Reading Fluency &amp; Decodability</span>
-              <span class="chip-ok">82% · On Track</span>
+              <span class="status-badge status-badge--success">82% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"From a baseline of 42 words per minute, Ava will orally read grade-level decodable passages at 85 WPM with 95% accuracy over 3 consecutive weekly probes."</em>
@@ -283,7 +283,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #2 · Reading Comprehension &amp; Text Inference</span>
-              <span class="chip-ok">75% · On Track</span>
+              <span class="status-badge status-badge--success">75% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"When presented with a 4th grade informational text, Ava will correctly answer explicit and inferential questions with 80% accuracy across 4 of 5 trials."</em>
@@ -302,7 +302,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #3 · Written Expression &amp; Sentence Mechanics</span>
-              <span class="chip-ok">58% · On Track</span>
+              <span class="status-badge status-badge--success">58% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"Ava will compose a multi-paragraph opinion essay with graphic organizer support, incorporating topic sentences and correct punctuation with no more than 3 errors per 100 words."</em>
@@ -321,7 +321,7 @@
           <div class="dash-card p-5 border-emerald-300 dark:border-emerald-800">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #4 · Math Calculation &amp; Equivalent Fractions</span>
-              <span class="chip-brand font-bold">90% · Mastered / Achieved</span>
+              <span class="status-badge status-badge--info">90% · Mastered / Achieved</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"Ava will solve multi-digit multiplication and equivalent fraction problems with 90% accuracy using visual manipulatives across 5 consecutive assessments."</em>
@@ -340,7 +340,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #5 · Multi-Step Word Problems</span>
-              <span class="chip-ok">72% · On Track</span>
+              <span class="status-badge status-badge--success">72% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"When given two-step real-world math word problems, Ava will independently identify the operation, draw a model, and solve with 75% accuracy."</em>
@@ -359,7 +359,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #6 · Speech Articulation (/r/ and /th/ blends)</span>
-              <span class="chip-ok">64% · On Track</span>
+              <span class="status-badge status-badge--success">64% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"Ava will produce vocalic /r/ and voiced /th/ sounds in structured conversational speech with 75% accuracy across 3 speech therapy sessions."</em>
@@ -378,7 +378,7 @@
           <div class="dash-card p-5 border-amber-300 dark:border-amber-800">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #7 · Speech Pragmatics &amp; Social Communication</span>
-              <span class="chip-warn">50% · Needs Attention</span>
+              <span class="status-badge status-badge--warning">50% · Needs Attention</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"In unstructured peer interactions, Ava will initiate and sustain a 3-turn communicative exchange on a shared topic in 4 out of 5 opportunities."</em>
@@ -397,7 +397,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #8 · Emotional Regulation &amp; Sensory Self-Advocacy</span>
-              <span class="chip-ok">45% · On Track</span>
+              <span class="status-badge status-badge--success">45% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"When feeling overwhelmed or sensory-fatigued, Ava will identify her state using a Zones of Regulation visual chart and independently request a break in 4 of 5 instances."</em>
@@ -416,7 +416,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #9 · Fine Motor Stamina &amp; Handwriting</span>
-              <span class="chip-ok">70% · On Track</span>
+              <span class="status-badge status-badge--success">70% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"Ava will print 5 continuous sentences with legible letter sizing and appropriate word spacing on wide-ruled paper within 10 minutes."</em>
@@ -435,7 +435,7 @@
           <div class="dash-card p-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <span class="font-display font-bold text-base text-ink-900 dark:text-white">Goal #10 · Executive Function &amp; Material Management</span>
-              <span class="chip-ok">68% · On Track</span>
+              <span class="status-badge status-badge--success">68% · On Track</span>
             </div>
             <p class="text-sm text-ink-600 dark:text-ink-300 mb-3">
               <em>"Using an end-of-day visual checklist, Ava will pack her homework folder, agenda, and necessary materials with no more than 1 verbal prompt in 4 of 5 days."</em>
@@ -472,19 +472,19 @@
                 <tr>
                   <td class="font-bold text-ink-900 dark:text-white">Quarter 1 (Fall 2026)</td>
                   <td>Nov 02, 2026</td>
-                  <td><span class="chip-ok">Making Expected Progress</span></td>
+                  <td><span class="status-badge status-badge--success">Making Expected Progress</span></td>
                   <td>Ms. Sarah Jenkins, M.Ed.</td>
                 </tr>
                 <tr>
                   <td class="font-bold text-ink-900 dark:text-white">Quarter 4 (Spring 2026)</td>
                   <td>Jun 15, 2026</td>
-                  <td><span class="chip-warn">ESY Qualification Documented</span></td>
+                  <td><span class="status-badge status-badge--warning">ESY Qualification Documented</span></td>
                   <td>Ms. Sarah Jenkins, M.Ed.</td>
                 </tr>
                 <tr>
                   <td class="font-bold text-ink-900 dark:text-white">Quarter 3 (Winter 2026)</td>
                   <td>Apr 04, 2026</td>
-                  <td><span class="chip-ok">Making Expected Progress</span></td>
+                  <td><span class="status-badge status-badge--success">Making Expected Progress</span></td>
                   <td>Ms. Sarah Jenkins, M.Ed.</td>
                 </tr>
               </tbody>

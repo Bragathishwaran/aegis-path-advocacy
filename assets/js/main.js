@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  var STORAGE = { theme: "iep-theme", dir: "iep-dir" };
+  var STORAGE = { theme: "iep-theme", dir: "iep-dir", avatar: "aegis-avatar" };
 
   /* ─── Theme (dark / light) ────────────────────────────────────── */
   function applyTheme(theme) {
@@ -175,17 +175,40 @@
   function initTabs() {
     document.querySelectorAll("[data-tabs]").forEach(function (group) {
       var buttons = group.querySelectorAll("[data-tab]");
+
+      function activate(target) {
+        var matched = false;
+        buttons.forEach(function (b) {
+          var on = b.getAttribute("data-tab") === target;
+          if (on) matched = true;
+          b.classList.toggle("nav-link-active", on);
+        });
+        if (!matched) return false;
+        group.querySelectorAll("[data-tab-panel]").forEach(function (p) {
+          p.classList.toggle("hidden", p.getAttribute("data-tab-panel") !== target);
+        });
+        return true;
+      }
+
       buttons.forEach(function (btn) {
         btn.addEventListener("click", function () {
-          var target = btn.getAttribute("data-tab");
-          buttons.forEach(function (b) {
-            b.classList.toggle("nav-link-active", b === btn);
-          });
-          group.querySelectorAll("[data-tab-panel]").forEach(function (p) {
-            p.classList.toggle("hidden", p.getAttribute("data-tab-panel") !== target);
-          });
+          activate(btn.getAttribute("data-tab"));
         });
       });
+
+      // Deep links (e.g. href="#track-iep") open the matching tab.
+      function activateFromHash() {
+        var hash = window.location.hash.replace("#", "");
+        if (!hash) return;
+        if (activate(hash)) {
+          var panel = group.querySelector('[data-tab-panel="' + hash + '"]');
+          if (panel) {
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      }
+      activateFromHash();
+      window.addEventListener("hashchange", activateFromHash);
     });
   }
 
@@ -506,7 +529,220 @@
     animId = requestAnimationFrame(animate);
   }
 
+  /* ─── Profile avatar upload ──────────────────────────────────────
+     The dashboard "Change Photo" / "Remove" buttons were inert.
+     Now: pick a file, validate type + size, downscale to a square
+     thumbnail, preview it in every [data-avatar] bubble and persist
+     it in localStorage so it survives reloads. */
+  function initAvatarUpload() {
+    var bubbles = Array.prototype.slice.call(document.querySelectorAll("[data-avatar]"));
+    var input = document.querySelector("[data-avatar-input]");
+    var removeBtn = document.querySelector("[data-avatar-remove]");
+    var errorEl = document.querySelector("[data-avatar-error]");
+    var hintEl = document.querySelector("[data-avatar-hint]");
+    if (!bubbles.length && !input) return;
+
+    var MAX_BYTES = 5 * 1024 * 1024;
+    var TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+    var MAX_EDGE = 256;
+    // Use Priya's bundled portrait until a custom upload is selected.
+    var defaultSrc = "../assets/images/priya.jpg";
+
+    function read() {
+      try { return localStorage.getItem(STORAGE.avatar); } catch (e) { return null; }
+    }
+    function write(value) {
+      try {
+        if (value) localStorage.setItem(STORAGE.avatar, value);
+        else localStorage.removeItem(STORAGE.avatar);
+      } catch (e) {}
+    }
+
+    function initials(el) {
+      return (el.getAttribute("data-avatar-initials") || "").trim();
+    }
+
+    // Remember the fallback initials before any image replaces them.
+    bubbles.forEach(function (el) {
+      if (!el.getAttribute("data-avatar-initials")) {
+        el.setAttribute("data-avatar-initials", (el.textContent || "").trim());
+      }
+    });
+
+    function showError(message) {
+      if (!errorEl) return;
+      errorEl.textContent = message || "";
+      errorEl.classList.toggle("is-visible", !!message);
+    }
+
+    function render(src, isCustom) {
+      bubbles.forEach(function (el) {
+        if (src) {
+          var img = document.createElement("img");
+          img.src = src;
+          img.alt = "";
+          img.setAttribute("data-avatar-img", "");
+          img.className = "h-full w-full rounded-full object-cover object-center";
+          el.innerHTML = "";
+          el.appendChild(img);
+        } else {
+          el.innerHTML = "";
+          el.textContent = initials(el);
+        }
+      });
+      if (removeBtn) removeBtn.hidden = !isCustom;
+      if (hintEl) {
+        hintEl.textContent = isCustom
+          ? "Photo updated on this device."
+          : "JPG, PNG, GIF or WebP up to 5MB";
+      }
+    }
+
+    // Square-crop + downscale so the stored data URL stays small.
+    function shrink(file, done) {
+      var reader = new FileReader();
+      reader.onerror = function () { showError("Could not read that file."); };
+      reader.onload = function () {
+        var img = new Image();
+        img.onerror = function () { showError("That file is not a readable image."); };
+        img.onload = function () {
+          var side = Math.min(img.width, img.height);
+          var canvas = document.createElement("canvas");
+          canvas.width = MAX_EDGE;
+          canvas.height = MAX_EDGE;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(
+            img,
+            (img.width - side) / 2,
+            (img.height - side) / 2,
+            side,
+            side,
+            0,
+            0,
+            MAX_EDGE,
+            MAX_EDGE
+          );
+          try {
+            done(canvas.toDataURL("image/jpeg", 0.85));
+          } catch (e) {
+            done(reader.result);
+          }
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    var stored = read();
+    render(stored || defaultSrc, !!stored);
+
+    if (input) {
+      input.addEventListener("change", function () {
+        var file = input.files && input.files[0];
+        if (!file) return;
+        showError("");
+        if (TYPES.indexOf(file.type) === -1) {
+          showError("Please choose a JPG, PNG, GIF or WebP image.");
+          input.value = "";
+          return;
+        }
+        if (file.size > MAX_BYTES) {
+          showError("That image is larger than 5MB. Please pick a smaller file.");
+          input.value = "";
+          return;
+        }
+        shrink(file, function (dataUrl) {
+          write(dataUrl);
+          render(dataUrl, true);
+          document.dispatchEvent(
+            new CustomEvent("aegis:avatar-updated", { detail: { src: dataUrl } })
+          );
+        });
+        input.value = "";
+      });
+    }
+
+    if (removeBtn) {
+      removeBtn.addEventListener("click", function () {
+        write(null);
+        render(defaultSrc, false);
+        showError("");
+        document.dispatchEvent(
+          new CustomEvent("aegis:avatar-updated", { detail: { src: null } })
+        );
+      });
+    }
+  }
+
   /* ─── Boot ─────────────────────────────────────────────────────── */
+  /* ─── Blog search ─────────────────────────────────────────────────
+     Live filtering of the article grids. The input was decorative
+     before - typing in it did nothing. */
+  function initBlogSearch() {
+    var input = document.querySelector("[data-blog-search]");
+    if (!input) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll("[data-blog-card]"));
+    if (!cards.length) return;
+    var countEl = document.querySelector("[data-blog-count]");
+    var emptyEl = document.querySelector("[data-blog-empty]");
+    var sections = Array.prototype.slice.call(document.querySelectorAll("[data-blog-section]"));
+
+    function norm(s) {
+      return (s || "").toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    var haystacks = cards.map(function (card) {
+      var text = card.textContent || "";
+      card.querySelectorAll("img[alt]").forEach(function (img) {
+        text += " " + (img.getAttribute("alt") || "");
+      });
+      return norm(text);
+    });
+
+    // Remember which results section each card belongs to.
+    var cardSections = cards.map(function (card) {
+      var sec = card.closest("[data-blog-section]");
+      return sec ? sec.getAttribute("data-blog-section") : "";
+    });
+
+    function apply() {
+      var q = norm(input.value);
+      var shown = 0;
+      var perSection = {};
+
+      cards.forEach(function (card, i) {
+        var match = !q || haystacks[i].indexOf(q) !== -1;
+        card.hidden = !match;
+        if (match) {
+          shown++;
+          perSection[cardSections[i]] = (perSection[cardSections[i]] || 0) + 1;
+        }
+      });
+
+      // A section with no matching article is hidden entirely.
+      sections.forEach(function (sec) {
+        var key = sec.getAttribute("data-blog-section");
+        var found = perSection[key] || 0;
+        sec.hidden = !!q && found === 0;
+      });
+
+      if (countEl) countEl.textContent = String(shown);
+      if (emptyEl) emptyEl.classList.toggle("is-visible", !!q && shown === 0);
+    }
+
+    input.addEventListener("input", apply);
+    input.addEventListener("search", apply);
+    var form = input.closest("form");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        apply();
+      });
+    }
+    apply();
+  }
+
+  /* ─── Blog search ───────────────────────────────────────────────── */
   function boot() {
     initTheme();
     initDir();
@@ -525,6 +761,8 @@
     initPricingToggle();
     initDashProgressBars();
     initTrustTicker();
+    initBlogSearch();
+    initAvatarUpload();
   }
 
   if (document.readyState === "loading") {
