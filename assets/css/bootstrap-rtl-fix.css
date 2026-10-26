@@ -2064,6 +2064,27 @@ body {
   transform: translateY(0);
 }
 
+/* Shared hero CTA sizing and icon alignment. */
+.hero-cta {
+  min-height: 52px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.hero-cta svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: 0 0 auto;
+}
+
 /* --- 4. Inputs, selects & textareas ------------------------------ */
 .input,
 .textarea,
@@ -3650,6 +3671,7 @@ html [hidden] { display: none !important; }
   text-decoration: none;
   transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
+.hero-cta.btn-hero-ghost { border-width: 1px; }
 .btn-hero-ghost:hover,
 .btn-hero-ghost:focus-visible {
   background: rgba(255, 255, 255, 0.26);
