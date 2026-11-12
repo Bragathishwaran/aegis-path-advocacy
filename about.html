@@ -200,7 +200,7 @@
         </a>
 
         <!-- Desktop Nav -->
-        <nav class="hidden items-center gap-1 lg:flex">
+        <nav class="hidden items-center gap-1 lg:flex lg:items-center lg:flex-nowrap">
           <!-- Home Dropdown -->
           <div class="nav-dropdown-wrap" data-dropdown>
             <button type="button" class="nav-link nav-dropdown-btn" data-dropdown-trigger aria-haspopup="true" aria-expanded="false">
@@ -214,7 +214,7 @@
                 <span>Family Advocacy</span>
               </a>
               <a href="home-2.html" class="nav-dropdown-link">
-                <span>Strategic Solutions</span>
+                <span>Home 2 - Strategic Solutions</span>
               </a>
             </div>
           </div>
@@ -229,20 +229,18 @@
         <div class="flex items-center gap-2">
           <!-- RTL Toggle -->
           <button type="button" data-dir-toggle class="icon-btn" aria-pressed="false" title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction">
-            <svg data-icon-rtl class="h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M6 9l-3 3 3 3"/><path d="M21 18H3"/></svg>
-            <svg data-icon-ltr class="hidden h-4.5 w-4.5 xs:h-5 xs:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M3 12h12"/><path d="M18 9l3 3-3 3"/><path d="M3 18h18"/></svg>
-            <span data-dir-label class="sr-only">RTL</span>
+            <span data-dir-label class="text-xs font-semibold">RTL</span>
           </button>
           <!-- Dark Mode Toggle -->
           <button type="button" data-theme-toggle class="icon-btn">
             <svg data-icon-moon xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             <svg data-icon-sun xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
           </button>
+          <a href="login.html" class="btn-outline btn-sm hidden sm:inline-flex" style="text-decoration:none;">Login</a>
           <a href="dashboard/index.html" class="btn-primary btn-sm hidden sm:inline-flex items-center gap-1.5" style="text-decoration:none;">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
             <span>Dashboard</span>
           </a>
-          <a href="login.html" class="btn-outline btn-sm hidden sm:inline-flex" style="text-decoration:none;">Login</a>
           <button type="button" data-menu-toggle class="icon-btn lg:hidden" aria-expanded="false">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
@@ -258,7 +256,7 @@
               <span>Family Advocacy</span>
             </a>
             <a class="nav-link flex items-center justify-between py-2" href="home-2.html">
-              <span>Strategic Solutions</span>
+              <span>Home 2 - Strategic Solutions</span>
             </a>
           </div>
           <a class="nav-link nav-link-active" href="about.html">About</a>
@@ -266,11 +264,11 @@
           <a class="nav-link" href="pricing.html">Pricing</a>
           <a class="nav-link" href="blog.html">Blog</a>
           <a class="nav-link" href="contact.html">Contact</a>
-          <a class="btn-primary mt-2 flex items-center justify-center gap-2" href="dashboard/index.html" style="text-decoration:none;">
+          <a class="btn-outline mt-1" href="login.html">Parent Login</a>
+        <a class="btn-primary mt-2 flex items-center justify-center gap-2" href="dashboard/index.html" style="text-decoration:none;">
             <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
             <span>Open Dashboard</span>
           </a>
-          <a class="btn-outline mt-1" href="login.html">Parent Login</a>
         </nav>
       </div>
     </div>

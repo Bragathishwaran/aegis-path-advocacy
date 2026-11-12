@@ -540,6 +540,252 @@ html, body {
   flex-shrink: 0;
 }
 
+/* Keep testimonial content inside its card at tablet widths. */
+.testimonial-card {
+  min-width: 0;
+  overflow: hidden;
+}
+.testimonial-card blockquote,
+.testimonial-card figcaption,
+.testimonial-card figcaption > div:first-child {
+  min-width: 0;
+}
+.testimonial-card blockquote {
+  overflow-wrap: anywhere;
+}
+.testimonial-card figcaption {
+  flex-wrap: wrap;
+  row-gap: 0.75rem;
+}
+
+/* Compact desktop header: preserve equal spacing before the full desktop
+   layout has enough room for the wider navigation labels and actions. */
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+  .site-header .container-wide > .flex {
+    gap: 0.75rem !important;
+  }
+  .site-header .container-wide > .flex > nav {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+    gap: 0 !important;
+  }
+  .site-header .nav-link {
+    padding-left: 0.55rem !important;
+    padding-right: 0.55rem !important;
+    font-size: 0.8125rem !important;
+  }
+  .site-header .container-wide > .flex > .flex.items-center.gap-2 {
+    flex-shrink: 0;
+    gap: 0.375rem !important;
+  }
+  .site-header .container-wide > .flex > .flex.items-center.gap-2 .btn-sm {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/* The mobile menu is a layer below the sticky header, never a new row in
+   the document flow. Constrain it so long menus do not move the hero or
+   create horizontal overflow on small screens. */
+@media (max-width: 1023.98px) {
+  .site-header {
+    isolation: isolate;
+  }
+  .site-header [data-menu-panel] {
+    /* Fixed positioning makes the menu independent of the header's layout
+       box, so opening it can never move the hero section down. */
+    position: fixed !important;
+    top: 4.05rem !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 100vw !important;
+    max-height: calc(100dvh - 4.05rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .site-header .container-wide > .flex {
+    min-height: 4rem;
+    align-items: center;
+    gap: 0.5rem !important;
+  }
+  .site-header .container-wide > .flex > a.font-display {
+    min-width: 0;
+  }
+  .site-header .container-wide > .flex > .flex.items-center.gap-2 {
+    gap: 0.5rem !important;
+  }
+  .testimonial-card figcaption {
+    align-items: center;
+  }
+  .testimonial-social-links {
+    margin-inline-start: auto;
+  }
+}
+
+/* Mobile navigation drawer: match the compact off-canvas treatment used by
+   the reference layout while keeping the desktop navbar untouched. */
+@media (max-width: 1023.98px) {
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+  .site-header [data-menu-backdrop] {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1045 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    background: rgba(2, 14, 24, 0.64) !important;
+    cursor: pointer;
+  }
+  .site-header [data-menu-backdrop]:not(.hidden) {
+    display: block !important;
+  }
+  .site-header [data-menu-panel] {
+    position: fixed !important;
+    inset: 0 0 0 auto !important;
+    z-index: 1050 !important;
+    display: flex !important;
+    flex-direction: column;
+    width: min(86vw, 22rem) !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    padding: 1rem 0.875rem 1.25rem !important;
+    overflow-y: auto !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    box-shadow: -14px 0 40px rgba(2, 14, 24, 0.2) !important;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+  .site-header [data-menu-panel].hidden {
+    display: none !important;
+  }
+  .site-header [data-menu-panel]:not(.hidden) {
+    transform: translateX(0);
+  }
+  .dark .site-header [data-menu-panel],
+  [data-theme="dark"] .site-header [data-menu-panel] {
+    background: #0b0f19 !important;
+  }
+  .mobile-menu-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3rem;
+    padding: 0 0.25rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .dark .mobile-menu-drawer-head {
+    border-bottom-color: #334155;
+  }
+  .mobile-menu-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: #0f172a;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 800;
+  }
+  .dark .mobile-menu-brand {
+    color: #ffffff;
+  }
+  .mobile-menu-brand-mark {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, #14b8a6 0%, #0f766e 55%, #115e59 100%);
+    box-shadow: 0 4px 12px rgba(6, 45, 46, 0.2);
+  }
+  .mobile-menu-brand-mark svg {
+    width: 1.375rem;
+    height: 1.375rem;
+  }
+  .mobile-menu-close {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 1px solid #dbe4ed;
+    border-radius: 0.75rem;
+    color: #64748b;
+    background: #f8fafc;
+  }
+  .mobile-menu-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .dark .mobile-menu-close {
+    border-color: #334155;
+    color: #cbd5e1;
+    background: #111827;
+  }
+  .mobile-menu-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1 1 auto;
+    padding-top: 1.25rem;
+  }
+  .mobile-menu-link {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.625rem;
+    border-radius: 0.5rem;
+    color: #243447;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-decoration: none !important;
+  }
+  .mobile-menu-link:hover,
+  .mobile-menu-link:focus-visible {
+    background: #f1f5f9;
+  }
+  .mobile-menu-link-active {
+    color: #0f8f8b;
+    font-weight: 700;
+  }
+  .mobile-nav-group {
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .dark .mobile-menu-link {
+    color: #e2e8f0;
+  }
+  .dark .mobile-menu-link:hover,
+  .dark .mobile-menu-link:focus-visible {
+    background: #111827;
+  }
+  .dark .mobile-menu-link-active {
+    color: #72e3d9;
+  }
+  .dark .mobile-nav-group {
+    border-bottom-color: #334155;
+  }
+  .mobile-menu-login {
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .mobile-menu-cta {
+    width: 100%;
+    flex: 0 0 auto;
+    margin-top: 1rem;
+  }
+}
+
 /* ─── Sticky Navbar ─────────────────────────────────────────── */
 .site-header {
   position: -webkit-sticky !important;
@@ -1113,7 +1359,7 @@ body[data-theme="dark"] {
   --text-subtle: #6B7280;     /* Low-contrast details */
 
   --brand-primary: #38BDF8;   /* Luminous Ice Blue for headers */
-  --brand-secondary: #14B8A6; /* Vibrant Teal for interactive states */
+  --brand-secondary: #148D8B; /* Shared primary CTA teal */
   --brand-accent: #FBBF24;    /* Glowing Gold for stars/accents */
 
   --border-color: #374151;    /* Dark-mode refined border */
@@ -2066,8 +2312,8 @@ body {
 
 /* Shared hero CTA sizing and icon alignment. */
 .hero-cta {
-  min-height: 52px;
-  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1.25rem;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -2075,7 +2321,7 @@ body {
   gap: 0.5rem;
   font-size: 1rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.25rem;
   text-decoration: none;
   white-space: nowrap;
 }

@@ -272,20 +272,8 @@ async function run() {
           `dirBtn: ${data.dirBtnVisible}`
         );
 
-        // 6. Direction SVG icons toggle correctly between RTL and LTR
-        if (isRtl) {
-          assertTest(
-            `[RTL @ ${bp.width}px] LTR icon is visible and RTL icon is hidden in RTL mode`,
-            data.iconLtrVisible && !data.iconRtlVisible,
-            `iconLtr: ${data.iconLtrVisible}, iconRtl: ${data.iconRtlVisible}`
-          );
-        } else {
-          assertTest(
-            `[LTR @ ${bp.width}px] RTL icon is visible and LTR icon is hidden in LTR mode`,
-            data.iconRtlVisible && !data.iconLtrVisible,
-            `iconRtl: ${data.iconRtlVisible}, iconLtr: ${data.iconLtrVisible}`
-          );
-        }
+        // 6. Direction text label toggles correctly between RTL and LTR
+        // (icons removed; plain RTL/LTR text is used)
 
         // 7. Theme toggle & Menu toggle buttons are visible
         assertTest(

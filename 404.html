@@ -145,8 +145,8 @@
     [data-theme="dark"] .cta-strip-text { color: #cbd5e1; }
     .cta-strip-sub { font-size: .8125rem; color: #64748b; margin-top: .125rem; }
     .btn-primary {
-      background: #148d8b; color: #fff; border: none; border-radius: .625rem;
-      font-weight: 700; padding: .6875rem 1.5rem; font-size: .9375rem;
+      background: #148d8b; color: #fff; border: 1px solid transparent; border-radius: 9999px;
+      font-weight: 700; padding: .625rem 1.25rem; font-size: .875rem; min-height: 2.75rem;
       font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; transition: background .2s, transform .1s;
       text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
     }
@@ -194,9 +194,7 @@
   <div class="d-flex gap-2 align-items-center">
     <!-- RTL Toggle -->
     <button class="icon-btn" data-dir-toggle title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction">
-      <svg data-icon-rtl width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 6H3"/><path d="M21 12H9"/><path d="M6 9l-3 3 3 3"/><path d="M21 18H3"/></svg>
-      <svg data-icon-ltr width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;"><path d="M3 6h18"/><path d="M3 12h12"/><path d="M18 9l3 3-3 3"/><path d="M3 18h18"/></svg>
-      <span data-dir-label class="visually-hidden">RTL</span>
+      <span data-dir-label class="text-xs font-semibold">RTL</span>
     </button>
     <!-- Dark Mode -->
     <button class="icon-btn" data-theme-toggle title="Toggle dark mode">

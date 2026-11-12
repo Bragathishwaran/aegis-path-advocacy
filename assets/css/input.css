@@ -83,10 +83,26 @@
     @apply btn text-ink-600 hover:bg-ink-100 dark:text-ink-200 dark:hover:bg-ink-800;
   }
   .btn-sm {
-    @apply px-3.5 py-2 text-xs;
+    @apply inline-flex h-10 items-center px-3.5 py-2 text-xs;
   }
   .btn-lg {
     @apply px-7 py-3.5 text-base;
+  }
+
+  /* Keep every action button visually related, even when a page adds
+     utility classes for layout or spacing. */
+  .btn,
+  .btn-primary,
+  .btn-accent,
+  .btn-outline,
+  .btn-ghost {
+    @apply min-h-11 rounded-full border border-transparent;
+  }
+  .btn-sm {
+    @apply min-h-9 rounded-full;
+  }
+  .btn-lg {
+    @apply min-h-12 rounded-full;
   }
 
   /* ---------- Surfaces ---------- */
@@ -142,7 +158,7 @@
       dark:border-ink-800/80 dark:bg-ink-950/85;
   }
   .nav-link {
-    @apply rounded-full px-3 py-2 text-sm font-medium text-ink-600 transition
+    @apply inline-flex h-10 items-center rounded-full px-3 text-sm font-medium text-ink-600 transition
       hover:bg-ink-100 hover:text-brand-700 dark:text-ink-200 dark:hover:bg-ink-800 dark:hover:text-white;
   }
   .nav-link-active {
@@ -283,6 +299,46 @@
    RTL support additions
    ========================================================================== */
 @layer utilities {
+  /* Final button normalization: page-level spacing utilities must not make
+     primary and secondary CTAs use different shapes or heights. */
+  .btn,
+  .btn-primary,
+  .btn-accent,
+  .btn-outline,
+  .btn-ghost {
+    min-height: 2.75rem;
+    padding: .625rem 1.25rem !important;
+    border-radius: 9999px !important;
+    line-height: 1.25rem;
+  }
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: .5rem 1rem !important;
+  }
+  .btn-lg {
+    min-height: 3rem;
+    padding: .875rem 1.75rem !important;
+  }
+  /* The CDN Tailwind build can emit utility declarations with equal
+     importance; the extra class selector keeps CTA normalization authoritative. */
+  .btn[class],
+  .btn-primary[class],
+  .btn-accent[class],
+  .btn-outline[class],
+  .btn-ghost[class] {
+    min-height: 2.75rem;
+    padding: .625rem 1.25rem !important;
+    border-radius: 9999px !important;
+  }
+  .btn-sm[class] {
+    min-height: 2.25rem;
+    padding: .5rem 1rem !important;
+  }
+  .btn-lg[class] {
+    min-height: 3rem;
+    padding: .875rem 1.75rem !important;
+  }
+
   .xxs\:inline { @media (min-width: 320px) { display: inline; } }
   .xxs\:hidden { @media (min-width: 320px) { display: none; } }
 
@@ -310,5 +366,25 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  /* Mobile menu overlay: never push page content down */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .site-header [data-menu-panel] {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 40;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  }
+  .dark .site-header [data-menu-panel],
+  [data-theme="dark"] .site-header [data-menu-panel] {
+    background: #0b0f19;
   }
 }

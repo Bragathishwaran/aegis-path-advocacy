@@ -116,15 +116,23 @@
   function initMobileMenu() {
     var toggle = document.querySelector("[data-menu-toggle]");
     var panel = document.querySelector("[data-menu-panel]");
+    var close = panel.querySelector("[data-menu-close]");
+    var backdrop = document.querySelector("[data-menu-backdrop]");
     if (!toggle || !panel) return;
-    toggle.addEventListener("click", function () {
-      var open = panel.classList.toggle("hidden") === false;
+    function setMenu(open) {
+      panel.classList.toggle("hidden", !open);
+      if (backdrop) backdrop.classList.toggle("hidden", !open);
       toggle.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("mobile-menu-open", open);
+    }
+    toggle.addEventListener("click", function () {
+      setMenu(panel.classList.contains("hidden"));
     });
+    if (close) close.addEventListener("click", function () { setMenu(false); });
+    if (backdrop) backdrop.addEventListener("click", function () { setMenu(false); });
     panel.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
-        panel.classList.add("hidden");
-        toggle.setAttribute("aria-expanded", "false");
+        setMenu(false);
       });
     });
   }
