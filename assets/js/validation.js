@@ -68,7 +68,7 @@
     password: "Password must be at least 8 characters with an uppercase, lowercase and a number.",
     passwordBasic: "Please enter your password (at least 6 characters).",
     date: "Enter a valid date.",
-    age: "Please enter a valid age between 5 and 14.",
+    age: "Please enter a valid age between 3 and 18.",
     generalAge: "Enter an age between 1 and 120.",
     match: "Values do not match.",
     consent: "You must consent to proceed.",
@@ -368,8 +368,8 @@
               error = "Numbers only are allowed.";
             } else {
               var ageNum = parseInt(value, 10);
-              var minAge = field.hasAttribute("min") ? parseInt(field.getAttribute("min"), 10) : 5;
-              var maxAge = field.hasAttribute("max") ? parseInt(field.getAttribute("max"), 10) : 14;
+              var minAge = field.hasAttribute("min") ? parseInt(field.getAttribute("min"), 10) : 3;
+              var maxAge = field.hasAttribute("max") ? parseInt(field.getAttribute("max"), 10) : 18;
               if (isNaN(ageNum) || ageNum < minAge || ageNum > maxAge) {
                 error = "Please enter a valid age between " + minAge + " and " + maxAge + ".";
               }

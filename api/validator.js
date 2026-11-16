@@ -126,7 +126,7 @@ function validateContactForm(data = {}) {
   if (mobileErr) errors.mobile = mobileErr;
 
   if (data.childAge !== undefined) {
-    const ageErr = validateAge(data.childAge, 5, 14, true);
+    const ageErr = validateAge(data.childAge, 3, 18, true);
     if (ageErr) errors.childAge = ageErr;
   }
 

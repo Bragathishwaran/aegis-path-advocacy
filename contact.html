@@ -519,8 +519,8 @@
               <div class="col-md-6">
                 <div class="form-field">
                   <label class="label" for="childAge">Child's Age <span class="req">*</span></label>
-                  <input class="input" type="number" id="childAge" name="childAge" placeholder="e.g. 8" min="5" max="14" required data-rules="required|age" data-filter="digits" />
-                  <div class="error-msg" id="childAge-error">Please enter a valid age between 5 and 14.</div>
+                  <input class="input" type="text" id="childAge" name="childAge" placeholder="Enter age" inputmode="numeric" pattern="[0-9]*" maxlength="2" min="3" max="18" autocomplete="off" required data-rules="required|age" data-filter="digits" />
+                  <div class="error-msg" id="childAge-error">Please enter a valid age between 3 and 18.</div>
                 </div>
               </div>
               <div class="col-md-6">

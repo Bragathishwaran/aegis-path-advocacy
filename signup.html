@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Create Your Parent Portal | AegisPoint Advocacy</title>
+  <meta name="description" content="Create your secure AegisPoint Advocacy Parent Portal account and stay connected to your child's education plan." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap-rtl-fix.css" />
+  <style>
+    * { box-sizing: border-box; }
+    :root { --teal:#148d8b; --teal-dark:#107472; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; }
+    body { min-height:100vh; margin:0; display:flex; align-items:center; justify-content:center; padding:5.5rem 1.25rem 2rem; overflow-x:hidden; font-family:'Plus Jakarta Sans',sans-serif; background:#0f172a; }
+    .signup-bg { position:fixed; inset:0; z-index:0; background:url('assets/images/Parent Portal Sign In.jpg') center/cover; filter:blur(6px) brightness(.32); transform:scale(1.05); }
+    .signup-overlay { position:fixed; inset:0; z-index:1; background:linear-gradient(135deg,rgba(20,141,139,.6),rgba(15,23,42,.86)); }
+    .signup-shell { position:relative; z-index:2; width:min(100%,960px); display:grid; grid-template-columns:minmax(270px,.82fr) minmax(0,1.18fr); overflow:hidden; border-radius:1.5rem; background:rgba(255,255,255,.97); box-shadow:0 32px 80px rgba(0,0,0,.38); }
+    .signup-intro { padding:3rem 2.5rem; color:#fff; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(150deg,rgba(15,118,110,.96),rgba(15,23,42,.96)); }
+    .brand { display:inline-flex; align-items:center; gap:.75rem; color:#fff; text-decoration:none; }
+    .brand-mark { width:2.75rem; height:2.75rem; display:grid; place-items:center; flex:0 0 auto; border-radius:.85rem; background:linear-gradient(135deg,#2dd4bf,#0f766e); box-shadow:0 8px 18px rgba(0,0,0,.2); }
+    .brand-name { font-size:1.2rem; font-weight:800; line-height:1; }
+    .brand-name span { color:#8ee7df; }
+    .intro-copy { margin:4rem 0 auto; }
+    .eyebrow { color:#8ee7df; font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+    .intro-copy h1 { margin:.8rem 0 1rem; color:#fff; font-size:clamp(1.8rem,3vw,2.45rem); line-height:1.15; font-weight:800; letter-spacing:-.04em; }
+    .intro-copy p { max-width:26rem; margin:0; color:rgba(255,255,255,.78); font-size:.93rem; line-height:1.75; }
+    .benefits { display:grid; gap:1rem; margin:2.5rem 0 0; padding:0; list-style:none; }
+    .benefit { display:flex; align-items:flex-start; gap:.7rem; color:rgba(255,255,255,.9); font-size:.82rem; line-height:1.5; }
+    .benefit-icon { display:grid; place-items:center; width:1.45rem; height:1.45rem; flex:0 0 auto; border-radius:50%; background:rgba(142,231,223,.17); color:#a7f3d0; font-weight:800; }
+    .signup-form-panel { padding:3rem 3.25rem; }
+    .form-heading h2 { margin:0 0 .5rem; color:var(--ink); font-size:1.65rem; font-weight:800; letter-spacing:-.03em; }
+    .form-heading p { margin:0 0 1.75rem; color:var(--muted); font-size:.87rem; line-height:1.6; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 1rem; }
+    .form-field { margin-bottom:1.15rem; }
+    .form-field.full { grid-column:1/-1; }
+    .label { display:block; margin-bottom:.4rem; color:#334155; font-size:.82rem; font-weight:700; }
+    .req { color:#ef4444; }
+    .input { width:100%; min-height:2.85rem; padding:.7rem .9rem; border:1.5px solid var(--line); border-radius:.65rem; background:#fff; color:#1e293b; font:inherit; font-size:.86rem; transition:border-color .2s,box-shadow .2s; }
+    .input:focus { outline:none; border-color:var(--teal); box-shadow:0 0 0 3px rgba(20,141,139,.13); }
+    .input.is-invalid { border-color:#ef4444; }
+    .error-msg { display:none; margin:.3rem 0 0; color:#dc2626; font-size:.74rem; line-height:1.4; }
+    .error-msg.show,.error-msg.is-visible { display:block; }
+    .password-wrap { position:relative; }
+    .password-wrap .input { padding-right:3.1rem; }
+    .pw-toggle { position:absolute; top:50%; right:.55rem; width:2rem; height:2rem; padding:0; transform:translateY(-50%); border:0; border-radius:.4rem; background:transparent; color:#94a3b8; cursor:pointer; }
+    .pw-toggle:hover { color:var(--teal); background:#f0fafa; }
+    .check-row { display:flex; align-items:flex-start; gap:.6rem; margin:.15rem 0 1.35rem; }
+    .check-row input { width:1rem; height:1rem; margin-top:.18rem; flex:0 0 auto; accent-color:var(--teal); }
+    .check-label { color:#475569; font-size:.76rem; line-height:1.5; }
+    .check-label a,.link-action { color:var(--teal-dark); font-weight:700; text-decoration:none; }
+    .check-label a:hover,.link-action:hover { text-decoration:underline; }
+    .submit-btn { width:100%; min-height:2.9rem; border:0; border-radius:999px; background:var(--teal); color:#fff; font:700 .88rem 'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:background .2s,transform .15s; }
+    .submit-btn:hover { background:var(--teal-dark); transform:translateY(-1px); }
+    .success-msg { display:none; margin:1rem 0 0; padding:.85rem 1rem; border:1px solid #6ee7b7; border-radius:.65rem; background:#ecfdf5; color:#047857; font-size:.8rem; line-height:1.5; }
+    .success-msg.show { display:block; }
+    .form-footer { margin:1.5rem 0 0; text-align:center; color:var(--muted); font-size:.82rem; }
+    .top-controls { position:fixed; top:1rem; right:1rem; z-index:3; display:flex; gap:.5rem; }
+    .control { display:grid; place-items:center; min-width:2.2rem; min-height:2.2rem; padding:.45rem; border:1px solid rgba(255,255,255,.3); border-radius:.55rem; background:rgba(255,255,255,.15); color:#fff; cursor:pointer; backdrop-filter:blur(8px); }
+    .control:hover { background:rgba(255,255,255,.26); }
+    .copyright { position:fixed; right:0; bottom:.7rem; left:0; z-index:2; color:rgba(255,255,255,.55); font-size:.7rem; text-align:center; }
+    @media (max-width:700px) {
+      body { align-items:flex-start; padding:4.5rem .85rem 2.5rem; }
+      .signup-shell { grid-template-columns:1fr; border-radius:1.15rem; }
+      .signup-intro { padding:1.8rem 1.4rem 1.6rem; }
+      .intro-copy { margin:2.2rem 0 0; }
+      .intro-copy h1 { font-size:1.75rem; }
+      .benefits { grid-template-columns:1fr 1fr; gap:.7rem; margin-top:1.5rem; }
+      .benefit { font-size:.73rem; }
+      .signup-form-panel { padding:1.8rem 1.4rem 2rem; }
+    }
+    @media (max-width:430px) {
+      .form-grid { grid-template-columns:1fr; }
+      .form-field.full { grid-column:auto; }
+      .benefits { grid-template-columns:1fr; }
+      .signup-form-panel { padding-inline:1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-bg" aria-hidden="true"></div><div class="signup-overlay" aria-hidden="true"></div>
+  <div class="top-controls">
+    <button type="button" class="control" data-dir-toggle aria-label="Toggle text direction" title="Switch to RTL"><span data-dir-label>RTL</span></button>
+    <button type="button" class="control" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">☾</button>
+  </div>
+
+  <main class="signup-shell">
+    <section class="signup-intro" aria-labelledby="signup-intro-title">
+      <a class="brand" href="index.html" aria-label="AegisPoint Advocacy home">
+        <span class="brand-mark" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 32 32" fill="none"><path d="M16 3.5 26.5 7.5C26.5 16.5 22 23.5 16 27.5 10 23.5 5.5 16.5 5.5 7.5L16 3.5Z" fill="rgba(255,255,255,.18)" stroke="#fff" stroke-width="1.8"/><path d="m16 6.8 7.5 6h-3.3L16 9.5l-4.2 3.3H8.5l7.5-6Z" fill="#fff"/><path d="m16 10.5 1.8 6. 6 1.5-6 1.5-1.8 6-1.8-6-6-1.5 6-1.5 1.8-6Z" fill="#fbbf24"/></svg></span>
+        <span class="brand-name">Aegis<span>Point</span></span>
+      </a>
+      <div class="intro-copy"><div class="eyebrow">Your advocacy, organized</div><h1 id="signup-intro-title">A clearer path starts here.</h1><p>Create your free Parent Portal account to keep your child's education plan, documents, and next steps in one secure place.</p></div>
+      <ul class="benefits"><li class="benefit"><span class="benefit-icon">✓</span><span>Track IEP goals and progress</span></li><li class="benefit"><span class="benefit-icon">✓</span><span>Review case notes anytime</span></li><li class="benefit"><span class="benefit-icon">✓</span><span>Stay ready for every meeting</span></li></ul>
+    </section>
+
+    <section class="signup-form-panel" aria-labelledby="signup-title">
+      <div class="form-heading"><h2 id="signup-title">Create your account</h2><p>It only takes a minute. You can add your child's details after signing in.</p></div>
+      <form id="signupForm" novalidate>
+        <div class="form-grid">
+          <div class="form-field"><label class="label" for="signupFirstName">First name <span class="req">*</span></label><input class="input" id="signupFirstName" name="firstName" type="text" autocomplete="given-name" required data-rules="required|name" placeholder="Jane" /><div class="error-msg" id="signupFirstName-error">Please enter your first name.</div></div>
+          <div class="form-field"><label class="label" for="signupLastName">Last name <span class="req">*</span></label><input class="input" id="signupLastName" name="lastName" type="text" autocomplete="family-name" required data-rules="required|name" placeholder="Doe" /><div class="error-msg" id="signupLastName-error">Please enter your last name.</div></div>
+          <div class="form-field full"><label class="label" for="signupEmail">Email address <span class="req">*</span></label><input class="input" id="signupEmail" name="email" type="email" autocomplete="email" required data-rules="required|email" placeholder="jane@example.com" /><div class="error-msg" id="signupEmail-error">Enter a valid email address.</div></div>
+          <div class="form-field"><label class="label" for="signupPassword">Create a password <span class="req">*</span></label><div class="password-wrap"><input class="input" id="signupPassword" name="password" type="password" autocomplete="new-password" required data-rules="required|password" placeholder="8+ characters" /><button class="pw-toggle" type="button" data-password-toggle="signupPassword" aria-label="Show password">◉</button></div><div class="error-msg" id="signupPassword-error">Use 8+ characters with uppercase, lowercase, and a number.</div></div>
+          <div class="form-field"><label class="label" for="signupConfirmPassword">Confirm password <span class="req">*</span></label><input class="input" id="signupConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required data-rules="required|passwordBasic" placeholder="Re-enter password" /><div class="error-msg" id="signupConfirmPassword-error">Please confirm your password.</div></div>
+        </div>
+        <div class="check-row"><input id="signupTerms" name="terms" type="checkbox" required data-rules="required" /><label class="check-label" for="signupTerms">I agree to the <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>. <span class="req">*</span></label></div>
+        <button class="submit-btn" type="submit">Create Parent Portal account</button>
+        <p class="success-msg" data-form-success role="status">Your account request has been received. You can now sign in to continue.</p>
+      </form>
+      <div class="form-footer">Already have an account? <a class="link-action" href="login.html">Sign in</a></div>
+    </section>
+  </main>
+  <div class="copyright">© <span data-year></span> AegisPoint Advocacy. All rights reserved.</div>
+
+  <script src="assets/js/validation.js" defer></script>
+  <script>
+    document.querySelector('[data-year]').textContent = new Date().getFullYear();
+    document.querySelectorAll('[data-password-toggle]').forEach(function (button) {
+      button.addEventListener('click', function () { var input = document.getElementById(button.dataset.passwordToggle); input.type = input.type === 'password' ? 'text' : 'password'; button.setAttribute('aria-label', input.type === 'password' ? 'Show password' : 'Hide password'); });
+    });
+    document.querySelector('[data-dir-toggle]').addEventListener('click', function () { var rtl = document.documentElement.dir !== 'rtl'; document.documentElement.dir = rtl ? 'rtl' : 'ltr'; this.querySelector('[data-dir-label]').textContent = rtl ? 'LTR' : 'RTL'; });
+    document.querySelector('[data-theme-toggle]').addEventListener('click', function () { var dark = document.documentElement.dataset.theme !== 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light'; this.textContent = dark ? '☀' : '☾'; });
+    document.getElementById('signupForm').addEventListener('submit', function (event) { var password = document.getElementById('signupPassword'), confirm = document.getElementById('signupConfirmPassword'), error = document.getElementById('signupConfirmPassword-error'); if (password.value !== confirm.value) { event.preventDefault(); event.stopImmediatePropagation(); confirm.classList.add('is-invalid'); error.textContent = 'Passwords do not match.'; error.classList.add('show'); confirm.focus(); } }, true);
+  </script>
+</body>
+</html>
