@@ -58,7 +58,8 @@
     .success-msg.show { display:block; }
     .form-footer { margin:1.5rem 0 0; text-align:center; color:var(--muted); font-size:.82rem; }
     .top-controls { position:fixed; top:1rem; right:1rem; z-index:3; display:flex; gap:.5rem; }
-    .control { display:grid; place-items:center; min-width:2.2rem; min-height:2.2rem; padding:.45rem; border:1px solid rgba(255,255,255,.3); border-radius:.55rem; background:rgba(255,255,255,.15); color:#fff; cursor:pointer; backdrop-filter:blur(8px); }
+    .control { display:grid; place-items:center; width:2.75rem; height:2.75rem; flex:0 0 2.75rem; padding:0; border:1px solid rgba(255,255,255,.3); border-radius:50%; background:rgba(255,255,255,.15); color:#fff; cursor:pointer; backdrop-filter:blur(8px); line-height:1; }
+    .control:first-child { font-size:.7rem; font-weight:700; }
     .control:hover { background:rgba(255,255,255,.26); }
     .copyright { position:fixed; right:0; bottom:.7rem; left:0; z-index:2; color:rgba(255,255,255,.55); font-size:.7rem; text-align:center; }
     @media (max-width:700px) {
@@ -76,6 +77,10 @@
       .form-field.full { grid-column:auto; }
       .benefits { grid-template-columns:1fr; }
       .signup-form-panel { padding-inline:1.1rem; }
+    }
+    @media (max-width:480px) {
+      .top-controls { top:.75rem; right:.75rem; gap:.5rem; }
+      .control { width:2.5rem; height:2.5rem; flex-basis:2.5rem; }
     }
   </style>
 </head>

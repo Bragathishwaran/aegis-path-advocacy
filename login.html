@@ -90,23 +90,28 @@
       pointer-events: none;
     }
     #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #148d8b, #f98307); z-index: 9999; transition: width 0.1s; }
-    .login-wrapper { position: relative; z-index: 10; width: 100%; max-width: 460px; padding: 1.5rem; }
+    .login-wrapper { position: relative; z-index: 10; width: 100%; max-width: 1040px; padding: 1.5rem; }
     .login-card {
       background: rgba(255,255,255,0.97);
       border-radius: 1.25rem;
       box-shadow: 0 32px 80px rgba(0,0,0,.35), 0 0 0 1px rgba(20,141,139,.1);
-      padding: 2.5rem;
+      padding: 3rem 3.5rem;
       backdrop-filter: blur(20px);
+      display: grid;
+      grid-template-columns: minmax(240px, .82fr) minmax(340px, 1.18fr);
+      column-gap: 3.25rem;
+      row-gap: .25rem;
+      align-items: start;
     }
     [data-theme="dark"] .login-card { background: rgba(15,23,42,.96); border: 1px solid #334155; }
-    .logo-wrap { display: flex; align-items: center; gap: .75rem; justify-content: center; margin-bottom: 1.75rem; text-decoration: none; }
+    .logo-wrap { display: flex; align-items: center; gap: .75rem; justify-content: flex-start; margin-bottom: 1.75rem; text-decoration: none; grid-column: 1; grid-row: 1; }
     .logo-icon { width: 44px; height: 44px; background: #148d8b; border-radius: .875rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .logo-name { font-weight: 800; font-size: 1.25rem; color: #0f172a; line-height: 1; }
     [data-theme="dark"] .logo-name { color: #f1f5f9; }
     .logo-sub { font-weight: 700; font-size: .7rem; color: #148d8b; letter-spacing: .08em; text-transform: uppercase; }
-    h1.portal-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; text-align: center; margin-bottom: .5rem; }
+    h1.portal-title { font-size: 1.5rem; font-weight: 800; color: #0f172a; text-align: left; margin-bottom: .5rem; grid-column: 1; grid-row: 2; }
     [data-theme="dark"] h1.portal-title { color: #f1f5f9; }
-    .portal-sub { font-size: .9rem; color: #64748b; text-align: center; margin-bottom: 2rem; line-height: 1.6; }
+    .portal-sub { font-size: .9rem; color: #64748b; text-align: left; margin-bottom: 2rem; line-height: 1.6; grid-column: 1; grid-row: 3; max-width: 26rem; }
     .label { display: block; font-size: .875rem; font-weight: 600; color: #334155; margin-bottom: .375rem; }
     [data-theme="dark"] .label { color: #cbd5e1; }
     .input-wrap { position: relative; }
@@ -186,6 +191,35 @@
     .check-row input[type="checkbox"] { margin-top: 2px; accent-color: #148d8b; width: 15px; height: 15px; flex-shrink: 0; }
     .check-label { font-size: .85rem; color: #475569; cursor: pointer; line-height: 1.5; }
     [data-theme="dark"] .check-label { color: #94a3b8; }
+    [data-theme="dark"] .portal-sub { color: #94a3b8; }
+    [data-theme="dark"] .login-card { background: rgba(15,23,42,.96); border: 1px solid #334155; }
+    [data-theme="dark"] .input { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+    [data-theme="dark"] .social-btn { background: #1e293b; border-color: #334155; color: #e2e8f0; }
+    [data-theme="dark"] .check-label, [data-theme="dark"] .login-card > .text-center div { color: #94a3b8 !important; }
+    .login-card > #loginForm { grid-column: 2; grid-row: 1 / span 5; }
+    .login-card > .divider { grid-column: 2; grid-row: 6; }
+    .login-card > .social-signin { grid-column: 2; grid-row: 7; }
+    .login-card > .text-center { grid-column: 2; grid-row: 8; }
+    [dir="rtl"] h1.portal-title, [dir="rtl"] .portal-sub { text-align: right; }
+    [dir="rtl"] .logo-wrap { justify-content: flex-end; }
+    .login-controls { position: fixed; top: 1rem; left: 1rem; z-index: 100; display: flex; align-items: center; gap: .625rem; pointer-events: none; }
+    .login-control { width: 2.75rem !important; height: 2.75rem !important; min-width: 2.75rem !important; min-height: 2.75rem !important; padding: 0 !important; border-radius: 50% !important; display: inline-flex !important; align-items: center; justify-content: center; line-height: 1; pointer-events: auto; }
+    .login-control [data-dir-label] { font-size: .7rem; font-weight: 700; }
+    [dir="rtl"] .login-controls { left: auto; right: 1rem; }
+    @media (max-width: 480px) {
+      .login-controls { top: .75rem; left: .75rem; gap: .5rem; }
+      [dir="rtl"] .login-controls { left: auto; right: .75rem; }
+      .login-control { width: 2.5rem !important; height: 2.5rem !important; min-width: 2.5rem !important; min-height: 2.5rem !important; }
+    }
+    @media (max-width: 600px) {
+      body { justify-content: flex-start; padding: 5rem .75rem 2rem; }
+      .login-wrapper { max-width: 460px; padding: 0; }
+      .login-card { display: block; padding: 1.75rem 1.25rem; }
+      .logo-wrap { justify-content: center; }
+      h1.portal-title, .portal-sub { text-align: center; max-width: none; }
+      .logo-wrap { margin-bottom: 1.35rem; }
+      .portal-sub { margin-bottom: 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -208,16 +242,14 @@
 <div class="blob-2" aria-hidden="true"></div>
 
 <!-- Top Navigation & Controls Bar -->
-<div class="position-fixed top-0 start-0 w-100 p-3 d-flex justify-content-between align-items-center" style="z-index:100;pointer-events:none;">
-  <div class="d-flex gap-2" style="pointer-events:auto;">
-    <button type="button" class="btn btn-sm text-white d-flex align-items-center justify-content-center" data-dir-toggle title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;width:34px;height:34px;padding:0;">
-      <span data-dir-label class="text-xs font-semibold">RTL</span>
-    </button>
-    <button type="button" class="btn btn-sm text-white" data-theme-toggle title="Toggle dark mode" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);border-radius:8px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-  </div>
+<div class="login-controls">
+  <button type="button" class="btn btn-sm text-white login-control" data-dir-toggle title="Switch to RTL (Right-to-Left)" aria-label="Toggle text direction" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);">
+    <span data-dir-label class="text-xs font-semibold">RTL</span>
+  </button>
+  <button type="button" class="btn btn-sm text-white login-control" data-theme-toggle title="Toggle dark mode" aria-label="Toggle dark mode" style="background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.25);">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon" style="display:none" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
 </div>
 
 <!-- ===== LOGIN CARD ===== -->
@@ -350,47 +382,6 @@
 <script>
   // Year
   document.querySelectorAll('[data-year]').forEach(function(el) { el.textContent = new Date().getFullYear(); });
-
-  // RTL / LTR toggle
-  function applyLoginDir(dir) {
-    var isRtl = dir === 'rtl';
-    document.documentElement.setAttribute('dir', dir);
-    document.documentElement.setAttribute('lang', isRtl ? 'ar' : 'en');
-    document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
-      var label = btn.querySelector('[data-dir-label]') || btn;
-      if (label) label.textContent = isRtl ? 'LTR' : 'RTL';
-      btn.setAttribute('title', isRtl ? 'Switch to Left-to-Right (LTR)' : 'Switch to Right-to-Left (RTL)');
-      var iconRtl = btn.querySelector('[data-icon-rtl]');
-      var iconLtr = btn.querySelector('[data-icon-ltr]');
-      if (iconRtl) iconRtl.style.display = isRtl ? 'none' : '';
-      if (iconLtr) iconLtr.style.display = isRtl ? '' : 'none';
-    });
-  }
-  var savedDir = null;
-  try { savedDir = localStorage.getItem('iep-dir'); } catch(e) {}
-  if (savedDir) applyLoginDir(savedDir);
-
-  document.querySelectorAll('[data-dir-toggle]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-      var next = isRtl ? 'ltr' : 'rtl';
-      applyLoginDir(next);
-      try { localStorage.setItem('iep-dir', next); } catch(e) {}
-    });
-  });
-
-  // Dark mode toggle
-  document.querySelectorAll('[data-theme-toggle]').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark' || document.documentElement.classList.contains('dark');
-      var next = isDark ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      document.documentElement.classList.toggle('dark', next === 'dark');
-      document.querySelectorAll('.moon-icon').forEach(function(el) { el.style.display = next === 'dark' ? 'none' : ''; });
-      document.querySelectorAll('.sun-icon').forEach(function(el) { el.style.display = next === 'dark' ? '' : 'none'; });
-      try { localStorage.setItem('iep-theme', next); } catch(e) {}
-    });
-  });
 
   // Password toggle
   var pwToggle = document.getElementById('pwToggle');

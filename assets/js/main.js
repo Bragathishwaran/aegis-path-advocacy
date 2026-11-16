@@ -116,9 +116,9 @@
   function initMobileMenu() {
     var toggle = document.querySelector("[data-menu-toggle]");
     var panel = document.querySelector("[data-menu-panel]");
+    if (!toggle || !panel) return;
     var close = panel.querySelector("[data-menu-close]");
     var backdrop = document.querySelector("[data-menu-backdrop]");
-    if (!toggle || !panel) return;
     function setMenu(open) {
       panel.classList.toggle("hidden", !open);
       if (backdrop) backdrop.classList.toggle("hidden", !open);
